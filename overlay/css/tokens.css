@@ -1,0 +1,24 @@
+@font-face { font-family: 'PS2P'; src: url('../assets/fonts/PressStart2P-Regular.woff2') format('woff2'); font-display: block; }
+:root {
+  --u: 2px; /* 1 píxel lógico; main.js lo fija en 2 × scale */
+  --font: 'PS2P', 'Pixelify Sans', monospace;
+  --ink: #2B1030; --plum-800: #4A1942; --plum-600: #7A2A63;
+  --pink-700: #C2307A; --pink-500: #FF5CA8; --pink-400: #FF8DBF; --pink-200: #FFC6DE; --pink-100: #FFF0F6;
+  --gold-400: #FFD84D; --gold-600: #C98A00; --mint-300: #8CF2D2; --lav-300: #B9A4FF;
+  --frame: var(--pink-400); --frame-hi: var(--pink-200); /* marco de la barra y del banner (pulsa entre ambos) */
+}
+/* Temas (plan 5.7): solo redefinen variables; el mapa de colores de sprites sale de aquí y de THEME_SPRITES en main.js */
+[data-theme="bubblegum"] { /* rosa chicle + menta, más "pop" */
+  --pink-700: #C21F86; --pink-500: #FF4FB6; --pink-400: #FF85CC; --pink-200: #FFC2E6; --pink-100: #FFF2FA;
+  --plum-800: #3E1A4F; --plum-600: #6B2E80; --mint-300: #6FF0C8;
+  --frame: #6FF0C8; --frame-hi: #C9FFEE;
+}
+[data-theme="strawberry"] { /* fresa y crema */
+  --ink: #2E0E16; --plum-800: #5A1A2A; --plum-600: #8A3346;
+  --pink-700: #A82848; --pink-500: #E8466B; --pink-400: #F27A93; --pink-200: #FFC2CC; --pink-100: #FFF3E6;
+  --frame: #FFF3E6; --frame-hi: #F27A93;
+}
+[data-theme="sakura-night"] { /* noche con farolillos: fondo tinta, pétalos lavanda, estrellas doradas */
+  --ink: #120818; --plum-800: #1E0E2C; --plum-600: #3B2257;
+  --frame: #B9A4FF; --frame-hi: #E2D9FF;
+}

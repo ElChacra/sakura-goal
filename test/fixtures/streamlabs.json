@@ -1,0 +1,13 @@
+{
+  "_comment": "Donación según el apéndice A del plan; bits/subs según la doc del Socket API. VERIFICAR con payloads reales.",
+  "donation": ["event", { "type": "donation", "message": [{ "name": "Canal", "isTest": true, "formatted_amount": "$5.00", "amount": 5,
+    "message": "Mensaje de prueba", "currency": "USD", "from": "Ana", "from_user_id": 1, "_id": "abc123", "priority": 10 }],
+    "for": "streamlabs", "event_id": "evt_abc123" }],
+  "donationEUR": ["event", { "type": "donation", "message": [{ "amount": "12.50", "currency": "eur", "from": "Jo", "_id": "d2", "message": "" }], "for": "streamlabs" }],
+  "bits": ["event", { "type": "bits", "for": "twitch_account", "message": [{ "name": "luis", "display_name": "Luis", "amount": "100", "message": "cheer100", "_id": "b1" }] }],
+  "subs": ["event", { "type": "subscription", "for": "twitch_account", "message": [
+    { "name": "mei", "display_name": "Mei", "months": 1, "sub_plan": "3000", "_id": "s1" },
+    { "name": "rec", "display_name": "Rec", "months": 1, "sub_plan": "Prime", "_id": "s2", "gifter_display_name": "Nico" }] }],
+  "mystery": ["event", { "type": "subMysteryGift", "for": "twitch_account", "message": [{ "name": "Nico", "amount": 5, "_id": "m1" }] }],
+  "noIds": ["event", { "type": "donation", "event_id": "evt_multi", "message": [{ "amount": 1, "from": "A" }, { "amount": 2, "from": "B" }] }]
+}

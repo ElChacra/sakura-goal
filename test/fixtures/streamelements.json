@@ -1,0 +1,15 @@
+{
+  "_comment": "Forma esperada según docs y la comunidad; VERIFICAR con payloads reales (SAVE_PAYLOADS=1) y reemplazar.",
+  "tip": { "_id": "6170a1b2c3d4e5f600000001", "channel": "c1", "type": "tip", "provider": "twitch", "createdAt": "2026-10-16T16:27:32.000Z",
+    "data": { "tipId": "t1", "username": "ana", "displayName": "Ana", "amount": 5, "currency": "USD", "message": "hola <b>stream</b>" } },
+  "cheer": { "_id": "6170a1b2c3d4e5f600000002", "type": "cheer", "createdAt": "2026-10-16T16:28:00.000Z",
+    "data": { "username": "luis", "displayName": "Luis", "amount": 250, "message": "Cheer250 vamos" } },
+  "sub": { "_id": "6170a1b2c3d4e5f600000003", "type": "subscriber", "createdAt": "2026-10-16T16:29:00.000Z",
+    "data": { "username": "mei", "displayName": "Mei", "amount": 3, "tier": "2000", "message": "" } },
+  "giftsub": { "_id": "6170a1b2c3d4e5f600000004", "type": "subscriber", "createdAt": "2026-10-16T16:30:00.000Z",
+    "data": { "username": "receptor", "displayName": "Receptor", "amount": 1, "tier": "1000", "gifted": true, "sender": "Nico" } },
+  "prime": { "_id": "6170a1b2c3d4e5f600000005", "type": "subscriber", "data": { "username": "pixel", "tier": "prime" } },
+  "communityGift": { "_id": "6170a1b2c3d4e5f600000006", "type": "communityGiftPurchase", "data": { "username": "Nico", "amount": 5, "tier": "1000" } },
+  "follow": { "_id": "6170a1b2c3d4e5f600000007", "type": "follow", "data": { "username": "sakura" } },
+  "test": { "listener": "tip-latest", "event": { "name": "Prueba", "amount": 7, "message": "emulado" } }
+}

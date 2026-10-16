@@ -1,0 +1,91 @@
+// Versión web pública: conectores que corren en el navegador (aquí con el WebSocket nativo de Node y servidores simulados)
+import { describe, it, expect, afterEach } from 'vitest';
+import { EventEmitter } from 'node:events';
+import { WebSocketServer } from 'ws';
+import { startDirectSE, startDirectSL, startDirectTwitch, twitchSource } from '../overlay/js/sources/direct.js';
+import { buildWeb } from '../scripts/build.js';
+
+const until = async (fn, ms = 3000) => { const t = Date.now(); while (!fn()) { if (Date.now() - t > ms) throw new Error('timeout'); await new Promise((r) => setTimeout(r, 10)); } };
+// socket.io simulado: registra lo que emite el conector y deja disparar eventos del "servidor"
+function fakeIo() {
+  const made = [];
+  const io = (url, opts) => { const s = new EventEmitter(); s.url = url; s.opts = opts; s.sent = []; s.emit2 = s.emit.bind(s); s.emit = (n, d) => s.sent.push([n, d]); s.disconnect = s.close = () => (s.closed = true); made.push(s); return s; };
+  return { io, made };
+}
+
+describe('conectores web: StreamElements y Streamlabs', () => {
+  it('SE: autentica con el JWT, informa estado y entrega eventos normalizados', () => {
+    const { io, made } = fakeIo(), st = [], evs = [];
+    startDirectSE({ token: 'jwt123', io, onEvents: (l) => evs.push(...l), status: (s) => st.push(s) });
+    const s = made[0];
+    expect(s.url).toBe('https://realtime.streamelements.com'); expect(s.opts.transports).toEqual(['websocket']);
+    s.emit2('connect'); expect(s.sent).toEqual([['authenticate', { method: 'jwt', token: 'jwt123' }]]);
+    s.emit2('authenticated', {}); expect(st.at(-1)).toBe('conectado');
+    s.emit2('event', { _id: 'a', type: 'tip', data: { username: 'Ana', amount: 5, currency: 'USD' } });
+    s.emit2('event', { type: 'raro' }); s.emit2('event', null);
+    expect(evs).toEqual([expect.objectContaining({ id: 'se:a', kind: 'donation', rawAmount: 5 })]);
+    s.emit2('unauthorized', {}); expect(st.at(-1)).toBe('error: token rechazado'); expect(s.closed).toBe(true);
+  });
+  it('SL: token en la URL (escapado), eventos y token rechazado', () => {
+    const { io, made } = fakeIo(), st = [], evs = [];
+    startDirectSL({ token: 'a b&c', io, onEvents: (l) => evs.push(...l), status: (s) => st.push(s) });
+    expect(made[0].url).toBe('https://sockets.streamlabs.com?token=a%20b%26c');
+    made[0].emit2('event', { type: 'donation', message: [{ _id: 'd1', amount: 3, from: 'Jo' }] });
+    expect(evs[0]).toMatchObject({ id: 'sl:d1', rawAmount: 3 });
+    made[0].emit2('connect_error', new Error('Authentication error')); expect(st.at(-1)).toBe('error: token rechazado');
+  });
+  it('una sola fuente para bits/subs: Twitch > StreamElements > Streamlabs', () => {
+    expect(twitchSource(['streamlabs', 'twitch'])).toBe('twitch');
+    expect(twitchSource(['streamlabs', 'streamelements'])).toBe('streamelements');
+    expect(twitchSource([])).toBe('any');
+  });
+});
+
+describe('conector web: Twitch EventSub con el WebSocket nativo', () => {
+  let wss, tw;
+  afterEach(() => { tw?.stop(); wss?.close(); });
+  it('valida, se suscribe con session_id, entrega notificaciones sin duplicar y reconecta tras un corte', async () => {
+    wss = new WebSocketServer({ port: 0 }); await new Promise((r) => wss.once('listening', r));
+    const conns = []; wss.on('connection', (ws) => conns.push(ws));
+    const posts = [], st = [], evs = [];
+    const fetchImpl = async (url, o = {}) => {
+      if (url.includes('validate')) return { ok: true, status: 200, json: async () => ({ client_id: 'cid', login: 'ana', user_id: '7', scopes: ['bits:read'] }) };
+      posts.push(JSON.parse(o.body)); return { ok: true, status: 202 };
+    };
+    tw = startDirectTwitch({ token: 'tok', onEvents: (l) => evs.push(...l), status: (s) => st.push(s), fetchImpl,
+      urls: { ws: `ws://127.0.0.1:${wss.address().port}`, helix: 'http://helix', validate: 'http://validate' } });
+    const msg = (type, payload, id = Math.random().toString(36)) => JSON.stringify({ metadata: { message_id: id, message_type: type, message_timestamp: new Date().toISOString() }, payload });
+    await until(() => conns.length === 1);
+    conns[0].send(msg('session_welcome', { session: { id: 'S1', keepalive_timeout_seconds: 10 } }));
+    await until(() => st.at(-1) === 'conectado');
+    expect(posts.map((p) => p.type)).toEqual(['channel.cheer', 'channel.raid']); // solo lo que permiten los scopes
+    expect(posts[0].transport).toEqual({ method: 'websocket', session_id: 'S1' });
+    const n = msg('notification', { subscription: { type: 'channel.cheer' }, event: { user_name: 'Ana', bits: 300 } }, 'dup');
+    conns[0].send(n); conns[0].send(n);
+    await until(() => evs.length === 1); await new Promise((r) => setTimeout(r, 50));
+    expect(evs).toEqual([expect.objectContaining({ id: 'tw:dup', kind: 'bits', rawAmount: 300 })]);
+    conns[0].close();
+    await until(() => conns.length === 2, 4000);
+    conns[1].send(msg('session_welcome', { session: { id: 'S2', keepalive_timeout_seconds: 10 } }));
+    await until(() => posts.length === 4);
+    expect(posts[3].transport.session_id).toBe('S2');
+  });
+  it('token caducado: lo informa y no conecta', async () => {
+    const st = [];
+    tw = startDirectTwitch({ token: 'x', onEvents() {}, status: (s) => st.push(s), fetchImpl: async () => ({ ok: false, status: 401 }), WS: class { constructor() { throw new Error('no debería conectar'); } } });
+    await until(() => st.includes('error: token caducado'));
+  });
+});
+
+describe('build web', () => {
+  it('genera la página, el overlay autónomo (con socket.io dentro) y no deja import/export', () => {
+    const w = buildWeb();
+    expect(Object.keys(w).sort()).toEqual(['.nojekyll', 'app.js', 'index.html', 'licencias.txt', 'overlay.html', 'site-config.js']);
+    expect(w['overlay.html']).toContain('Socket.IO v4.8.1'); expect(w['overlay.html']).toContain('data:font/woff2;base64,');
+    expect(w['overlay.html']).toContain('<meta name="referrer" content="no-referrer">');
+    const scripts = [...w['overlay.html'].matchAll(/<script>\n([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+    expect(scripts.length).toBe(2);
+    for (const js of scripts) expect(() => new Function(js)).not.toThrow();
+    expect(scripts[1]).not.toMatch(/^\s*(import|export)\b/m);
+  });
+});

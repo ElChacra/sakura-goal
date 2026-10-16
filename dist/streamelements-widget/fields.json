@@ -1,0 +1,266 @@
+{
+  "title": {
+    "type": "text",
+    "label": "Título (máx. 24)",
+    "value": "META",
+    "group": "Meta"
+  },
+  "target": {
+    "type": "number",
+    "label": "Meta",
+    "value": 500,
+    "min": 1,
+    "group": "Meta"
+  },
+  "goals": {
+    "type": "text",
+    "label": "Metas encadenadas (TITULO:500,OTRA:1000) — vacío = una sola",
+    "value": "",
+    "group": "Meta"
+  },
+  "onComplete": {
+    "type": "dropdown",
+    "label": "Al llegar al 100 %",
+    "value": "overflow",
+    "options": {
+      "overflow": "Seguir contando (nivel 2, barra dorada)",
+      "hold": "Quedarse llena",
+      "next-goal": "Pasar a la siguiente meta",
+      "reset": "Reiniciar tras 10 s"
+    },
+    "group": "Meta"
+  },
+  "unit": {
+    "type": "dropdown",
+    "label": "Qué mide la barra",
+    "value": "currency",
+    "options": {
+      "currency": "Dinero",
+      "bits": "Bits",
+      "count": "Cantidad (subs/follows)"
+    },
+    "group": "Meta"
+  },
+  "currency": {
+    "type": "text",
+    "label": "Moneda (vacío = la del canal)",
+    "value": "",
+    "group": "Meta"
+  },
+  "milestones": {
+    "type": "text",
+    "label": "Hitos en %",
+    "value": "25,50,75",
+    "group": "Meta"
+  },
+  "goalId": {
+    "type": "text",
+    "label": "ID de la meta (cámbialo para tener varias barras)",
+    "value": "main",
+    "group": "Meta"
+  },
+  "resetEvery": {
+    "type": "dropdown",
+    "label": "Reiniciar la meta automáticamente",
+    "value": "none",
+    "options": {
+      "none": "Nunca",
+      "daily": "Cada día",
+      "weekly": "Cada semana (lunes)",
+      "monthly": "Cada mes"
+    },
+    "group": "Meta"
+  },
+  "tickerMessages": {
+    "type": "text",
+    "label": "Mensajes que rotan (last, top, remaining o textos tuyos, separados por comas)",
+    "value": "last,top,remaining",
+    "group": "Aspecto"
+  },
+  "showPercentInBar": {
+    "type": "checkbox",
+    "label": "Porcentaje dentro de la barra",
+    "value": false,
+    "group": "Aspecto"
+  },
+  "leftIcon": {
+    "type": "dropdown",
+    "label": "Ícono izquierdo",
+    "value": "heart",
+    "options": {
+      "heart": "Corazón",
+      "star": "Estrella",
+      "gift": "Regalo",
+      "trophy": "Trofeo",
+      "gem": "Gema",
+      "flower": "Flor"
+    },
+    "group": "Aspecto"
+  },
+  "theme": {
+    "type": "dropdown",
+    "label": "Tema",
+    "value": "sakura",
+    "options": {
+      "sakura": "Sakura",
+      "bubblegum": "Bubblegum",
+      "strawberry": "Strawberry",
+      "sakura-night": "Sakura Night"
+    },
+    "group": "Aspecto"
+  },
+  "scale": {
+    "type": "dropdown",
+    "label": "Escala (tamaño del widget)",
+    "value": "1",
+    "options": {
+      "1": "1 → 960×270",
+      "2": "2 → 1920×540",
+      "3": "3 → 2880×810",
+      "4": "4 → 3840×1080"
+    },
+    "group": "Aspecto"
+  },
+  "goalIcon": {
+    "type": "dropdown",
+    "label": "Ícono de la meta",
+    "value": "star",
+    "options": {
+      "star": "Estrella",
+      "gift": "Regalo",
+      "trophy": "Trofeo",
+      "heart": "Corazón"
+    },
+    "group": "Aspecto"
+  },
+  "lang": {
+    "type": "dropdown",
+    "label": "Idioma",
+    "value": "es",
+    "options": {
+      "es": "Español",
+      "en": "English"
+    },
+    "group": "Aspecto"
+  },
+  "retroFps": {
+    "type": "dropdown",
+    "label": "FPS de dibujo",
+    "value": "60",
+    "options": {
+      "15": "15",
+      "30": "30 (más retro, menos CPU)",
+      "60": "60"
+    },
+    "group": "Aspecto"
+  },
+  "petals": {
+    "type": "checkbox",
+    "label": "Pétalos cayendo",
+    "value": true,
+    "group": "Animaciones"
+  },
+  "petalIntervalSec": {
+    "type": "slider",
+    "label": "Cada cuántos segundos caen pétalos",
+    "value": 4,
+    "min": 1,
+    "max": 30,
+    "step": 0.5,
+    "group": "Animaciones"
+  },
+  "petalLanding": {
+    "type": "checkbox",
+    "label": "Pétalos que se posan en la barra",
+    "value": false,
+    "group": "Animaciones"
+  },
+  "showMessage": {
+    "type": "checkbox",
+    "label": "Mostrar mensaje del donante",
+    "value": true,
+    "group": "Animaciones"
+  },
+  "sound": {
+    "type": "checkbox",
+    "label": "Sonido chiptune",
+    "value": false,
+    "group": "Animaciones"
+  },
+  "volume": {
+    "type": "slider",
+    "label": "Volumen",
+    "value": 0.15,
+    "min": 0,
+    "max": 1,
+    "step": 0.05,
+    "group": "Animaciones"
+  },
+  "bitsRate": {
+    "type": "number",
+    "label": "Valor de 1 bit en tu moneda",
+    "value": 0.01,
+    "step": 0.001,
+    "group": "Conversión"
+  },
+  "subRates": {
+    "type": "text",
+    "label": "Valor por sub (JSON)",
+    "value": "{\"T1\":5,\"T2\":10,\"T3\":25,\"prime\":5}",
+    "group": "Conversión"
+  },
+  "countTestEvents": {
+    "type": "checkbox",
+    "label": "Sumar los eventos de prueba (emular)",
+    "value": false,
+    "group": "Conversión"
+  },
+  "testSmall": {
+    "type": "button",
+    "label": "Probar donación",
+    "value": "",
+    "group": "Pruebas"
+  },
+  "testMega": {
+    "type": "button",
+    "label": "Probar donación MEGA",
+    "value": "",
+    "group": "Pruebas"
+  },
+  "testBits": {
+    "type": "button",
+    "label": "Probar bits",
+    "value": "",
+    "group": "Pruebas"
+  },
+  "testSub": {
+    "type": "button",
+    "label": "Probar sub",
+    "value": "",
+    "group": "Pruebas"
+  },
+  "testMilestone": {
+    "type": "button",
+    "label": "Probar hito",
+    "value": "",
+    "group": "Pruebas"
+  },
+  "testGoal": {
+    "type": "button",
+    "label": "Probar meta lograda",
+    "value": "",
+    "group": "Pruebas"
+  },
+  "undoLast": {
+    "type": "button",
+    "label": "Deshacer último aporte",
+    "value": "",
+    "group": "Pruebas"
+  },
+  "resetGoal": {
+    "type": "button",
+    "label": "Reiniciar meta a 0",
+    "value": "",
+    "group": "Pruebas"
+  }
+}

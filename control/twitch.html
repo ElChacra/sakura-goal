@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Sakura Arcade Goal · Twitch</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<style>
+  body { font: 14px system-ui, sans-serif; background: #2B1030; color: #FFF0F6; margin: 0; padding: 10px; max-width: 760px; }
+  h1 { font-size: 15px; margin: 0 0 8px; } h2 { font-size: 12px; text-transform: uppercase; color: #FF8DBF; margin: 16px 0 6px; }
+  button { font: inherit; padding: 6px 9px; border: 2px solid #FF8DBF; background: #4A1942; color: #FFF0F6; cursor: pointer; } button:hover { background: #C2307A; }
+  .box { background: #4A1942; padding: 8px; border: 2px solid #7A2A63; } .ok { border-color: #8CF2D2; } .bad { border-color: #FFD36B; }
+  code { background: #1D0A20; padding: 1px 4px; user-select: all; } ol { padding-left: 20px; } li { margin: 4px 0; } a { color: #FFC6DE; }
+</style></head>
+<body>
+<h1>🌸 Conectar Twitch (bits y subs por EventSub) · <a href="./">volver al panel</a></h1>
+<div id="st" class="box">Comprobando…</div>
+<div class="row" style="margin-top:8px"><button id="go">Conectar con Twitch</button> <button id="out">Desconectar</button></div>
+
+<h2>Primera vez: registra tu app (5 minutos, una sola vez)</h2>
+<ol>
+  <li>Entra en <a href="https://dev.twitch.tv/console/apps" target="_blank" rel="noopener">dev.twitch.tv/console/apps</a> con tu cuenta de streamer → <b>Register Your Application</b>.</li>
+  <li>Nombre: el que quieras (p. ej. <code>sakura-goal-tunombre</code>). Categoría: <i>Broadcaster Suite</i>. Tipo de cliente: <b>Público</b>.</li>
+  <li>OAuth Redirect URL (exactamente): <code id="redir">…</code></li>
+  <li>Copia el <b>Client ID</b> y ponlo en <code>.env</code> como <code>TWITCH_CLIENT_ID=…</code>. Reinicia el relay (cierra y abre <code>iniciar.bat</code>).</li>
+  <li>Vuelve aquí y pulsa <b>Conectar con Twitch</b>. Se piden solo permisos de lectura: bits, subs y seguidores.</li>
+</ol>
+<p><small>El token vuelve a esta página en la parte <code>#</code> de la dirección (no viaja a ningún servidor externo) y se guarda en <code>twitch-token.json</code> junto al relay. Dura unos 60 días: el relay avisa cuando falte poco y basta con pulsar Conectar otra vez.
+Si conectas Twitch, los bits y subs se cuentan solo desde Twitch (no desde StreamElements/Streamlabs) para no duplicarlos.</small></p>
+
+<script type="module">
+const $ = (id) => document.getElementById(id);
+const api = (p, o) => fetch('/api/twitch/' + p, o).then((r) => r.json());
+function show(text, cls) { const s = $('st'); s.textContent = text; s.className = 'box ' + (cls || ''); } // textContent siempre
+async function refresh() {
+  const s = await api('status');
+  $('redir').textContent = s.redirectUri;
+  if (location.hostname !== 'localhost') show(`Abre esta página como ${s.redirectUri} (con "localhost") para que Twitch pueda volver a ella.`, 'bad');
+  else if (!s.clientId && !s.configured) show('Falta TWITCH_CLIENT_ID en .env (sigue los pasos de abajo).', 'bad');
+  else if (s.configured) show(`Estado: ${s.state || '…'}${s.login ? ' · cuenta ' + s.login : ''}${s.expiresIn ? ' · caduca en ' + Math.round(s.expiresIn / 86400) + ' días' : ''}${s.scopes?.length ? ' · permisos: ' + s.scopes.join(', ') : ''}`, /^conectado/.test(s.state) ? 'ok' : 'bad');
+  else show('Twitch no está conectado.', '');
+}
+$('go').onclick = async () => { const r = await api('authorize'); if (r.ok) location.href = r.url; else show(r.reason, 'bad'); };
+$('out').onclick = async () => { if (confirm('¿Desconectar Twitch y borrar el token guardado?')) { await api('logout', { method: 'POST' }); refresh(); } };
+
+// La Redirect URL registrada en Twitch usa "localhost": se abre siempre así para que la vuelta caiga en el mismo sitio
+if (location.hostname === '127.0.0.1' && !location.hash) location.replace(`http://localhost:${location.port}${location.pathname}`);
+const h = new URLSearchParams(location.hash.slice(1)), q = new URLSearchParams(location.search);
+history.replaceState(null, '', location.pathname); // el token no se queda en la barra de direcciones ni en el historial
+if (h.get('access_token')) {
+  show('Guardando token…');
+  const r = await api('token', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ access_token: h.get('access_token'), state: h.get('state') }) });
+  show(r.ok ? `¡Conectado como ${r.login}!` : `No se pudo conectar: ${r.reason}`, r.ok ? 'ok' : 'bad');
+  setTimeout(refresh, 2500);
+} else if (q.get('error')) show(`Twitch respondió: ${q.get('error_description') || q.get('error')}`, 'bad');
+else refresh();
+</script>
+</body></html>

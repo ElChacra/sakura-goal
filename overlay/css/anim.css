@@ -1,0 +1,8 @@
+/* Todo por pasos: nada de ease/linear continuo en la barra */
+@keyframes tipblink { 0% { background-color: var(--pink-100); } 50% { background-color: var(--pink-200); } }
+@keyframes pulse { 0% { background-color: var(--frame); } 50% { background-color: var(--frame-hi); } }
+#mid { animation: pulse 1s steps(1) infinite; }
+#mid.flash { animation: none; background-color: var(--pink-100); }
+#mid.gflash { animation: none; background-color: var(--gold-400); }
+#tip.gold { animation: none; }
+@media (prefers-reduced-motion: reduce) { #mid, #tip { animation: none; } }

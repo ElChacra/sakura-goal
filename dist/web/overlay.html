@@ -1,0 +1,1214 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Sakura Arcade Goal</title>
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Fuente: Press Start 2P (c) CodeMan38, SIL Open Font License 1.1 (overlay/assets/fonts/OFL-LICENSE.txt) -->
+<style>
+@font-face { font-family: 'PS2P'; src: url(data:font/woff2;base64,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) format('woff2'); font-display: block; }
+:root {
+  --u: 2px; /* 1 píxel lógico; main.js lo fija en 2 × scale */
+  --font: 'PS2P', 'Pixelify Sans', monospace;
+  --ink: #2B1030; --plum-800: #4A1942; --plum-600: #7A2A63;
+  --pink-700: #C2307A; --pink-500: #FF5CA8; --pink-400: #FF8DBF; --pink-200: #FFC6DE; --pink-100: #FFF0F6;
+  --gold-400: #FFD84D; --gold-600: #C98A00; --mint-300: #8CF2D2; --lav-300: #B9A4FF;
+  --frame: var(--pink-400); --frame-hi: var(--pink-200); /* marco de la barra y del banner (pulsa entre ambos) */
+}
+/* Temas (plan 5.7): solo redefinen variables; el mapa de colores de sprites sale de aquí y de THEME_SPRITES en main.js */
+[data-theme="bubblegum"] { /* rosa chicle + menta, más "pop" */
+  --pink-700: #C21F86; --pink-500: #FF4FB6; --pink-400: #FF85CC; --pink-200: #FFC2E6; --pink-100: #FFF2FA;
+  --plum-800: #3E1A4F; --plum-600: #6B2E80; --mint-300: #6FF0C8;
+  --frame: #6FF0C8; --frame-hi: #C9FFEE;
+}
+[data-theme="strawberry"] { /* fresa y crema */
+  --ink: #2E0E16; --plum-800: #5A1A2A; --plum-600: #8A3346;
+  --pink-700: #A82848; --pink-500: #E8466B; --pink-400: #F27A93; --pink-200: #FFC2CC; --pink-100: #FFF3E6;
+  --frame: #FFF3E6; --frame-hi: #F27A93;
+}
+[data-theme="sakura-night"] { /* noche con farolillos: fondo tinta, pétalos lavanda, estrellas doradas */
+  --ink: #120818; --plum-800: #1E0E2C; --plum-600: #3B2257;
+  --frame: #B9A4FF; --frame-hi: #E2D9FF;
+}
+
+html, body { margin: 0; background: transparent; overflow: hidden; }
+#widget { position: relative; width: calc(480 * var(--u)); height: calc(135 * var(--u)); overflow: hidden;
+  font-family: var(--font); font-size: calc(8 * var(--u)); line-height: 1; color: var(--pink-100); text-transform: uppercase;
+  -webkit-font-smoothing: none; text-rendering: optimizeSpeed; image-rendering: pixelated; }
+#widget canvas { image-rendering: pixelated; }
+#back, #front { position: absolute; left: 0; top: 0; width: calc(480 * var(--u)); height: calc(135 * var(--u)); pointer-events: none; }
+.px { position: absolute; box-sizing: border-box; left: calc(var(--x, 0) * var(--u)); top: calc(var(--y, 0) * var(--u));
+  width: calc(var(--w, 0) * var(--u)); height: calc(var(--h, 0) * var(--u)); }
+.ol { text-shadow: var(--u) 0 var(--ink), calc(-1 * var(--u)) 0 var(--ink), 0 var(--u) var(--ink), 0 calc(-1 * var(--u)) var(--ink); white-space: nowrap; }
+.r { text-align: right; } .c { text-align: center; }
+#frame { background: var(--ink); }
+#mid { background: var(--frame);
+  box-shadow: inset var(--u) var(--u) 0 var(--pink-100), inset calc(-1 * var(--u)) calc(-1 * var(--u)) 0 var(--plum-600); }
+#track { background: var(--plum-800); overflow: hidden; --mask: repeating-linear-gradient(90deg, #000 0 calc(6 * var(--u)), transparent calc(6 * var(--u)) calc(8 * var(--u))); }
+#empty { background: var(--plum-600); -webkit-mask-image: var(--mask); mask-image: var(--mask); }
+.bars { width: calc(var(--blocks, 0) * 8 * var(--u)); overflow: hidden; -webkit-mask-image: var(--mask); mask-image: var(--mask);
+  background: linear-gradient(to bottom, var(--pink-200) 0 calc(4 * var(--u)), var(--pink-500) calc(4 * var(--u)) calc(16 * var(--u)), var(--pink-700) calc(16 * var(--u)) 100%); }
+#fill2, #fill.gold { background: linear-gradient(to bottom, var(--pink-100) 0 calc(4 * var(--u)), var(--gold-400) calc(4 * var(--u)) calc(16 * var(--u)), var(--gold-600) calc(16 * var(--u)) 100%); }
+#shine { position: absolute; top: 0; height: 100%; width: calc(16 * var(--u)); display: none;
+  background: repeating-conic-gradient(var(--pink-100) 0 25%, transparent 0 50%) 0 0 / calc(2 * var(--u)) calc(2 * var(--u)); }
+#tip { background: var(--pink-100); display: none; animation: tipblink 1s steps(1) infinite; }
+#tip.gold { background: var(--gold-400); }
+#big, #float, #barPct { display: none; }
+#widget.pct-in-bar #barPct { display: block; }
+#big { font-size: calc(16 * var(--u)); }
+#big span { display: inline-block; position: relative; }
+#widget.celebrating #amounts, #widget.celebrating #ticker { visibility: hidden; }
+#banner { background: var(--plum-800); border: var(--u) solid var(--frame); box-shadow: 0 0 0 var(--u) var(--ink); transform: translateX(calc(480 * var(--u))); }
+#bAmt { color: var(--gold-400); } #bMsg { color: var(--pink-200); overflow: hidden; white-space: nowrap; }
+.flag { image-rendering: pixelated; }
+#dbg { position: fixed; left: 0; top: calc(135 * var(--u) + 6px); font: 11px monospace; color: #fff; background: #000a; padding: 4px; text-transform: none; }
+#dbg button { font: 11px monospace; margin: 1px; }
+
+/* Todo por pasos: nada de ease/linear continuo en la barra */
+@keyframes tipblink { 0% { background-color: var(--pink-100); } 50% { background-color: var(--pink-200); } }
+@keyframes pulse { 0% { background-color: var(--frame); } 50% { background-color: var(--frame-hi); } }
+#mid { animation: pulse 1s steps(1) infinite; }
+#mid.flash { animation: none; background-color: var(--pink-100); }
+#mid.gflash { animation: none; background-color: var(--gold-400); }
+#tip.gold { animation: none; }
+@media (prefers-reduced-motion: reduce) { #mid, #tip { animation: none; } }
+
+</style>
+</head>
+<body>
+<div id="widget">
+  <canvas id="back" width="480" height="135"></canvas>
+  <div id="title" class="px ol" style="--x:8;--y:6;--w:340;--h:8"></div>
+  <div id="pct" class="px ol r" style="--x:352;--y:6;--w:104;--h:8"></div>
+  <canvas id="iconL" class="px" width="16" height="16" style="--x:4;--y:24;--w:16;--h:16"></canvas>
+  <div id="frame" class="px" style="--x:24;--y:24;--w:432;--h:36">
+    <div id="mid" class="px" style="--x:2;--y:2;--w:428;--h:32">
+      <div class="px" style="--x:3;--y:3;--w:422;--h:26;background:var(--ink)">
+        <div id="track" class="px" style="--x:1;--y:1;--w:420;--h:24">
+          <div id="empty" class="px" style="--x:2;--y:2;--w:416;--h:20"></div>
+          <div id="fill" class="px bars" style="--x:2;--y:2;--h:20"><div id="shine"></div></div>
+          <div id="fill2" class="px bars" style="--x:2;--y:2;--h:20"></div>
+          <div id="tip" class="px" style="--y:2;--w:6;--h:20"></div>
+        </div>
+      </div>
+    </div>
+    <div id="barPct" class="px ol c" style="--x:0;--y:14;--w:432;--h:8"></div>
+  </div>
+  <canvas id="iconR" class="px" width="16" height="16" style="--x:460;--y:24;--w:16;--h:16"></canvas>
+  <div id="amounts" class="px ol" style="--x:24;--y:68;--w:216;--h:8"></div>
+  <div id="ticker" class="px ol r" style="--x:240;--y:68;--w:216;--h:8"></div>
+  <div id="big" class="px ol c" style="--x:24;--y:70;--w:432;--h:16"></div>
+  <div id="float" class="px ol" style="--x:0;--y:0;--w:96;--h:8"></div>
+  <div id="banner" class="px" style="--x:24;--y:92;--w:432;--h:32">
+    <canvas id="bHeart" class="px" width="7" height="6" style="--x:4;--y:6;--w:7;--h:6"></canvas>
+    <div id="bName" class="px ol" style="--x:16;--y:5;--w:240;--h:8"></div>
+    <div id="bAmt" class="px ol r" style="--x:256;--y:5;--w:168;--h:8"></div>
+    <div id="bMsg" class="px" style="--x:4;--y:18;--w:424;--h:8"></div>
+  </div>
+  <canvas id="front" width="480" height="135"></canvas>
+</div>
+<div id="dbg"></div>
+<script>
+/*!
+ * Socket.IO v4.8.1
+ * (c) 2014-2024 Guillermo Rauch
+ * Released under the MIT License.
+ */
+!function(t,n){"object"==typeof exports&&"undefined"!=typeof module?module.exports=n():"function"==typeof define&&define.amd?define(n):(t="undefined"!=typeof globalThis?globalThis:t||self).io=n()}(this,(function(){"use strict";function t(t,n){(null==n||n>t.length)&&(n=t.length);for(var i=0,r=Array(n);i<n;i++)r[i]=t[i];return r}function n(t,n){for(var i=0;i<n.length;i++){var r=n[i];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,f(r.key),r)}}function i(t,i,r){return i&&n(t.prototype,i),r&&n(t,r),Object.defineProperty(t,"prototype",{writable:!1}),t}function r(n,i){var r="undefined"!=typeof Symbol&&n[Symbol.iterator]||n["@@iterator"];if(!r){if(Array.isArray(n)||(r=function(n,i){if(n){if("string"==typeof n)return t(n,i);var r={}.toString.call(n).slice(8,-1);return"Object"===r&&n.constructor&&(r=n.constructor.name),"Map"===r||"Set"===r?Array.from(n):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?t(n,i):void 0}}(n))||i&&n&&"number"==typeof n.length){r&&(n=r);var e=0,o=function(){};return{s:o,n:function(){return e>=n.length?{done:!0}:{done:!1,value:n[e++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var s,u=!0,h=!1;return{s:function(){r=r.call(n)},n:function(){var t=r.next();return u=t.done,t},e:function(t){h=!0,s=t},f:function(){try{u||null==r.return||r.return()}finally{if(h)throw s}}}}function e(){return e=Object.assign?Object.assign.bind():function(t){for(var n=1;n<arguments.length;n++){var i=arguments[n];for(var r in i)({}).hasOwnProperty.call(i,r)&&(t[r]=i[r])}return t},e.apply(null,arguments)}function o(t){return o=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},o(t)}function s(t,n){t.prototype=Object.create(n.prototype),t.prototype.constructor=t,h(t,n)}function u(){try{var t=!Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){})))}catch(t){}return(u=function(){return!!t})()}function h(t,n){return h=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,n){return t.__proto__=n,t},h(t,n)}function f(t){var n=function(t,n){if("object"!=typeof t||!t)return t;var i=t[Symbol.toPrimitive];if(void 0!==i){var r=i.call(t,n||"default");if("object"!=typeof r)return r;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===n?String:Number)(t)}(t,"string");return"symbol"==typeof n?n:n+""}function c(t){return c="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},c(t)}function a(t){var n="function"==typeof Map?new Map:void 0;return a=function(t){if(null===t||!function(t){try{return-1!==Function.toString.call(t).indexOf("[native code]")}catch(n){return"function"==typeof t}}(t))return t;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==n){if(n.has(t))return n.get(t);n.set(t,i)}function i(){return function(t,n,i){if(u())return Reflect.construct.apply(null,arguments);var r=[null];r.push.apply(r,n);var e=new(t.bind.apply(t,r));return i&&h(e,i.prototype),e}(t,arguments,o(this).constructor)}return i.prototype=Object.create(t.prototype,{constructor:{value:i,enumerable:!1,writable:!0,configurable:!0}}),h(i,t)},a(t)}var v=Object.create(null);v.open="0",v.close="1",v.ping="2",v.pong="3",v.message="4",v.upgrade="5",v.noop="6";var l=Object.create(null);Object.keys(v).forEach((function(t){l[v[t]]=t}));var p,d={type:"error",data:"parser error"},y="function"==typeof Blob||"undefined"!=typeof Blob&&"[object BlobConstructor]"===Object.prototype.toString.call(Blob),b="function"==typeof ArrayBuffer,w=function(t){return"function"==typeof ArrayBuffer.isView?ArrayBuffer.isView(t):t&&t.buffer instanceof ArrayBuffer},g=function(t,n,i){var r=t.type,e=t.data;return y&&e instanceof Blob?n?i(e):m(e,i):b&&(e instanceof ArrayBuffer||w(e))?n?i(e):m(new Blob([e]),i):i(v[r]+(e||""))},m=function(t,n){var i=new FileReader;return i.onload=function(){var t=i.result.split(",")[1];n("b"+(t||""))},i.readAsDataURL(t)};function k(t){return t instanceof Uint8Array?t:t instanceof ArrayBuffer?new Uint8Array(t):new Uint8Array(t.buffer,t.byteOffset,t.byteLength)}for(var A="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",j="undefined"==typeof Uint8Array?[]:new Uint8Array(256),E=0;E<64;E++)j[A.charCodeAt(E)]=E;var O,B="function"==typeof ArrayBuffer,S=function(t,n){if("string"!=typeof t)return{type:"message",data:C(t,n)};var i=t.charAt(0);return"b"===i?{type:"message",data:N(t.substring(1),n)}:l[i]?t.length>1?{type:l[i],data:t.substring(1)}:{type:l[i]}:d},N=function(t,n){if(B){var i=function(t){var n,i,r,e,o,s=.75*t.length,u=t.length,h=0;"="===t[t.length-1]&&(s--,"="===t[t.length-2]&&s--);var f=new ArrayBuffer(s),c=new Uint8Array(f);for(n=0;n<u;n+=4)i=j[t.charCodeAt(n)],r=j[t.charCodeAt(n+1)],e=j[t.charCodeAt(n+2)],o=j[t.charCodeAt(n+3)],c[h++]=i<<2|r>>4,c[h++]=(15&r)<<4|e>>2,c[h++]=(3&e)<<6|63&o;return f}(t);return C(i,n)}return{base64:!0,data:t}},C=function(t,n){return"blob"===n?t instanceof Blob?t:new Blob([t]):t instanceof ArrayBuffer?t:t.buffer},T=String.fromCharCode(30);function U(){return new TransformStream({transform:function(t,n){!function(t,n){y&&t.data instanceof Blob?t.data.arrayBuffer().then(k).then(n):b&&(t.data instanceof ArrayBuffer||w(t.data))?n(k(t.data)):g(t,!1,(function(t){p||(p=new TextEncoder),n(p.encode(t))}))}(t,(function(i){var r,e=i.length;if(e<126)r=new Uint8Array(1),new DataView(r.buffer).setUint8(0,e);else if(e<65536){r=new Uint8Array(3);var o=new DataView(r.buffer);o.setUint8(0,126),o.setUint16(1,e)}else{r=new Uint8Array(9);var s=new DataView(r.buffer);s.setUint8(0,127),s.setBigUint64(1,BigInt(e))}t.data&&"string"!=typeof t.data&&(r[0]|=128),n.enqueue(r),n.enqueue(i)}))}})}function M(t){return t.reduce((function(t,n){return t+n.length}),0)}function x(t,n){if(t[0].length===n)return t.shift();for(var i=new Uint8Array(n),r=0,e=0;e<n;e++)i[e]=t[0][r++],r===t[0].length&&(t.shift(),r=0);return t.length&&r<t[0].length&&(t[0]=t[0].slice(r)),i}function I(t){if(t)return function(t){for(var n in I.prototype)t[n]=I.prototype[n];return t}(t)}I.prototype.on=I.prototype.addEventListener=function(t,n){return this.t=this.t||{},(this.t["$"+t]=this.t["$"+t]||[]).push(n),this},I.prototype.once=function(t,n){function i(){this.off(t,i),n.apply(this,arguments)}return i.fn=n,this.on(t,i),this},I.prototype.off=I.prototype.removeListener=I.prototype.removeAllListeners=I.prototype.removeEventListener=function(t,n){if(this.t=this.t||{},0==arguments.length)return this.t={},this;var i,r=this.t["$"+t];if(!r)return this;if(1==arguments.length)return delete this.t["$"+t],this;for(var e=0;e<r.length;e++)if((i=r[e])===n||i.fn===n){r.splice(e,1);break}return 0===r.length&&delete this.t["$"+t],this},I.prototype.emit=function(t){this.t=this.t||{};for(var n=new Array(arguments.length-1),i=this.t["$"+t],r=1;r<arguments.length;r++)n[r-1]=arguments[r];if(i){r=0;for(var e=(i=i.slice(0)).length;r<e;++r)i[r].apply(this,n)}return this},I.prototype.emitReserved=I.prototype.emit,I.prototype.listeners=function(t){return this.t=this.t||{},this.t["$"+t]||[]},I.prototype.hasListeners=function(t){return!!this.listeners(t).length};var R="function"==typeof Promise&&"function"==typeof Promise.resolve?function(t){return Promise.resolve().then(t)}:function(t,n){return n(t,0)},L="undefined"!=typeof self?self:"undefined"!=typeof window?window:Function("return this")();function _(t){for(var n=arguments.length,i=new Array(n>1?n-1:0),r=1;r<n;r++)i[r-1]=arguments[r];return i.reduce((function(n,i){return t.hasOwnProperty(i)&&(n[i]=t[i]),n}),{})}var D=L.setTimeout,P=L.clearTimeout;function $(t,n){n.useNativeTimers?(t.setTimeoutFn=D.bind(L),t.clearTimeoutFn=P.bind(L)):(t.setTimeoutFn=L.setTimeout.bind(L),t.clearTimeoutFn=L.clearTimeout.bind(L))}function F(){return Date.now().toString(36).substring(3)+Math.random().toString(36).substring(2,5)}var V=function(t){function n(n,i,r){var e;return(e=t.call(this,n)||this).description=i,e.context=r,e.type="TransportError",e}return s(n,t),n}(a(Error)),q=function(t){function n(n){var i;return(i=t.call(this)||this).writable=!1,$(i,n),i.opts=n,i.query=n.query,i.socket=n.socket,i.supportsBinary=!n.forceBase64,i}s(n,t);var i=n.prototype;return i.onError=function(n,i,r){return t.prototype.emitReserved.call(this,"error",new V(n,i,r)),this},i.open=function(){return this.readyState="opening",this.doOpen(),this},i.close=function(){return"opening"!==this.readyState&&"open"!==this.readyState||(this.doClose(),this.onClose()),this},i.send=function(t){"open"===this.readyState&&this.write(t)},i.onOpen=function(){this.readyState="open",this.writable=!0,t.prototype.emitReserved.call(this,"open")},i.onData=function(t){var n=S(t,this.socket.binaryType);this.onPacket(n)},i.onPacket=function(n){t.prototype.emitReserved.call(this,"packet",n)},i.onClose=function(n){this.readyState="closed",t.prototype.emitReserved.call(this,"close",n)},i.pause=function(t){},i.createUri=function(t){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};return t+"://"+this.i()+this.o()+this.opts.path+this.u(n)},i.i=function(){var t=this.opts.hostname;return-1===t.indexOf(":")?t:"["+t+"]"},i.o=function(){return this.opts.port&&(this.opts.secure&&Number(443!==this.opts.port)||!this.opts.secure&&80!==Number(this.opts.port))?":"+this.opts.port:""},i.u=function(t){var n=function(t){var n="";for(var i in t)t.hasOwnProperty(i)&&(n.length&&(n+="&"),n+=encodeURIComponent(i)+"="+encodeURIComponent(t[i]));return n}(t);return n.length?"?"+n:""},n}(I),X=function(t){function n(){var n;return(n=t.apply(this,arguments)||this).h=!1,n}s(n,t);var r=n.prototype;return r.doOpen=function(){this.v()},r.pause=function(t){var n=this;this.readyState="pausing";var i=function(){n.readyState="paused",t()};if(this.h||!this.writable){var r=0;this.h&&(r++,this.once("pollComplete",(function(){--r||i()}))),this.writable||(r++,this.once("drain",(function(){--r||i()})))}else i()},r.v=function(){this.h=!0,this.doPoll(),this.emitReserved("poll")},r.onData=function(t){var n=this;(function(t,n){for(var i=t.split(T),r=[],e=0;e<i.length;e++){var o=S(i[e],n);if(r.push(o),"error"===o.type)break}return r})(t,this.socket.binaryType).forEach((function(t){if("opening"===n.readyState&&"open"===t.type&&n.onOpen(),"close"===t.type)return n.onClose({description:"transport closed by the server"}),!1;n.onPacket(t)})),"closed"!==this.readyState&&(this.h=!1,this.emitReserved("pollComplete"),"open"===this.readyState&&this.v())},r.doClose=function(){var t=this,n=function(){t.write([{type:"close"}])};"open"===this.readyState?n():this.once("open",n)},r.write=function(t){var n=this;this.writable=!1,function(t,n){var i=t.length,r=new Array(i),e=0;t.forEach((function(t,o){g(t,!1,(function(t){r[o]=t,++e===i&&n(r.join(T))}))}))}(t,(function(t){n.doWrite(t,(function(){n.writable=!0,n.emitReserved("drain")}))}))},r.uri=function(){var t=this.opts.secure?"https":"http",n=this.query||{};return!1!==this.opts.timestampRequests&&(n[this.opts.timestampParam]=F()),this.supportsBinary||n.sid||(n.b64=1),this.createUri(t,n)},i(n,[{key:"name",get:function(){return"polling"}}])}(q),H=!1;try{H="undefined"!=typeof XMLHttpRequest&&"withCredentials"in new XMLHttpRequest}catch(t){}var z=H;function J(){}var K=function(t){function n(n){var i;if(i=t.call(this,n)||this,"undefined"!=typeof location){var r="https:"===location.protocol,e=location.port;e||(e=r?"443":"80"),i.xd="undefined"!=typeof location&&n.hostname!==location.hostname||e!==n.port}return i}s(n,t);var i=n.prototype;return i.doWrite=function(t,n){var i=this,r=this.request({method:"POST",data:t});r.on("success",n),r.on("error",(function(t,n){i.onError("xhr post error",t,n)}))},i.doPoll=function(){var t=this,n=this.request();n.on("data",this.onData.bind(this)),n.on("error",(function(n,i){t.onError("xhr poll error",n,i)})),this.pollXhr=n},n}(X),Y=function(t){function n(n,i,r){var e;return(e=t.call(this)||this).createRequest=n,$(e,r),e.l=r,e.p=r.method||"GET",e.m=i,e.k=void 0!==r.data?r.data:null,e.A(),e}s(n,t);var i=n.prototype;return i.A=function(){var t,i=this,r=_(this.l,"agent","pfx","key","passphrase","cert","ca","ciphers","rejectUnauthorized","autoUnref");r.xdomain=!!this.l.xd;var e=this.j=this.createRequest(r);try{e.open(this.p,this.m,!0);try{if(this.l.extraHeaders)for(var o in e.setDisableHeaderCheck&&e.setDisableHeaderCheck(!0),this.l.extraHeaders)this.l.extraHeaders.hasOwnProperty(o)&&e.setRequestHeader(o,this.l.extraHeaders[o])}catch(t){}if("POST"===this.p)try{e.setRequestHeader("Content-type","text/plain;charset=UTF-8")}catch(t){}try{e.setRequestHeader("Accept","*/*")}catch(t){}null===(t=this.l.cookieJar)||void 0===t||t.addCookies(e),"withCredentials"in e&&(e.withCredentials=this.l.withCredentials),this.l.requestTimeout&&(e.timeout=this.l.requestTimeout),e.onreadystatechange=function(){var t;3===e.readyState&&(null===(t=i.l.cookieJar)||void 0===t||t.parseCookies(e.getResponseHeader("set-cookie"))),4===e.readyState&&(200===e.status||1223===e.status?i.O():i.setTimeoutFn((function(){i.B("number"==typeof e.status?e.status:0)}),0))},e.send(this.k)}catch(t){return void this.setTimeoutFn((function(){i.B(t)}),0)}"undefined"!=typeof document&&(this.S=n.requestsCount++,n.requests[this.S]=this)},i.B=function(t){this.emitReserved("error",t,this.j),this.N(!0)},i.N=function(t){if(void 0!==this.j&&null!==this.j){if(this.j.onreadystatechange=J,t)try{this.j.abort()}catch(t){}"undefined"!=typeof document&&delete n.requests[this.S],this.j=null}},i.O=function(){var t=this.j.responseText;null!==t&&(this.emitReserved("data",t),this.emitReserved("success"),this.N())},i.abort=function(){this.N()},n}(I);if(Y.requestsCount=0,Y.requests={},"undefined"!=typeof document)if("function"==typeof attachEvent)attachEvent("onunload",G);else if("function"==typeof addEventListener){addEventListener("onpagehide"in L?"pagehide":"unload",G,!1)}function G(){for(var t in Y.requests)Y.requests.hasOwnProperty(t)&&Y.requests[t].abort()}var Q,W=(Q=tt({xdomain:!1}))&&null!==Q.responseType,Z=function(t){function n(n){var i;i=t.call(this,n)||this;var r=n&&n.forceBase64;return i.supportsBinary=W&&!r,i}return s(n,t),n.prototype.request=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};return e(t,{xd:this.xd},this.opts),new Y(tt,this.uri(),t)},n}(K);function tt(t){var n=t.xdomain;try{if("undefined"!=typeof XMLHttpRequest&&(!n||z))return new XMLHttpRequest}catch(t){}if(!n)try{return new(L[["Active"].concat("Object").join("X")])("Microsoft.XMLHTTP")}catch(t){}}var nt="undefined"!=typeof navigator&&"string"==typeof navigator.product&&"reactnative"===navigator.product.toLowerCase(),it=function(t){function n(){return t.apply(this,arguments)||this}s(n,t);var r=n.prototype;return r.doOpen=function(){var t=this.uri(),n=this.opts.protocols,i=nt?{}:_(this.opts,"agent","perMessageDeflate","pfx","key","passphrase","cert","ca","ciphers","rejectUnauthorized","localAddress","protocolVersion","origin","maxPayload","family","checkServerIdentity");this.opts.extraHeaders&&(i.headers=this.opts.extraHeaders);try{this.ws=this.createSocket(t,n,i)}catch(t){return this.emitReserved("error",t)}this.ws.binaryType=this.socket.binaryType,this.addEventListeners()},r.addEventListeners=function(){var t=this;this.ws.onopen=function(){t.opts.autoUnref&&t.ws.C.unref(),t.onOpen()},this.ws.onclose=function(n){return t.onClose({description:"websocket connection closed",context:n})},this.ws.onmessage=function(n){return t.onData(n.data)},this.ws.onerror=function(n){return t.onError("websocket error",n)}},r.write=function(t){var n=this;this.writable=!1;for(var i=function(){var i=t[r],e=r===t.length-1;g(i,n.supportsBinary,(function(t){try{n.doWrite(i,t)}catch(t){}e&&R((function(){n.writable=!0,n.emitReserved("drain")}),n.setTimeoutFn)}))},r=0;r<t.length;r++)i()},r.doClose=function(){void 0!==this.ws&&(this.ws.onerror=function(){},this.ws.close(),this.ws=null)},r.uri=function(){var t=this.opts.secure?"wss":"ws",n=this.query||{};return this.opts.timestampRequests&&(n[this.opts.timestampParam]=F()),this.supportsBinary||(n.b64=1),this.createUri(t,n)},i(n,[{key:"name",get:function(){return"websocket"}}])}(q),rt=L.WebSocket||L.MozWebSocket,et=function(t){function n(){return t.apply(this,arguments)||this}s(n,t);var i=n.prototype;return i.createSocket=function(t,n,i){return nt?new rt(t,n,i):n?new rt(t,n):new rt(t)},i.doWrite=function(t,n){this.ws.send(n)},n}(it),ot=function(t){function n(){return t.apply(this,arguments)||this}s(n,t);var r=n.prototype;return r.doOpen=function(){var t=this;try{this.T=new WebTransport(this.createUri("https"),this.opts.transportOptions[this.name])}catch(t){return this.emitReserved("error",t)}this.T.closed.then((function(){t.onClose()})).catch((function(n){t.onError("webtransport error",n)})),this.T.ready.then((function(){t.T.createBidirectionalStream().then((function(n){var i=function(t,n){O||(O=new TextDecoder);var i=[],r=0,e=-1,o=!1;return new TransformStream({transform:function(s,u){for(i.push(s);;){if(0===r){if(M(i)<1)break;var h=x(i,1);o=!(128&~h[0]),e=127&h[0],r=e<126?3:126===e?1:2}else if(1===r){if(M(i)<2)break;var f=x(i,2);e=new DataView(f.buffer,f.byteOffset,f.length).getUint16(0),r=3}else if(2===r){if(M(i)<8)break;var c=x(i,8),a=new DataView(c.buffer,c.byteOffset,c.length),v=a.getUint32(0);if(v>Math.pow(2,21)-1){u.enqueue(d);break}e=v*Math.pow(2,32)+a.getUint32(4),r=3}else{if(M(i)<e)break;var l=x(i,e);u.enqueue(S(o?l:O.decode(l),n)),r=0}if(0===e||e>t){u.enqueue(d);break}}}})}(Number.MAX_SAFE_INTEGER,t.socket.binaryType),r=n.readable.pipeThrough(i).getReader(),e=U();e.readable.pipeTo(n.writable),t.U=e.writable.getWriter();!function n(){r.read().then((function(i){var r=i.done,e=i.value;r||(t.onPacket(e),n())})).catch((function(t){}))}();var o={type:"open"};t.query.sid&&(o.data='{"sid":"'.concat(t.query.sid,'"}')),t.U.write(o).then((function(){return t.onOpen()}))}))}))},r.write=function(t){var n=this;this.writable=!1;for(var i=function(){var i=t[r],e=r===t.length-1;n.U.write(i).then((function(){e&&R((function(){n.writable=!0,n.emitReserved("drain")}),n.setTimeoutFn)}))},r=0;r<t.length;r++)i()},r.doClose=function(){var t;null===(t=this.T)||void 0===t||t.close()},i(n,[{key:"name",get:function(){return"webtransport"}}])}(q),st={websocket:et,webtransport:ot,polling:Z},ut=/^(?:(?![^:@\/?#]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@\/?#]*)(?::([^:@\/?#]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/,ht=["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"];function ft(t){if(t.length>8e3)throw"URI too long";var n=t,i=t.indexOf("["),r=t.indexOf("]");-1!=i&&-1!=r&&(t=t.substring(0,i)+t.substring(i,r).replace(/:/g,";")+t.substring(r,t.length));for(var e,o,s=ut.exec(t||""),u={},h=14;h--;)u[ht[h]]=s[h]||"";return-1!=i&&-1!=r&&(u.source=n,u.host=u.host.substring(1,u.host.length-1).replace(/;/g,":"),u.authority=u.authority.replace("[","").replace("]","").replace(/;/g,":"),u.ipv6uri=!0),u.pathNames=function(t,n){var i=/\/{2,9}/g,r=n.replace(i,"/").split("/");"/"!=n.slice(0,1)&&0!==n.length||r.splice(0,1);"/"==n.slice(-1)&&r.splice(r.length-1,1);return r}(0,u.path),u.queryKey=(e=u.query,o={},e.replace(/(?:^|&)([^&=]*)=?([^&]*)/g,(function(t,n,i){n&&(o[n]=i)})),o),u}var ct="function"==typeof addEventListener&&"function"==typeof removeEventListener,at=[];ct&&addEventListener("offline",(function(){at.forEach((function(t){return t()}))}),!1);var vt=function(t){function n(n,i){var r;if((r=t.call(this)||this).binaryType="arraybuffer",r.writeBuffer=[],r.M=0,r.I=-1,r.R=-1,r.L=-1,r._=1/0,n&&"object"===c(n)&&(i=n,n=null),n){var o=ft(n);i.hostname=o.host,i.secure="https"===o.protocol||"wss"===o.protocol,i.port=o.port,o.query&&(i.query=o.query)}else i.host&&(i.hostname=ft(i.host).host);return $(r,i),r.secure=null!=i.secure?i.secure:"undefined"!=typeof location&&"https:"===location.protocol,i.hostname&&!i.port&&(i.port=r.secure?"443":"80"),r.hostname=i.hostname||("undefined"!=typeof location?location.hostname:"localhost"),r.port=i.port||("undefined"!=typeof location&&location.port?location.port:r.secure?"443":"80"),r.transports=[],r.D={},i.transports.forEach((function(t){var n=t.prototype.name;r.transports.push(n),r.D[n]=t})),r.opts=e({path:"/engine.io",agent:!1,withCredentials:!1,upgrade:!0,timestampParam:"t",rememberUpgrade:!1,addTrailingSlash:!0,rejectUnauthorized:!0,perMessageDeflate:{threshold:1024},transportOptions:{},closeOnBeforeunload:!1},i),r.opts.path=r.opts.path.replace(/\/$/,"")+(r.opts.addTrailingSlash?"/":""),"string"==typeof r.opts.query&&(r.opts.query=function(t){for(var n={},i=t.split("&"),r=0,e=i.length;r<e;r++){var o=i[r].split("=");n[decodeURIComponent(o[0])]=decodeURIComponent(o[1])}return n}(r.opts.query)),ct&&(r.opts.closeOnBeforeunload&&(r.P=function(){r.transport&&(r.transport.removeAllListeners(),r.transport.close())},addEventListener("beforeunload",r.P,!1)),"localhost"!==r.hostname&&(r.$=function(){r.F("transport close",{description:"network connection lost"})},at.push(r.$))),r.opts.withCredentials&&(r.V=void 0),r.q(),r}s(n,t);var i=n.prototype;return i.createTransport=function(t){var n=e({},this.opts.query);n.EIO=4,n.transport=t,this.id&&(n.sid=this.id);var i=e({},this.opts,{query:n,socket:this,hostname:this.hostname,secure:this.secure,port:this.port},this.opts.transportOptions[t]);return new this.D[t](i)},i.q=function(){var t=this;if(0!==this.transports.length){var i=this.opts.rememberUpgrade&&n.priorWebsocketSuccess&&-1!==this.transports.indexOf("websocket")?"websocket":this.transports[0];this.readyState="opening";var r=this.createTransport(i);r.open(),this.setTransport(r)}else this.setTimeoutFn((function(){t.emitReserved("error","No transports available")}),0)},i.setTransport=function(t){var n=this;this.transport&&this.transport.removeAllListeners(),this.transport=t,t.on("drain",this.X.bind(this)).on("packet",this.H.bind(this)).on("error",this.B.bind(this)).on("close",(function(t){return n.F("transport close",t)}))},i.onOpen=function(){this.readyState="open",n.priorWebsocketSuccess="websocket"===this.transport.name,this.emitReserved("open"),this.flush()},i.H=function(t){if("opening"===this.readyState||"open"===this.readyState||"closing"===this.readyState)switch(this.emitReserved("packet",t),this.emitReserved("heartbeat"),t.type){case"open":this.onHandshake(JSON.parse(t.data));break;case"ping":this.J("pong"),this.emitReserved("ping"),this.emitReserved("pong"),this.K();break;case"error":var n=new Error("server error");n.code=t.data,this.B(n);break;case"message":this.emitReserved("data",t.data),this.emitReserved("message",t.data)}},i.onHandshake=function(t){this.emitReserved("handshake",t),this.id=t.sid,this.transport.query.sid=t.sid,this.I=t.pingInterval,this.R=t.pingTimeout,this.L=t.maxPayload,this.onOpen(),"closed"!==this.readyState&&this.K()},i.K=function(){var t=this;this.clearTimeoutFn(this.Y);var n=this.I+this.R;this._=Date.now()+n,this.Y=this.setTimeoutFn((function(){t.F("ping timeout")}),n),this.opts.autoUnref&&this.Y.unref()},i.X=function(){this.writeBuffer.splice(0,this.M),this.M=0,0===this.writeBuffer.length?this.emitReserved("drain"):this.flush()},i.flush=function(){if("closed"!==this.readyState&&this.transport.writable&&!this.upgrading&&this.writeBuffer.length){var t=this.G();this.transport.send(t),this.M=t.length,this.emitReserved("flush")}},i.G=function(){if(!(this.L&&"polling"===this.transport.name&&this.writeBuffer.length>1))return this.writeBuffer;for(var t,n=1,i=0;i<this.writeBuffer.length;i++){var r=this.writeBuffer[i].data;if(r&&(n+="string"==typeof(t=r)?function(t){for(var n=0,i=0,r=0,e=t.length;r<e;r++)(n=t.charCodeAt(r))<128?i+=1:n<2048?i+=2:n<55296||n>=57344?i+=3:(r++,i+=4);return i}(t):Math.ceil(1.33*(t.byteLength||t.size))),i>0&&n>this.L)return this.writeBuffer.slice(0,i);n+=2}return this.writeBuffer},i.W=function(){var t=this;if(!this._)return!0;var n=Date.now()>this._;return n&&(this._=0,R((function(){t.F("ping timeout")}),this.setTimeoutFn)),n},i.write=function(t,n,i){return this.J("message",t,n,i),this},i.send=function(t,n,i){return this.J("message",t,n,i),this},i.J=function(t,n,i,r){if("function"==typeof n&&(r=n,n=void 0),"function"==typeof i&&(r=i,i=null),"closing"!==this.readyState&&"closed"!==this.readyState){(i=i||{}).compress=!1!==i.compress;var e={type:t,data:n,options:i};this.emitReserved("packetCreate",e),this.writeBuffer.push(e),r&&this.once("flush",r),this.flush()}},i.close=function(){var t=this,n=function(){t.F("forced close"),t.transport.close()},i=function i(){t.off("upgrade",i),t.off("upgradeError",i),n()},r=function(){t.once("upgrade",i),t.once("upgradeError",i)};return"opening"!==this.readyState&&"open"!==this.readyState||(this.readyState="closing",this.writeBuffer.length?this.once("drain",(function(){t.upgrading?r():n()})):this.upgrading?r():n()),this},i.B=function(t){if(n.priorWebsocketSuccess=!1,this.opts.tryAllTransports&&this.transports.length>1&&"opening"===this.readyState)return this.transports.shift(),this.q();this.emitReserved("error",t),this.F("transport error",t)},i.F=function(t,n){if("opening"===this.readyState||"open"===this.readyState||"closing"===this.readyState){if(this.clearTimeoutFn(this.Y),this.transport.removeAllListeners("close"),this.transport.close(),this.transport.removeAllListeners(),ct&&(this.P&&removeEventListener("beforeunload",this.P,!1),this.$)){var i=at.indexOf(this.$);-1!==i&&at.splice(i,1)}this.readyState="closed",this.id=null,this.emitReserved("close",t,n),this.writeBuffer=[],this.M=0}},n}(I);vt.protocol=4;var lt=function(t){function n(){var n;return(n=t.apply(this,arguments)||this).Z=[],n}s(n,t);var i=n.prototype;return i.onOpen=function(){if(t.prototype.onOpen.call(this),"open"===this.readyState&&this.opts.upgrade)for(var n=0;n<this.Z.length;n++)this.tt(this.Z[n])},i.tt=function(t){var n=this,i=this.createTransport(t),r=!1;vt.priorWebsocketSuccess=!1;var e=function(){r||(i.send([{type:"ping",data:"probe"}]),i.once("packet",(function(t){if(!r)if("pong"===t.type&&"probe"===t.data){if(n.upgrading=!0,n.emitReserved("upgrading",i),!i)return;vt.priorWebsocketSuccess="websocket"===i.name,n.transport.pause((function(){r||"closed"!==n.readyState&&(c(),n.setTransport(i),i.send([{type:"upgrade"}]),n.emitReserved("upgrade",i),i=null,n.upgrading=!1,n.flush())}))}else{var e=new Error("probe error");e.transport=i.name,n.emitReserved("upgradeError",e)}})))};function o(){r||(r=!0,c(),i.close(),i=null)}var s=function(t){var r=new Error("probe error: "+t);r.transport=i.name,o(),n.emitReserved("upgradeError",r)};function u(){s("transport closed")}function h(){s("socket closed")}function f(t){i&&t.name!==i.name&&o()}var c=function(){i.removeListener("open",e),i.removeListener("error",s),i.removeListener("close",u),n.off("close",h),n.off("upgrading",f)};i.once("open",e),i.once("error",s),i.once("close",u),this.once("close",h),this.once("upgrading",f),-1!==this.Z.indexOf("webtransport")&&"webtransport"!==t?this.setTimeoutFn((function(){r||i.open()}),200):i.open()},i.onHandshake=function(n){this.Z=this.nt(n.upgrades),t.prototype.onHandshake.call(this,n)},i.nt=function(t){for(var n=[],i=0;i<t.length;i++)~this.transports.indexOf(t[i])&&n.push(t[i]);return n},n}(vt),pt=function(t){function n(n){var i=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r="object"===c(n)?n:i;return(!r.transports||r.transports&&"string"==typeof r.transports[0])&&(r.transports=(r.transports||["polling","websocket","webtransport"]).map((function(t){return st[t]})).filter((function(t){return!!t}))),t.call(this,n,r)||this}return s(n,t),n}(lt);pt.protocol;var dt="function"==typeof ArrayBuffer,yt=function(t){return"function"==typeof ArrayBuffer.isView?ArrayBuffer.isView(t):t.buffer instanceof ArrayBuffer},bt=Object.prototype.toString,wt="function"==typeof Blob||"undefined"!=typeof Blob&&"[object BlobConstructor]"===bt.call(Blob),gt="function"==typeof File||"undefined"!=typeof File&&"[object FileConstructor]"===bt.call(File);function mt(t){return dt&&(t instanceof ArrayBuffer||yt(t))||wt&&t instanceof Blob||gt&&t instanceof File}function kt(t,n){if(!t||"object"!==c(t))return!1;if(Array.isArray(t)){for(var i=0,r=t.length;i<r;i++)if(kt(t[i]))return!0;return!1}if(mt(t))return!0;if(t.toJSON&&"function"==typeof t.toJSON&&1===arguments.length)return kt(t.toJSON(),!0);for(var e in t)if(Object.prototype.hasOwnProperty.call(t,e)&&kt(t[e]))return!0;return!1}function At(t){var n=[],i=t.data,r=t;return r.data=jt(i,n),r.attachments=n.length,{packet:r,buffers:n}}function jt(t,n){if(!t)return t;if(mt(t)){var i={_placeholder:!0,num:n.length};return n.push(t),i}if(Array.isArray(t)){for(var r=new Array(t.length),e=0;e<t.length;e++)r[e]=jt(t[e],n);return r}if("object"===c(t)&&!(t instanceof Date)){var o={};for(var s in t)Object.prototype.hasOwnProperty.call(t,s)&&(o[s]=jt(t[s],n));return o}return t}function Et(t,n){return t.data=Ot(t.data,n),delete t.attachments,t}function Ot(t,n){if(!t)return t;if(t&&!0===t._placeholder){if("number"==typeof t.num&&t.num>=0&&t.num<n.length)return n[t.num];throw new Error("illegal attachments")}if(Array.isArray(t))for(var i=0;i<t.length;i++)t[i]=Ot(t[i],n);else if("object"===c(t))for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(t[r]=Ot(t[r],n));return t}var Bt,St=["connect","connect_error","disconnect","disconnecting","newListener","removeListener"];!function(t){t[t.CONNECT=0]="CONNECT",t[t.DISCONNECT=1]="DISCONNECT",t[t.EVENT=2]="EVENT",t[t.ACK=3]="ACK",t[t.CONNECT_ERROR=4]="CONNECT_ERROR",t[t.BINARY_EVENT=5]="BINARY_EVENT",t[t.BINARY_ACK=6]="BINARY_ACK"}(Bt||(Bt={}));var Nt=function(){function t(t){this.replacer=t}var n=t.prototype;return n.encode=function(t){return t.type!==Bt.EVENT&&t.type!==Bt.ACK||!kt(t)?[this.encodeAsString(t)]:this.encodeAsBinary({type:t.type===Bt.EVENT?Bt.BINARY_EVENT:Bt.BINARY_ACK,nsp:t.nsp,data:t.data,id:t.id})},n.encodeAsString=function(t){var n=""+t.type;return t.type!==Bt.BINARY_EVENT&&t.type!==Bt.BINARY_ACK||(n+=t.attachments+"-"),t.nsp&&"/"!==t.nsp&&(n+=t.nsp+","),null!=t.id&&(n+=t.id),null!=t.data&&(n+=JSON.stringify(t.data,this.replacer)),n},n.encodeAsBinary=function(t){var n=At(t),i=this.encodeAsString(n.packet),r=n.buffers;return r.unshift(i),r},t}(),Ct=function(t){function n(n){var i;return(i=t.call(this)||this).reviver=n,i}s(n,t);var i=n.prototype;return i.add=function(n){var i;if("string"==typeof n){if(this.reconstructor)throw new Error("got plaintext data when reconstructing a packet");var r=(i=this.decodeString(n)).type===Bt.BINARY_EVENT;r||i.type===Bt.BINARY_ACK?(i.type=r?Bt.EVENT:Bt.ACK,this.reconstructor=new Tt(i),0===i.attachments&&t.prototype.emitReserved.call(this,"decoded",i)):t.prototype.emitReserved.call(this,"decoded",i)}else{if(!mt(n)&&!n.base64)throw new Error("Unknown type: "+n);if(!this.reconstructor)throw new Error("got binary data when not reconstructing a packet");(i=this.reconstructor.takeBinaryData(n))&&(this.reconstructor=null,t.prototype.emitReserved.call(this,"decoded",i))}},i.decodeString=function(t){var i=0,r={type:Number(t.charAt(0))};if(void 0===Bt[r.type])throw new Error("unknown packet type "+r.type);if(r.type===Bt.BINARY_EVENT||r.type===Bt.BINARY_ACK){for(var e=i+1;"-"!==t.charAt(++i)&&i!=t.length;);var o=t.substring(e,i);if(o!=Number(o)||"-"!==t.charAt(i))throw new Error("Illegal attachments");r.attachments=Number(o)}if("/"===t.charAt(i+1)){for(var s=i+1;++i;){if(","===t.charAt(i))break;if(i===t.length)break}r.nsp=t.substring(s,i)}else r.nsp="/";var u=t.charAt(i+1);if(""!==u&&Number(u)==u){for(var h=i+1;++i;){var f=t.charAt(i);if(null==f||Number(f)!=f){--i;break}if(i===t.length)break}r.id=Number(t.substring(h,i+1))}if(t.charAt(++i)){var c=this.tryParse(t.substr(i));if(!n.isPayloadValid(r.type,c))throw new Error("invalid payload");r.data=c}return r},i.tryParse=function(t){try{return JSON.parse(t,this.reviver)}catch(t){return!1}},n.isPayloadValid=function(t,n){switch(t){case Bt.CONNECT:return Mt(n);case Bt.DISCONNECT:return void 0===n;case Bt.CONNECT_ERROR:return"string"==typeof n||Mt(n);case Bt.EVENT:case Bt.BINARY_EVENT:return Array.isArray(n)&&("number"==typeof n[0]||"string"==typeof n[0]&&-1===St.indexOf(n[0]));case Bt.ACK:case Bt.BINARY_ACK:return Array.isArray(n)}},i.destroy=function(){this.reconstructor&&(this.reconstructor.finishedReconstruction(),this.reconstructor=null)},n}(I),Tt=function(){function t(t){this.packet=t,this.buffers=[],this.reconPack=t}var n=t.prototype;return n.takeBinaryData=function(t){if(this.buffers.push(t),this.buffers.length===this.reconPack.attachments){var n=Et(this.reconPack,this.buffers);return this.finishedReconstruction(),n}return null},n.finishedReconstruction=function(){this.reconPack=null,this.buffers=[]},t}();var Ut=Number.isInteger||function(t){return"number"==typeof t&&isFinite(t)&&Math.floor(t)===t};function Mt(t){return"[object Object]"===Object.prototype.toString.call(t)}var xt=Object.freeze({__proto__:null,protocol:5,get PacketType(){return Bt},Encoder:Nt,Decoder:Ct,isPacketValid:function(t){return"string"==typeof t.nsp&&(void 0===(n=t.id)||Ut(n))&&function(t,n){switch(t){case Bt.CONNECT:return void 0===n||Mt(n);case Bt.DISCONNECT:return void 0===n;case Bt.EVENT:return Array.isArray(n)&&("number"==typeof n[0]||"string"==typeof n[0]&&-1===St.indexOf(n[0]));case Bt.ACK:return Array.isArray(n);case Bt.CONNECT_ERROR:return"string"==typeof n||Mt(n);default:return!1}}(t.type,t.data);var n}});function It(t,n,i){return t.on(n,i),function(){t.off(n,i)}}var Rt=Object.freeze({connect:1,connect_error:1,disconnect:1,disconnecting:1,newListener:1,removeListener:1}),Lt=function(t){function n(n,i,r){var o;return(o=t.call(this)||this).connected=!1,o.recovered=!1,o.receiveBuffer=[],o.sendBuffer=[],o.it=[],o.rt=0,o.ids=0,o.acks={},o.flags={},o.io=n,o.nsp=i,r&&r.auth&&(o.auth=r.auth),o.l=e({},r),o.io.et&&o.open(),o}s(n,t);var o=n.prototype;return o.subEvents=function(){if(!this.subs){var t=this.io;this.subs=[It(t,"open",this.onopen.bind(this)),It(t,"packet",this.onpacket.bind(this)),It(t,"error",this.onerror.bind(this)),It(t,"close",this.onclose.bind(this))]}},o.connect=function(){return this.connected||(this.subEvents(),this.io.ot||this.io.open(),"open"===this.io.st&&this.onopen()),this},o.open=function(){return this.connect()},o.send=function(){for(var t=arguments.length,n=new Array(t),i=0;i<t;i++)n[i]=arguments[i];return n.unshift("message"),this.emit.apply(this,n),this},o.emit=function(t){var n,i,r;if(Rt.hasOwnProperty(t))throw new Error('"'+t.toString()+'" is a reserved event name');for(var e=arguments.length,o=new Array(e>1?e-1:0),s=1;s<e;s++)o[s-1]=arguments[s];if(o.unshift(t),this.l.retries&&!this.flags.fromQueue&&!this.flags.volatile)return this.ut(o),this;var u={type:Bt.EVENT,data:o,options:{}};if(u.options.compress=!1!==this.flags.compress,"function"==typeof o[o.length-1]){var h=this.ids++,f=o.pop();this.ht(h,f),u.id=h}var c=null===(i=null===(n=this.io.engine)||void 0===n?void 0:n.transport)||void 0===i?void 0:i.writable,a=this.connected&&!(null===(r=this.io.engine)||void 0===r?void 0:r.W());return this.flags.volatile&&!c||(a?(this.notifyOutgoingListeners(u),this.packet(u)):this.sendBuffer.push(u)),this.flags={},this},o.ht=function(t,n){var i,r=this,e=null!==(i=this.flags.timeout)&&void 0!==i?i:this.l.ackTimeout;if(void 0!==e){var o=this.io.setTimeoutFn((function(){delete r.acks[t];for(var i=0;i<r.sendBuffer.length;i++)r.sendBuffer[i].id===t&&r.sendBuffer.splice(i,1);n.call(r,new Error("operation has timed out"))}),e),s=function(){r.io.clearTimeoutFn(o);for(var t=arguments.length,i=new Array(t),e=0;e<t;e++)i[e]=arguments[e];n.apply(r,i)};s.withError=!0,this.acks[t]=s}else this.acks[t]=n},o.emitWithAck=function(t){for(var n=this,i=arguments.length,r=new Array(i>1?i-1:0),e=1;e<i;e++)r[e-1]=arguments[e];return new Promise((function(i,e){var o=function(t,n){return t?e(t):i(n)};o.withError=!0,r.push(o),n.emit.apply(n,[t].concat(r))}))},o.ut=function(t){var n,i=this;"function"==typeof t[t.length-1]&&(n=t.pop());var r={id:this.rt++,tryCount:0,pending:!1,args:t,flags:e({fromQueue:!0},this.flags)};t.push((function(t){if(r===i.it[0]){if(null!==t)r.tryCount>i.l.retries&&(i.it.shift(),n&&n(t));else if(i.it.shift(),n){for(var e=arguments.length,o=new Array(e>1?e-1:0),s=1;s<e;s++)o[s-1]=arguments[s];n.apply(void 0,[null].concat(o))}return r.pending=!1,i.ft()}})),this.it.push(r),this.ft()},o.ft=function(){var t=arguments.length>0&&void 0!==arguments[0]&&arguments[0];if(this.connected&&0!==this.it.length){var n=this.it[0];n.pending&&!t||(n.pending=!0,n.tryCount++,this.flags=n.flags,this.emit.apply(this,n.args))}},o.packet=function(t){t.nsp=this.nsp,this.io.ct(t)},o.onopen=function(){var t=this;"function"==typeof this.auth?this.auth((function(n){t.vt(n)})):this.vt(this.auth)},o.vt=function(t){this.packet({type:Bt.CONNECT,data:this.lt?e({pid:this.lt,offset:this.dt},t):t})},o.onerror=function(t){this.connected||this.emitReserved("connect_error",t)},o.onclose=function(t,n){this.connected=!1,delete this.id,this.emitReserved("disconnect",t,n),this.yt()},o.yt=function(){var t=this;Object.keys(this.acks).forEach((function(n){if(!t.sendBuffer.some((function(t){return String(t.id)===n}))){var i=t.acks[n];delete t.acks[n],i.withError&&i.call(t,new Error("socket has been disconnected"))}}))},o.onpacket=function(t){if(t.nsp===this.nsp)switch(t.type){case Bt.CONNECT:t.data&&t.data.sid?this.onconnect(t.data.sid,t.data.pid):this.emitReserved("connect_error",new Error("It seems you are trying to reach a Socket.IO server in v2.x with a v3.x client, but they are not compatible (more information here: https://socket.io/docs/v3/migrating-from-2-x-to-3-0/)"));break;case Bt.EVENT:case Bt.BINARY_EVENT:this.onevent(t);break;case Bt.ACK:case Bt.BINARY_ACK:this.onack(t);break;case Bt.DISCONNECT:this.ondisconnect();break;case Bt.CONNECT_ERROR:this.destroy();var n=new Error(t.data.message);n.data=t.data.data,this.emitReserved("connect_error",n)}},o.onevent=function(t){var n=t.data||[];null!=t.id&&n.push(this.ack(t.id)),this.connected?this.emitEvent(n):this.receiveBuffer.push(Object.freeze(n))},o.emitEvent=function(n){if(this.bt&&this.bt.length){var i,e=r(this.bt.slice());try{for(e.s();!(i=e.n()).done;){i.value.apply(this,n)}}catch(t){e.e(t)}finally{e.f()}}t.prototype.emit.apply(this,n),this.lt&&n.length&&"string"==typeof n[n.length-1]&&(this.dt=n[n.length-1])},o.ack=function(t){var n=this,i=!1;return function(){if(!i){i=!0;for(var r=arguments.length,e=new Array(r),o=0;o<r;o++)e[o]=arguments[o];n.packet({type:Bt.ACK,id:t,data:e})}}},o.onack=function(t){var n=this.acks[t.id];"function"==typeof n&&(delete this.acks[t.id],n.withError&&t.data.unshift(null),n.apply(this,t.data))},o.onconnect=function(t,n){this.id=t,this.recovered=n&&this.lt===n,this.lt=n,this.connected=!0,this.emitBuffered(),this.emitReserved("connect"),this.ft(!0)},o.emitBuffered=function(){var t=this;this.receiveBuffer.forEach((function(n){return t.emitEvent(n)})),this.receiveBuffer=[],this.sendBuffer.forEach((function(n){t.notifyOutgoingListeners(n),t.packet(n)})),this.sendBuffer=[]},o.ondisconnect=function(){this.destroy(),this.onclose("io server disconnect")},o.destroy=function(){this.subs&&(this.subs.forEach((function(t){return t()})),this.subs=void 0),this.io.wt(this)},o.disconnect=function(){return this.connected&&this.packet({type:Bt.DISCONNECT}),this.destroy(),this.connected&&this.onclose("io client disconnect"),this},o.close=function(){return this.disconnect()},o.compress=function(t){return this.flags.compress=t,this},o.timeout=function(t){return this.flags.timeout=t,this},o.onAny=function(t){return this.bt=this.bt||[],this.bt.push(t),this},o.prependAny=function(t){return this.bt=this.bt||[],this.bt.unshift(t),this},o.offAny=function(t){if(!this.bt)return this;if(t){for(var n=this.bt,i=0;i<n.length;i++)if(t===n[i])return n.splice(i,1),this}else this.bt=[];return this},o.listenersAny=function(){return this.bt||[]},o.onAnyOutgoing=function(t){return this.gt=this.gt||[],this.gt.push(t),this},o.prependAnyOutgoing=function(t){return this.gt=this.gt||[],this.gt.unshift(t),this},o.offAnyOutgoing=function(t){if(!this.gt)return this;if(t){for(var n=this.gt,i=0;i<n.length;i++)if(t===n[i])return n.splice(i,1),this}else this.gt=[];return this},o.listenersAnyOutgoing=function(){return this.gt||[]},o.notifyOutgoingListeners=function(t){if(this.gt&&this.gt.length){var n,i=r(this.gt.slice());try{for(i.s();!(n=i.n()).done;){n.value.apply(this,t.data)}}catch(t){i.e(t)}finally{i.f()}}},i(n,[{key:"disconnected",get:function(){return!this.connected}},{key:"active",get:function(){return!!this.subs}},{key:"volatile",get:function(){return this.flags.volatile=!0,this}}])}(I);function _t(t){t=t||{},this.ms=t.min||100,this.max=t.max||1e4,this.factor=t.factor||2,this.jitter=t.jitter>0&&t.jitter<=1?t.jitter:0,this.attempts=0}_t.prototype.duration=function(){var t=this.ms*Math.pow(this.factor,this.attempts++);if(this.jitter){var n=Math.random(),i=Math.floor(n*this.jitter*t);t=1&Math.floor(10*n)?t+i:t-i}return 0|Math.min(t,this.max)},_t.prototype.reset=function(){this.attempts=0},_t.prototype.setMin=function(t){this.ms=t},_t.prototype.setMax=function(t){this.max=t},_t.prototype.setJitter=function(t){this.jitter=t};var Dt=function(t){function n(n,i){var r,e;(r=t.call(this)||this).nsps={},r.subs=[],n&&"object"===c(n)&&(i=n,n=void 0),(i=i||{}).path=i.path||"/socket.io",r.opts=i,$(r,i),r.reconnection(!1!==i.reconnection),r.reconnectionAttempts(i.reconnectionAttempts||1/0),r.reconnectionDelay(i.reconnectionDelay||1e3),r.reconnectionDelayMax(i.reconnectionDelayMax||5e3),r.randomizationFactor(null!==(e=i.randomizationFactor)&&void 0!==e?e:.5),r.backoff=new _t({min:r.reconnectionDelay(),max:r.reconnectionDelayMax(),jitter:r.randomizationFactor()}),r.timeout(null==i.timeout?2e4:i.timeout),r.st="closed",r.uri=n;var o=i.parser||xt;return r.encoder=new o.Encoder,r.decoder=new o.Decoder,r.et=!1!==i.autoConnect,r.et&&r.open(),r}s(n,t);var i=n.prototype;return i.reconnection=function(t){return arguments.length?(this.kt=!!t,t||(this.skipReconnect=!0),this):this.kt},i.reconnectionAttempts=function(t){return void 0===t?this.At:(this.At=t,this)},i.reconnectionDelay=function(t){var n;return void 0===t?this.jt:(this.jt=t,null===(n=this.backoff)||void 0===n||n.setMin(t),this)},i.randomizationFactor=function(t){var n;return void 0===t?this.Et:(this.Et=t,null===(n=this.backoff)||void 0===n||n.setJitter(t),this)},i.reconnectionDelayMax=function(t){var n;return void 0===t?this.Ot:(this.Ot=t,null===(n=this.backoff)||void 0===n||n.setMax(t),this)},i.timeout=function(t){return arguments.length?(this.Bt=t,this):this.Bt},i.maybeReconnectOnOpen=function(){!this.ot&&this.kt&&0===this.backoff.attempts&&this.reconnect()},i.open=function(t){var n=this;if(~this.st.indexOf("open"))return this;this.engine=new pt(this.uri,this.opts);var i=this.engine,r=this;this.st="opening",this.skipReconnect=!1;var e=It(i,"open",(function(){r.onopen(),t&&t()})),o=function(i){n.cleanup(),n.st="closed",n.emitReserved("error",i),t?t(i):n.maybeReconnectOnOpen()},s=It(i,"error",o);if(!1!==this.Bt){var u=this.Bt,h=this.setTimeoutFn((function(){e(),o(new Error("timeout")),i.close()}),u);this.opts.autoUnref&&h.unref(),this.subs.push((function(){n.clearTimeoutFn(h)}))}return this.subs.push(e),this.subs.push(s),this},i.connect=function(t){return this.open(t)},i.onopen=function(){this.cleanup(),this.st="open",this.emitReserved("open");var t=this.engine;this.subs.push(It(t,"ping",this.onping.bind(this)),It(t,"data",this.ondata.bind(this)),It(t,"error",this.onerror.bind(this)),It(t,"close",this.onclose.bind(this)),It(this.decoder,"decoded",this.ondecoded.bind(this)))},i.onping=function(){this.emitReserved("ping")},i.ondata=function(t){try{this.decoder.add(t)}catch(t){this.onclose("parse error",t)}},i.ondecoded=function(t){var n=this;R((function(){n.emitReserved("packet",t)}),this.setTimeoutFn)},i.onerror=function(t){this.emitReserved("error",t)},i.socket=function(t,n){var i=this.nsps[t];return i?this.et&&!i.active&&i.connect():(i=new Lt(this,t,n),this.nsps[t]=i),i},i.wt=function(t){for(var n=0,i=Object.keys(this.nsps);n<i.length;n++){var r=i[n];if(this.nsps[r].active)return}this.St()},i.ct=function(t){for(var n=this.encoder.encode(t),i=0;i<n.length;i++)this.engine.write(n[i],t.options)},i.cleanup=function(){this.subs.forEach((function(t){return t()})),this.subs.length=0,this.decoder.destroy()},i.St=function(){this.skipReconnect=!0,this.ot=!1,this.onclose("forced close")},i.disconnect=function(){return this.St()},i.onclose=function(t,n){var i;this.cleanup(),null===(i=this.engine)||void 0===i||i.close(),this.backoff.reset(),this.st="closed",this.emitReserved("close",t,n),this.kt&&!this.skipReconnect&&this.reconnect()},i.reconnect=function(){var t=this;if(this.ot||this.skipReconnect)return this;var n=this;if(this.backoff.attempts>=this.At)this.backoff.reset(),this.emitReserved("reconnect_failed"),this.ot=!1;else{var i=this.backoff.duration();this.ot=!0;var r=this.setTimeoutFn((function(){n.skipReconnect||(t.emitReserved("reconnect_attempt",n.backoff.attempts),n.skipReconnect||n.open((function(i){i?(n.ot=!1,n.reconnect(),t.emitReserved("reconnect_error",i)):n.onreconnect()})))}),i);this.opts.autoUnref&&r.unref(),this.subs.push((function(){t.clearTimeoutFn(r)}))}},i.onreconnect=function(){var t=this.backoff.attempts;this.ot=!1,this.backoff.reset(),this.emitReserved("reconnect",t)},n}(I),Pt={};function $t(t,n){"object"===c(t)&&(n=t,t=void 0);var i,r=function(t){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"",i=arguments.length>2?arguments[2]:void 0,r=t;i=i||"undefined"!=typeof location&&location,null==t&&(t=i.protocol+"//"+i.host),"string"==typeof t&&("/"===t.charAt(0)&&(t="/"===t.charAt(1)?i.protocol+t:i.host+t),/^(https?|wss?):\/\//.test(t)||(t=void 0!==i?i.protocol+"//"+t:"https://"+t),r=ft(t)),r.port||(/^(http|ws)$/.test(r.protocol)?r.port="80":/^(http|ws)s$/.test(r.protocol)&&(r.port="443")),r.path=r.path||"/";var e=-1!==r.host.indexOf(":")?"["+r.host+"]":r.host;return r.id=r.protocol+"://"+e+":"+r.port+n,r.href=r.protocol+"://"+e+(i&&i.port===r.port?"":":"+r.port),r}(t,(n=n||{}).path||"/socket.io"),e=r.source,o=r.id,s=r.path,u=Pt[o]&&s in Pt[o].nsps;return n.forceNew||n["force new connection"]||!1===n.multiplex||u?i=new Dt(e,n):(Pt[o]||(Pt[o]=new Dt(e,n)),i=Pt[o]),r.query&&!n.query&&(n.query=r.queryKey),i.socket(r.path,n)}return e($t,{Manager:Dt,Socket:Lt,io:$t,connect:$t}),$t}));
+//# sourceMappingURL=socket.io.min.js.map
+
+</script>
+<script>
+/* Sakura Arcade Goal — build generado por scripts/build.js; edita overlay/js, no este archivo */
+(() => {
+'use strict';
+const __m = {};
+__m["config.js"] = (() => {
+// Un solo objeto config: defaults + override por query string (?petalIntervalSec=6)
+const DEFAULTS = {
+  goalId: 'main', title: 'META', target: 500, start: 0, unit: 'currency', currency: 'USD', locale: 'es', lang: 'es',
+  theme: 'sakura', scale: 1, blocks: 52, retroFps: 60,
+  petals: 1, petalIntervalSec: 4, petalBurst: '1-2', petalMax: 24, petalLanding: 0,
+  windEverySec: 30, shineEverySec: 6, sparkleEverySec: 2.5, idleFlowerEverySec: 20, tickerEverySec: 8,
+  tickerMessages: ['last', 'top', 'remaining'], // last | top | remaining | cualquier texto propio (máx. 27 caracteres)
+  showPercentInBar: 0, leftIcon: 'heart',
+  tierMode: 'percent', tiers: { small: 0, medium: 2, large: 5, mega: 10 },
+  bannerHoldMs: 3500, showMessage: 1, maxMessageChars: 40, blockedWords: [], anonymousIfPrivate: 1,
+  milestones: [25, 50, 75], onComplete: 'overflow', completeDurationMs: 8000, goalIcon: 'star',
+  goals: [], resetEvery: 'none', // none | daily | weekly (desde el lunes) | monthly, en hora local
+  // metas encadenadas: ?goals=NUEVO MICRO:500,CAMARA:1000 (implica onComplete=next-goal)
+  // Conversión de unidades (4.5). Valores de subRates y rates: AJUSTAR por el streamer, no son una verdad.
+  count: ['donations', 'bits', 'subs'], bitsRate: 0.01, rates: { USD: 1 }, subRates: { T1: 5, T2: 10, T3: 25, prime: 5 },
+  ignoreTestEvents: 0, countTestEvents: 0, comboWindowMs: 1500, comboHoldMs: 400, queueMax: 10,
+  sound: 0, volume: 0.15, persist: 1,
+  // source: auto = relay si la página se sirve por http(s) (npm start); manual = solo teclado/panel en el mismo navegador
+  source: 'auto', relayUrl: '', debug: 0, seed: null, reducedMotion: null,
+};
+
+function coerce(def, raw) {
+  if (Array.isArray(def)) return raw === '' ? [] : raw.split(',').map((s) => (typeof def[0] === 'number' ? Number(s) : s.trim()));
+  if (typeof def === 'number') { const n = Number(raw); return Number.isFinite(n) ? n : def; }
+  if (def && typeof def === 'object') { try { return { ...def, ...JSON.parse(raw) }; } catch { return def; } }
+  return raw;
+}
+
+function getConfig(search = location.search) {
+  const q = new URLSearchParams(search), cfg = { ...DEFAULTS, _set: new Set(q.keys()) };
+  for (const [k, v] of q) {
+    if (!(k in DEFAULTS)) continue;
+    cfg[k] = DEFAULTS[k] === null ? Number(v) : coerce(DEFAULTS[k], v);
+  }
+  if (q.has('reducedMotion')) cfg.reducedMotion = q.get('reducedMotion') === '1';
+  // Validaciones
+  cfg.scale = Math.min(4, Math.max(1, Math.round(cfg.scale))); // solo enteros: píxeles siempre cuadrados
+  cfg.blocks = Math.min(52, Math.max(4, Math.round(cfg.blocks)));
+  cfg.target = cfg.target > 0 ? cfg.target : DEFAULTS.target;
+  cfg.retroFps = [15, 30, 60].includes(cfg.retroFps) ? cfg.retroFps : 60;
+  cfg.title = String(cfg.title).slice(0, 24);
+  const m = String(cfg.petalBurst).match(/^(\d+)(?:-(\d+))?$/); // "1-2" → [1,2]
+  cfg.petalBurst = m ? [Number(m[1]), Number(m[2] ?? m[1])] : [1, 2];
+  cfg.blockedWords = cfg.blockedWords.map((w) => w.toLowerCase()).filter(Boolean);
+  cfg.goals = cfg.goals.map((s) => { const i = s.lastIndexOf(':'), target = Number(s.slice(i + 1)); return i > 0 && target > 0 ? { title: s.slice(0, i).trim().slice(0, 24), target } : null; }).filter(Boolean);
+  if (cfg.goals.length && !q.has('onComplete')) cfg.onComplete = 'next-goal';
+  if (!['hold', 'overflow', 'next-goal', 'reset'].includes(cfg.onComplete)) cfg.onComplete = 'overflow';
+  if (!['sakura', 'bubblegum', 'strawberry', 'sakura-night'].includes(cfg.theme)) cfg.theme = 'sakura';
+  if (!['none', 'daily', 'weekly', 'monthly'].includes(cfg.resetEvery)) cfg.resetEvery = 'none';
+  const ICONS = ['heart', 'star', 'gift', 'trophy', 'gem', 'flower'];
+  if (!ICONS.includes(cfg.leftIcon)) cfg.leftIcon = 'heart';
+  if (!ICONS.includes(cfg.goalIcon)) cfg.goalIcon = 'star';
+  cfg.tickerMessages = cfg.tickerMessages.map((m) => String(m).trim().slice(0, 27)).filter(Boolean);
+  if (!cfg.tickerMessages.length) cfg.tickerMessages = [...DEFAULTS.tickerMessages];
+  return cfg;
+}
+
+return { DEFAULTS, getConfig };
+})();
+
+__m["sprites.js"] = (() => {
+// Sprites como mapas de píxeles (plan 5.6). '.' = transparente.
+const SPRITES = {
+  petalA: ['MM.MM', 'MLMMM', 'MMMMD', '.MMD.', '..D..'],
+  petalB: ['MM.MM', 'MMMLM', 'DMMMM', '.DMM.', '..D..'],
+  petalC: ['.M.', 'LMD', 'MMD', '.MD', '.D.'],
+  flower: ['..MM.MM..', '.MLLMLLM.', 'MLLLLLLLM', 'MLLYYYLLM', '.MLYBYLM.', 'MLLYYYLLM', 'MLLLLLLLM', '.MLLMLLM.', '..MM.MM..'],
+  bud: ['.M.', 'MYM', '.M.'],
+  half: ['.MMM.', 'MLLLM', 'MLYLM', 'MLLLM', '.MMM.'],
+  heart: ['.PP.PP.', 'PLPPPPP', 'PPPPPPD', '.PPPPD.', '..PPD..', '...D...'],
+  star: ['...Y...', '...Y...', 'YYYYYYY', '.YYYYY.', '..YYY..', '.YY.YY.', 'YY...YY'],
+  flag: ['KPPP..', 'KPPPP.', 'KPPP..', 'K.....', 'K.....', 'K.....', 'K.....', 'K.....'],
+  gift: ['.P.W.P.', '..PWP..', 'MMMWMMM', 'MLMWMLM', 'MMMWMMM', 'MLMWMLM', 'DDDWDDD'],
+  trophy: ['YYYYYYY', 'YYWYYYY', '.YYYYY.', '.YYYYY.', '..YYY..', '...Y...', '.YYYYY.'],
+  gem: ['..GGG..', '.GWGGV.', 'GWGGGGV', '.GGGGV.', '..GGV..', '...V...'],
+  spark1: ['.W.', 'WYW', '.W.'],
+  spark2: ['..W..', '..W..', 'WWYWW', '..W..', '..W..'],
+};
+
+// Pre-render: cada sprite se dibuja UNA vez a un canvas offscreen (1 px = 1 px lógico).
+// hex(ch) devuelve el color de un carácter; remap(ch) permite variantes (bloqueado, oscuro…).
+function buildSprites(hex, remap = (c) => c) {
+  const out = {};
+  for (const [name, rows] of Object.entries(SPRITES)) {
+    const c = document.createElement('canvas');
+    c.width = Math.max(...rows.map((r) => r.length)); c.height = rows.length;
+    const x = c.getContext('2d');
+    rows.forEach((r, j) => { for (let i = 0; i < r.length; i++) if (r[i] !== '.') { x.fillStyle = hex(remap(r[i])); x.fillRect(i, j, 1, 1); } });
+    out[name] = c;
+  }
+  return out;
+}
+
+return { SPRITES, buildSprites };
+})();
+
+__m["i18n.js"] = (() => {
+const D = {
+  es: { goal: '¡META LOGRADA!', checkpoint: '¡CHECKPOINT {p}%!', last: 'ÚLTIMO', top: 'TOP', remaining: 'FALTAN', anon: 'ANÓNIMO', level: '¡NIVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} APORTES', combo: '¡X{n} COMBO!', mixed: '{n} DONANTES', next: '¡NUEVA META!' },
+  en: { goal: 'GOAL REACHED!', checkpoint: 'CHECKPOINT {p}%!', last: 'LATEST', top: 'TOP', remaining: 'LEFT', anon: 'ANONYMOUS', level: 'LEVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} GIFTS', combo: 'X{n} COMBO!', mixed: '{n} DONORS', next: 'NEW GOAL!' },
+};
+const makeT = (lang) => (k, v = {}) => (D[lang] || D.es)[k].replace(/\{(\w+)\}/g, (_, n) => v[n]);
+
+return { makeT };
+})();
+
+__m["state.js"] = (() => {
+// Reducer puro (sin DOM). applyEvent(state, ev, cfg) → { state, effects[] }
+const levelOf = (cur, target, cfg) => (cfg.onComplete === 'overflow' ? 1 + Math.floor(cur / target) : 1);
+function blocksOf(cur, target, cfg) {
+  if (cur >= target) return cfg.blocks;
+  const b = Math.floor((cur / target) * cfg.blocks);
+  return cur > 0 && b === 0 ? 1 : b; // mínimo visual: 1 bloque
+}
+// Lo que se MUESTRA (cabecera, barra dorada, panel). En un múltiplo exacto de la meta la vuelta se ve completa:
+// 500/500 → "100%" (no "LV2 0%"), 1000/500 → "LV2 100%" con la barra dorada llena. levelOf sigue contando vueltas para el reducer.
+function lapView(cur, target, cfg) {
+  if (cfg.onComplete !== 'overflow' || cur < target) return { level: 1, pct: Math.min(100, Math.floor((cur / target) * 100)) };
+  const r = cur % target;
+  return r === 0 ? { level: cur / target, pct: 100 } : { level: 1 + Math.floor(cur / target), pct: Math.floor((r / target) * 100) };
+}
+const goldOf = (cur, target, cfg) => { const v = lapView(cur, target, cfg); return v.level > 1 ? Math.floor((v.pct / 100) * cfg.blocks) : 0; };
+const percentOf = (cur, target, cfg) => lapView(cur, target, cfg).pct;
+const round2 = (n) => Math.round(n * 100) / 100;
+
+// resetEvery (plan §7): inicio del período actual en hora local (día, semana ISO desde el lunes, mes). 0 = sin período.
+function periodStart(mode, now = Date.now()) {
+  const d = new Date(now); d.setHours(0, 0, 0, 0);
+  if (mode === 'weekly') d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  else if (mode === 'monthly') d.setDate(1);
+  else if (mode !== 'daily') return 0;
+  return d.getTime();
+}
+const periodKey = (mode, now) => (mode && mode !== 'none' ? `${mode}:${periodStart(mode, now)}` : undefined);
+
+function createState(cfg, saved, now = Date.now()) {
+  const pk = periodKey(cfg.resetEvery, now);
+  if (saved?.periodKey && pk && saved.periodKey !== pk) saved = null; // período nuevo: la meta empieza de cero (sin clave previa se adopta la actual)
+  const g0 = cfg.goals?.[0]; // metas encadenadas: la primera de la lista manda sobre target/title
+  const keepTarget = saved && (g0 || !cfg._set?.has('target'));
+  const target = keepTarget ? saved.target : g0 ? g0.target : cfg.target;
+  const base = {
+    goalId: cfg.goalId, title: g0 ? g0.title : cfg.title, goalIndex: 0, target, current: cfg.start, level: 1,
+    milestonesFired: cfg.milestones.filter((m) => cfg.start >= (m / 100) * target), completedAt: cfg.start >= target ? 0 : undefined,
+    recent: [], totals: {}, topDonor: undefined, seenIds: [], updatedAt: 0,
+  };
+  const s = saved && saved.goalId === cfg.goalId ? { ...base, ...saved, target } : base;
+  if (cfg._set?.has('title') && !g0) s.title = cfg.title;
+  s.periodKey = pk;
+  s.level = levelOf(s.current, s.target, cfg);
+  return s;
+}
+
+function applyEvent(state, ev, cfg) {
+  const ids = ev.ids || [ev.id];
+  if (ids.some((i) => state.seenIds.includes(i))) return { state, effects: [] }; // dedupe
+  const seen = [...state.seenIds, ...ids].slice(-500);
+  if (ev.isTest) {
+    if (cfg.ignoreTestEvents) return { state, effects: [] };
+    if (!cfg.countTestEvents) return { state: { ...state, seenIds: seen }, effects: [{ type: 'donation', ev, counted: false, before: state.current, after: state.current }] };
+  }
+  if (!ev.value) return { state: { ...state, seenIds: seen }, effects: [] };
+
+  const before = state.current, after = Math.max(0, round2(before + ev.value)), target = state.target;
+  const lap = (v) => levelOf(v, target, cfg);
+  const adjust = ev.kind === 'adjust';
+  const effects = [{ type: adjust ? 'silentUpdate' : 'donation', ev, before, after }];
+  if (!adjust && ev.value > 0) {
+    for (const m of cfg.milestones) { // solo 1.ª vuelta
+      const mark = (m / 100) * target;
+      if (before < mark && after >= mark && !state.milestonesFired.includes(m)) effects.push({ type: 'milestone', percent: m });
+    }
+    if (before < target && after >= target) effects.push({ type: 'complete' });
+    else if (before >= target && lap(after) > lap(before)) effects.push({ type: 'levelUp', level: lap(after) });
+  }
+  const totals = { ...state.totals };
+  let topDonor = state.topDonor;
+  if (!adjust && ev.name) {
+    totals[ev.name] = round2((totals[ev.name] || 0) + ev.value);
+    if (!topDonor || totals[ev.name] > topDonor.total) topDonor = { name: ev.name, total: totals[ev.name] };
+  }
+  // Los tramos 2..n de un evento partido en hitos (splitEvent) se funden con el primero: un solo aporte en "recientes" y en deshacer
+  const [head, ...rest] = state.recent, applied = round2(after - before);
+  const cont = ev.part?.[0] > 1 && head && String(ev.id).split('#')[0] === head.id;
+  const recent = adjust ? state.recent : cont ? [{ ...head, applied: round2(head.applied + applied), ids: [...(head.ids || [head.id]), ...ids] }, ...rest]
+    : [{ ...ev, applied }, ...state.recent].slice(0, 20);
+  const next = {
+    ...state, current: after, level: lap(after), totals, topDonor, recent,
+    milestonesFired: [...state.milestonesFired, ...effects.filter((e) => e.type === 'milestone').map((e) => e.percent)],
+    completedAt: after >= target ? (state.completedAt ?? ev.ts ?? 0) : undefined,
+    seenIds: seen, updatedAt: ev.ts ?? state.updatedAt,
+  };
+  return { state: next, effects };
+}
+
+// onComplete=next-goal: pasa a la siguiente meta de cfg.goals con el sobrante. Devuelve el mismo objeto si no hay más.
+function nextGoal(state, cfg) {
+  const i = (state.goalIndex || 0) + 1, g = cfg.goals?.[i];
+  if (!g || state.current < state.target) return state;
+  const current = round2(state.current - state.target);
+  return { ...state, goalIndex: i, title: g.title, target: g.target, current, level: 1,
+    milestonesFired: cfg.milestones.filter((m) => current >= (m / 100) * g.target), completedAt: current >= g.target ? state.completedAt : undefined };
+}
+
+// Deshacer el último aporte contado (revierte `applied`, hitos y meta)
+function undoLast(state, cfg) {
+  const [last, ...rest] = state.recent;
+  if (!last) return state;
+  const current = Math.max(0, round2(state.current - last.applied));
+  const ids = last.ids || [last.id], totals = { ...state.totals };
+  if (last.name && totals[last.name] != null) totals[last.name] = Math.max(0, round2(totals[last.name] - last.applied));
+  const top = Object.entries(totals).sort((a, b) => b[1] - a[1])[0];
+  return { ...state, current, level: levelOf(current, state.target, cfg), recent: rest, totals, topDonor: top && top[1] > 0 ? { name: top[0], total: top[1] } : undefined,
+    seenIds: state.seenIds.filter((i) => !ids.includes(i)), milestonesFired: state.milestonesFired.filter((m) => current >= (m / 100) * state.target),
+    completedAt: current >= state.target ? state.completedAt : undefined };
+}
+
+return { levelOf, blocksOf, lapView, goldOf, percentOf, periodStart, periodKey, createState, applyEvent, nextGoal, undoLast };
+})();
+
+__m["events.js"] = (() => {
+// Normalización y conversión de unidades (plan 4.4 / 4.5). Puro, sin DOM.
+const GROUP = { donation: 'donations', bits: 'bits', sub: 'subs', giftsub: 'subs', follow: 'follows', raid: 'raids' };
+const round2 = (n) => Math.round(n * 100) / 100;
+const hash = (s) => { let h = 5381; for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) | 0; return (h >>> 0).toString(36); };
+const rate = (c, cfg) => cfg.rates[c] ?? (c === cfg.currency ? 1 : null);
+
+function cleanMessage(s, cfg) {
+  s = String(s ?? '').slice(0, cfg.maxMessageChars);
+  return cfg.blockedWords.some((w) => s.toLowerCase().includes(w)) ? '*' : s; // '*' porque la fuente no trae ♥
+}
+function inCurrency(raw, cfg) {
+  switch (raw.kind) {
+    case 'donation': { const r = rate(raw.rawCurrency, cfg); return r == null ? 0 : raw.rawAmount * r; }
+    case 'bits': return raw.rawAmount * cfg.bitsRate;
+    case 'sub': case 'giftsub': return (cfg.subRates[raw.tier || 'T1'] ?? 0) * (raw.kind === 'giftsub' ? raw.rawAmount || 1 : 1);
+    default: return 0;
+  }
+}
+// raw: { id?, source, kind, name, rawAmount, rawCurrency, message?, ts?, isTest?, anon?, tier? } → GoalEvent
+function convert(raw, cfg) {
+  const ts = raw.ts ?? Date.now(), amount = Number(raw.rawAmount) || 0;
+  raw = { ...raw, rawCurrency: raw.rawCurrency || cfg.currency }; // sin moneda (REST, Streamer.bot) = la de la meta
+  let value = 0;
+  if (raw.kind === 'adjust') value = amount;
+  else if (cfg.count.includes(GROUP[raw.kind])) {
+    if (cfg.unit === 'count') value = raw.kind === 'giftsub' ? amount || 1 : 1;
+    else if (cfg.unit === 'bits') value = raw.kind === 'bits' ? amount : inCurrency(raw, cfg) / cfg.bitsRate;
+    else value = inCurrency({ ...raw, rawAmount: amount }, cfg);
+  }
+  return { id: raw.id ?? hash(`${raw.source}|${raw.name}|${amount}|${ts}`), source: raw.source ?? 'manual', kind: raw.kind, name: raw.name || '',
+    rawAmount: amount, rawCurrency: raw.rawCurrency, value: round2(value), message: cleanMessage(raw.message, cfg),
+    ts, isTest: !!raw.isTest, anon: !!raw.anon };
+}
+// small < 2 %, medium 2–5 %, large 5–10 %, mega ≥ 10 % (tierMode=percent) o umbrales absolutos
+function tierOf(value, target, cfg) {
+  const x = cfg.tierMode === 'percent' ? (Math.abs(value) / target) * 100 : Math.abs(value);
+  let r = 'small';
+  for (const k of ['small', 'medium', 'large', 'mega']) if (x >= cfg.tiers[k]) r = k;
+  return r;
+}
+
+return { cleanMessage, convert, tierOf };
+})();
+
+__m["director.js"] = (() => {
+// Lógica pura del director: combos y partición de eventos en hitos/meta (plan 6.6)
+const round2 = (n) => Math.round(n * 100) / 100;
+
+function merge(evs) {
+  if (evs.length === 1) return evs[0];
+  const n = evs.length, last = evs[n - 1], names = new Set(evs.map((e) => e.name)), kinds = new Set(evs.map((e) => e.kind));
+  return { ...last, id: evs[0].id + '+' + (n - 1), ids: evs.flatMap((e) => e.ids || [e.id]), value: round2(evs.reduce((a, e) => a + e.value, 0)),
+    rawAmount: round2(evs.reduce((a, e) => a + e.rawAmount, 0)), kind: kinds.size === 1 ? last.kind : 'donation', combo: n, mixed: names.size > 1,
+    name: names.size === 1 ? last.name : '', isTest: evs.every((e) => e.isTest) };
+}
+
+// Junta eventos que llegan juntos. Se libera tras `holdMs` de silencio o al cumplir `windowMs` desde el primero.
+class Combiner {
+  constructor({ windowMs = 1500, holdMs = 400 } = {}) { this.windowMs = windowMs; this.holdMs = holdMs; this.items = []; this.first = 0; this.last = 0; }
+  add(ev, now) { if (!this.items.length) this.first = now; this.items.push(ev); this.last = now; }
+  poll(now) {
+    if (!this.items.length || (now - this.last < this.holdMs && now - this.first < this.windowMs)) return null;
+    const out = merge(this.items); this.items = []; return out;
+  }
+}
+
+// Un evento que cruza hitos/meta se parte: llena hasta el hito, celebra y continúa. Solo el primer tramo muestra banner.
+function splitEvent(state, ev, cfg) {
+  const before = state.current, after = before + ev.value, target = state.target;
+  if (ev.value <= 0 || ev.kind === 'adjust' || before >= target) return [ev];
+  const marks = [...cfg.milestones.filter((m) => !state.milestonesFired.includes(m)).map((m) => (m / 100) * target), target]
+    .filter((x, i, a) => x > before && x < after && a.indexOf(x) === i).sort((a, b) => a - b);
+  if (!marks.length) return [ev];
+  const cuts = [before, ...marks, after];
+  let acc = 0;
+  return cuts.slice(1).map((c, i) => {
+    const value = i === marks.length ? round2(ev.value - acc) : round2(c - cuts[i]);
+    acc += value;
+    return { ...ev, value, id: i ? `${ev.id}#${i}` : ev.id, ids: i ? [`${ev.id}#${i}`] : ev.ids || [ev.id], quiet: i > 0, tierValue: ev.value, part: [i + 1, cuts.length - 1] };
+  });
+}
+
+return { merge, Combiner, splitEvent };
+})();
+
+__m["audio.js"] = (() => {
+// Chiptune con WebAudio (ondas cuadradas, sin archivos). Se activa con ?sound=1 o desde /control/.
+const SEQ = {
+  coin: [[988, 70, 0], [1319, 250, 0.07]],
+  arp4: [[523, 80, 0], [659, 80, 0.08], [784, 80, 0.16], [1047, 80, 0.24]],
+  checkpoint: [[523, 90, 0], [784, 90, 0.09], [1047, 90, 0.18]],
+  fanfare: [[523, 100, 0], [659, 100, 0.1], [784, 100, 0.2], [1047, 100, 0.3], [784, 100, 0.45], [1047, 100, 0.55], [1319, 600, 0.65]],
+};
+function createAudio(cfg) {
+  let ctx = null, enabled = !!cfg.sound;
+  const get = () => {
+    if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch { return null; } }
+    if (ctx.state === 'suspended') ctx.resume().catch(() => {}); // fuera de OBS el navegador exige un gesto del usuario
+    return ctx;
+  };
+  function beep(c, freq, ms, when) {
+    const o = c.createOscillator(), g = c.createGain(), t0 = c.currentTime + when;
+    o.type = 'square'; o.frequency.value = freq;
+    g.gain.setValueAtTime(cfg.volume, t0); g.gain.setValueAtTime(0.0001, t0 + ms / 1000);
+    o.connect(g).connect(c.destination); o.start(t0); o.stop(t0 + ms / 1000 + 0.02);
+  }
+  return {
+    get enabled() { return enabled; },
+    setEnabled(v) { enabled = !!v; if (enabled) get(); },
+    unlock() { if (enabled) get(); },
+    play(name) { const c = enabled && get(); if (c && SEQ[name]) SEQ[name].forEach(([f, ms, w]) => beep(c, f, ms, w)); },
+  };
+}
+
+return { createAudio };
+})();
+
+__m["sources/relay.js"] = (() => {
+// Cliente WebSocket del relay con reconexión exponencial (0,5 s → 10 s). Si el relay no está, el overlay sigue
+// funcionando con su último estado (localStorage) y reintenta en silencio.
+// on: { link(up), <tipo de mensaje>(data)… } · hello: objeto o función que lo devuelve (se reenvía en cada reconexión)
+function relayUrlFor(cfg, loc = location) {
+  if (cfg.relayUrl) return cfg.relayUrl;
+  return `${loc.protocol === 'https:' ? 'wss' : 'ws'}://${loc.host}/ws`;
+}
+
+function connectRelay(url, hello, on) {
+  let ws = null, delay = 500, timer = null, up = false;
+  function open() {
+    try { ws = new WebSocket(url); } catch { return retry(); }
+    ws.onopen = () => { delay = 500; up = true; send(typeof hello === 'function' ? hello() : hello); on.link?.(true); };
+    ws.onmessage = (m) => { let d; try { d = JSON.parse(m.data); } catch { return; } if (d.type !== 'link') on[d.type]?.(d); };
+    ws.onclose = () => { if (up) on.link?.(false); up = false; retry(); };
+    ws.onerror = () => {}; // el cierre ya programa el reintento
+  }
+  function retry() { clearTimeout(timer); timer = setTimeout(open, delay); delay = Math.min(delay * 2, 10000); }
+  function send(o) { if (ws?.readyState === 1) ws.send(JSON.stringify(o)); }
+  open();
+  return { send, get up() { return up; } };
+}
+
+return { relayUrlFor, connectRelay };
+})();
+
+__m["main.js"] = function () {
+const { getConfig } = __m["config.js"];
+const { buildSprites } = __m["sprites.js"];
+const { makeT } = __m["i18n.js"];
+const { createState, applyEvent, undoLast, nextGoal, levelOf, lapView, blocksOf, goldOf, percentOf, periodKey, periodStart } = __m["state.js"];
+const { tierOf, convert } = __m["events.js"];
+const { Combiner, merge, splitEvent } = __m["director.js"];
+const { createAudio } = __m["audio.js"];
+const { connectRelay, relayUrlFor } = __m["sources/relay.js"];
+
+// Anfitrión opcional (build de StreamElements): aporta config, estado guardado, persistencia y eventos en vez de URL/localStorage/relay
+const HOST = globalThis.__SAG_HOST || null;
+const cfg = getConfig(HOST?.search ?? location.search), t = makeT(cfg.lang), $ = (id) => document.getElementById(id);
+const root = document.documentElement;
+root.style.setProperty('--u', 2 * cfg.scale + 'px');
+root.dataset.theme = cfg.theme;
+const cs = getComputedStyle(root), V = (n) => cs.getPropertyValue('--' + n).trim();
+const CH = { K: 'ink', L: 'pink-200', D: 'pink-700', W: 'pink-100', P: 'pink-500', Y: 'gold-400', M: 'pink-400', G: 'mint-300', B: 'plum-600', V: 'lav-300' };
+const hex = (c) => V(CH[c]);
+const DARK = (c) => ({ L: 'M', M: 'D', D: 'B', W: 'L', P: 'D', Y: 'D' }[c] || c); // capa trasera, más oscura
+const SP = buildSprites(hex), SPLOCK = buildSprites(hex, () => 'B'), SPDARK = buildSprites(hex, DARK);
+// Variantes de color por tema (plan 5.6/5.7): se cambia el mapa de paleta, no los sprites. sakura-night: pétalos lavanda.
+const THEME_PETALS = { 'sakura-night': { M: 'V', L: 'W', D: 'B' } }[cfg.theme];
+if (THEME_PETALS) {
+  const tp = (c) => THEME_PETALS[c] || c, a = buildSprites(hex, tp), b = buildSprites(hex, (c) => DARK(tp(c)));
+  for (const n of ['petalA', 'petalB', 'petalC']) { SP[n] = a[n]; SPDARK[n] = b[n]; }
+}
+const reduced = cfg.reducedMotion ?? matchMedia('(prefers-reduced-motion: reduce)').matches;
+const PETAL_MAX = reduced ? Math.floor(cfg.petalMax / 2) : cfg.petalMax;
+
+// ---------- utilidades ----------
+function mulberry32(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let x = Math.imul(a ^ a >>> 15, 1 | a); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
+const rng = mulberry32(cfg.seed ?? Math.random() * 2 ** 32);
+const rr = (a, b) => a + rng() * (b - a), pick = (a) => a[Math.floor(rng() * a.length)];
+const nf = (n) => { // símbolo delante ("$185") con Intl; sin decimales si el número es entero
+  const d = Number.isInteger(n) ? 0 : 2, o = { style: 'currency', currency: cfg.currency, currencyDisplay: 'narrowSymbol', minimumFractionDigits: d, maximumFractionDigits: d };
+  const sym = new Intl.NumberFormat(cfg.locale, o).formatToParts(n).find((x) => x.type === 'currency')?.value ?? '';
+  return (n < 0 ? '-' : '') + sym + new Intl.NumberFormat(cfg.locale, { minimumFractionDigits: d, maximumFractionDigits: d }).format(Math.abs(n)); };
+const fmt = cfg.unit === 'currency' ? nf : (n) => String(Math.round(n));
+
+// Línea de tiempo con reloj de simulación (determinista)
+let clock = 0; const tl = [];
+const at = (ms, fn) => tl.push({ t: clock + ms, fn });
+function runTl() { for (let i = 0; i < tl.length;) { if (tl[i].t <= clock) tl.splice(i, 1)[0].fn(); else i++; } }
+function typeInto(el, text, ms) { // typewriter (textContent siempre)
+  const tok = (el._tok = (el._tok || 0) + 1); el.textContent = '';
+  [...text].forEach((_, i) => at(i * ms, () => { if (el._tok === tok) el.textContent = text.slice(0, i + 1); }));
+}
+
+// ---------- estado: reducer puro (state.js) + persistencia ----------
+const KEY = 'sag:' + cfg.goalId, audio = createAudio(cfg);
+let saved = HOST ? HOST.saved ?? null : null;
+if (!HOST && cfg.persist) try { saved = JSON.parse(localStorage.getItem(KEY)); } catch { /* sin localStorage */ }
+let S = createState(cfg, saved); // al cargar: snapshot silencioso (se dibuja sin animar ni re-celebrar hitos)
+const blocksFor = (v) => blocksOf(v, S.target, cfg), goldFor = (v) => goldOf(v, S.target, cfg);
+let celebrating = false, unlocked = S.current >= S.target, paused = false;
+let shown = blocksFor(S.current), shown2 = goldFor(S.current), shownAmt = S.current;
+let relay = null; // conexión al relay (Fase 3): fuente de verdad persistente cuando está disponible
+function save() {
+  S.savedAt = Date.now();
+  if (HOST) HOST.save?.(S);
+  else if (cfg.persist) try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { /* ignorar */ }
+  relay?.send({ type: 'state', state: S }); status();
+}
+
+// ---------- DOM: pintado ----------
+const els = Object.fromEntries(['widget', 'title', 'pct', 'barPct', 'fill', 'fill2', 'tip', 'shine', 'amounts', 'ticker', 'big', 'float', 'banner', 'bName', 'bAmt', 'bMsg', 'bHeart', 'frame', 'mid', 'iconL', 'iconR', 'back', 'front', 'dbg'].map((k) => [k, $(k)]));
+els.title.textContent = S.title;
+els.widget.classList.toggle('pct-in-bar', !!cfg.showPercentInBar);
+function paint() {
+  els.fill.style.setProperty('--blocks', shown); els.fill2.style.setProperty('--blocks', shown2);
+  const tb = shown2 > 0 ? shown2 : shown;
+  els.tip.style.display = tb > 0 ? 'block' : 'none';
+  els.tip.style.left = `calc(${2 + (tb - 1) * 8} * var(--u))`; els.tip.classList.toggle('gold', shown2 > 0);
+  const v = celebrating ? { level: 1, pct: 100 } : lapView(S.current, S.target, cfg);
+  els.pct.textContent = (v.level > 1 ? `LV${v.level} ` : '') + v.pct + '%';
+  if (cfg.showPercentInBar) els.barPct.textContent = v.pct + '%';
+  els.amounts.textContent = `${fmt(shownAmt)} / ${fmt(S.target)}`;
+}
+const tipX = () => 32 + (shown2 > 0 ? shown2 : shown) * 8, tipY = 42;
+
+// ---------- canvas: partículas ----------
+const bx = els.back.getContext('2d'), fx = els.front.getContext('2d'); bx.imageSmoothingEnabled = fx.imageSmoothingEnabled = false;
+const P = [];
+const mk = (o) => { if (P.length > 400) return null; const p = { x: 0, y: 0, vx: 0, vy: 0, ax: 0, ay: 0, sprite: null, fps: 6, life: 0, maxLife: Infinity, layer: 'front', amp: 0, freq: 0, phase: 0, blink: false, rect: null, amb: false, ...o }; P.push(p); return p; };
+function petal(speed = 1, x) {
+  const back = rng() < 0.5, k = back ? 0.7 : 1;
+  mk({ amb: true, layer: back ? 'back' : 'front', x: x ?? 480 * (0.3 + rng() * 0.8), y: -6, vx: -rr(6, 14) * speed * k, vy: rr(10, 18) * k,
+    amp: rr(3, 8), freq: rr(0.6, 1.2), phase: rr(0, 6.28), sprite: ['petalA', 'petalC', 'petalB', 'petalC'], fps: 6 });
+}
+const ambCount = () => P.reduce((n, p) => n + (p.amb ? 1 : 0), 0);
+function burst(n, hearts, kind, x = tipX(), y = tipY) { // explosión radial hacia arriba con gravedad
+  const extra = kind === 'bits' ? 'gem' : kind === 'sub' ? 'star' : 'heart';
+  for (let i = 0; i < n + hearts; i++) {
+    const a = rr(-150, -30) * Math.PI / 180, s = rr(30, 70), h = i >= n;
+    mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 90, maxLife: rr(0.8, 1.4), blink: true, sprite: h ? [extra] : ['petalA', 'petalC', 'petalB', 'petalC'] });
+  }
+}
+function ring(x, y, n = 16) { for (let i = 0; i < n; i++) { const a = i / n * 6.2832; mk({ x, y, vx: Math.cos(a) * 45, vy: Math.sin(a) * 45, maxLife: 1, blink: true, sprite: ['petalA', 'petalC', 'petalB', 'petalC'] }); } }
+let landings = 0; // contador para ?debug=1
+const LAND_Y = 21; // centro de un pétalo posado sobre el borde superior del marco (y=24)
+function land(p) { // A10 (petalLanding): se posa 1,5 s, resbala por el marco y cae
+  p.x += Math.sin(p.life * p.freq * 6.2832 + p.phase) * p.amp; p.amp = 0; p.y = LAND_Y; p.vx = p.vy = 0; p.fps = 0; p.landed = true; landings++;
+  at(1500, () => { p.vx = -rr(10, 18); at(rr(300, 700), () => { p.ay = 60; }); });
+}
+function updateParticles(dt) {
+  for (let i = P.length - 1; i >= 0; i--) {
+    const p = P[i]; p.life += dt;
+    if (p.life >= p.maxLife || p.y > 141 || p.x < -12 || p.x > 560) { P.splice(i, 1); continue; }
+    const py = p.y;
+    p.vx += p.ax * dt; p.vy += p.ay * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+    if (cfg.petalLanding && p.amb && !p.landed && p.layer === 'front' && py < LAND_Y && p.y >= LAND_Y) {
+      const x = p.x + Math.sin(p.life * p.freq * 6.2832 + p.phase) * p.amp;
+      if (x > 28 && x < 452 && rng() < 0.25) land(p); else p.landed = true; // solo se decide una vez por pétalo
+    }
+  }
+}
+function drawParticles() {
+  bx.clearRect(0, 0, 480, 135); fx.clearRect(0, 0, 480, 135);
+  for (const p of P) {
+    if (p.blink && p.maxLife - p.life < 0.3 && Math.floor(p.life * 20) % 2) continue;
+    const c = p.layer === 'back' ? bx : fx, ox = p.amp ? Math.sin(p.life * p.freq * 6.2832 + p.phase) * p.amp : 0;
+    if (p.rect) { c.fillStyle = p.rect[2]; c.fillRect(Math.round(p.x + ox), Math.round(p.y), p.rect[0], p.rect[1]); continue; }
+    const s = (p.layer === 'back' ? SPDARK : SP)[p.sprite[Math.floor(p.life * p.fps) % p.sprite.length]];
+    c.drawImage(s, Math.round(p.x + ox - (s.width >> 1)), Math.round(p.y - (s.height >> 1)));
+  }
+}
+
+// ---------- iconos ----------
+let iconKey = '';
+function drawIcons() {
+  const br = Math.floor(clock / 500) % 2, key = `${br}${unlocked}`; if (key === iconKey) return; iconKey = key;
+  for (const [cv, name, set] of [[els.iconL, cfg.leftIcon, SP], [els.iconR, cfg.goalIcon, unlocked ? SP : SPLOCK]]) {
+    const c = cv.getContext('2d'), s = set[name]; c.clearRect(0, 0, 16, 16);
+    c.drawImage(s, (16 - s.width) >> 1, ((16 - s.height) >> 1) + br);
+  }
+}
+function drawFlag(m) {
+  const cv = document.createElement('canvas'); cv.width = 6; cv.height = 8; cv.className = 'px flag'; cv.dataset.m = m;
+  cv.style.cssText = `--x:${32 + Math.round(m / 100 * cfg.blocks) * 8};--y:16;--w:6;--h:8`; cv.getContext('2d').drawImage(SP.flag, 0, 0); els.widget.appendChild(cv);
+}
+S.milestonesFired.forEach(drawFlag);
+
+// ---------- piezas de animación ----------
+const TIERS = { small: { flash: 2, shake: 0, n: 6, h: 0, hold: 2500 }, medium: { flash: 4, shake: 4, n: 14, h: 2, hold: 3500 }, large: { flash: 6, shake: 8, n: 28, h: 5, hold: 4500 }, mega: { flash: 8, shake: 12, n: 60, h: 10, hold: 6000 } };
+function flash(n, gold) { for (let i = 0; i < n; i++) at(i * 60, () => { els.mid.classList.toggle(gold ? 'gflash' : 'flash', i % 2 === 0); if (i === n - 1) els.mid.classList.remove('flash', 'gflash'); }); }
+function shake(n) { if (reduced) return; for (let i = 0; i <= n; i++) at(i * 50, () => { els.frame.style.transform = i === n ? '' : `translateX(calc(${i % 2 ? -1 : 1} * var(--u)))`; }); }
+function floater(text, gold, blinkIt) {
+  const f = els.float; f.textContent = text; f.style.color = V(gold ? 'gold-400' : 'pink-100'); f.style.display = 'block';
+  f.style.left = `calc(${Math.min(tipX() - 8, 360)} * var(--u))`;
+  for (let i = 0; i <= 12; i++) at(i * 40, () => { f.style.top = `calc(${24 - i} * var(--u))`; });
+  for (let i = 0; i < 6; i++) at(500 + i * 70, () => { f.style.visibility = i % 2 ? 'visible' : 'hidden'; }); if (!blinkIt) at(500, () => { f.style.visibility = 'visible'; });
+  at(900, () => { f.style.display = 'none'; f.style.visibility = 'visible'; });
+}
+function stepBar(get, set, goal, sparkly, done) { // llena/vacía bloque a bloque (máx. 1200 ms)
+  const diff = Math.abs(goal - get()); if (!diff) return done();
+  const inc = Math.max(diff > 30 ? 2 : 1, Math.ceil(diff * 30 / 1200)), dir = Math.sign(goal - get());
+  (function tick() {
+    const nv = dir > 0 ? Math.min(goal, get() + inc) : Math.max(goal, get() - inc); set(nv); paint();
+    if (sparkly && dir > 0 && rng() < 0.25) mk({ x: 32 + nv * 8 - 4, y: 36 + rr(0, 12), sprite: ['spark1', 'spark2', 'spark1'], fps: 10, maxLife: 0.3 });
+    if (nv === goal) done(); else at(30, tick);
+  })();
+}
+function roll(to, ms) {
+  const from = shownAmt, steps = Math.max(1, Math.min(30, Math.round(ms / 40)));
+  for (let i = 1; i <= steps; i++) at(i * 40, () => { shownAmt = Math.round((from + (to - from) * i / steps) * 100) / 100; paint(); });
+}
+function showBanner({ name, label, msg }, hold, done) {
+  els.bName.textContent = name; els.bAmt.textContent = label; els.bMsg.textContent = '';
+  els.bHeart.getContext('2d').drawImage(SP.heart, 0, 0);
+  const off = (i) => `translateX(calc(${Math.round(456 * (1 - i / 8)) - 0} * var(--u)))`;
+  for (let i = 1; i <= 8; i++) at(i * 30, () => { els.banner.style.transform = off(i); });
+  if (msg) at(260, () => typeInto(els.bMsg, msg, 30));
+  const out = 8 * 30 + hold;
+  for (let i = 1; i <= 8; i++) at(out + i * 30, () => { els.banner.style.transform = off(8 - i); });
+  at(out + 8 * 30 + 20, () => { els.banner.style.transform = ''; done && done(); });
+}
+
+// ---------- cola, combos y secuencias ----------
+const Q = []; let busy = false;
+const enqueue = (job, front) => { front ? Q.unshift(job) : Q.push(job); pump(); };
+function pump() { if (busy || paused || !Q.length) return; busy = true; Q.shift()(() => { busy = false; pump(); }); }
+const combiner = new Combiner({ windowMs: cfg.comboWindowMs, holdMs: cfg.comboHoldMs });
+let idc = 0;
+const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t('mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
+const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') : '+' + fmt(e.tierValue ?? e.value));
+function submit(raw) { // entrada de eventos crudos (panel de control, conectores futuros): se normalizan y pasan por el combinador
+  const ev = convert({ source: 'manual', id: 'm' + Date.now().toString(36) + idc++, ...raw }, cfg);
+  if (!S.seenIds.includes(ev.id)) combiner.add(ev, clock);
+}
+function dispatch(ev) { // evento (o combo) listo → cola FIFO; si la cola se llena, los pequeños se resumen en "+N APORTES"
+  const job = (d) => runDonationJob(ev, d); job.ev = ev; enqueue(job);
+  const queued = Q.filter((j) => j.ev), small = queued.filter((j) => tierOf(j.ev.value, S.target, cfg) === 'small');
+  if (queued.length > cfg.queueMax && small.length > 1) {
+    small.forEach((j) => Q.splice(Q.indexOf(j), 1));
+    const m = { ...merge(small.map((j) => j.ev)), summary: small.length, combo: undefined }, j2 = (d) => runDonationJob(m, d); j2.ev = m; Q.push(j2);
+  }
+}
+function runDonationJob(ev, done) { // un evento que cruza hitos/meta se parte: llena, celebra, continúa
+  const segs = splitEvent(S, ev, cfg);
+  if (segs.length > 1) Q.unshift(...segs.slice(1).map((sg) => (d) => runDonation(sg, d)));
+  runDonation(segs[0], done);
+}
+function moveBars(after, sparkly) {
+  if (goldFor(after) < shown2) { shown2 = 0; paint(); }
+  stepBar(() => shown, (v) => (shown = v), blocksFor(after), sparkly, () => stepBar(() => shown2, (v) => (shown2 = v), goldFor(after), sparkly, () => {}));
+  roll(after, 1200);
+}
+function runDonation(ev, done) {
+  const r = applyEvent(S, ev, cfg);
+  if (!r.effects.length) return done(); // duplicado o ignorado
+  S = r.state; save();
+  if (els.ticker.textContent.startsWith(t('remaining'))) at(1300, () => typeInto(els.ticker, remainingText(), 30)); // "FALTAN" al día tras llenar la barra
+  const { before, after } = r.effects[0], tier = tierOf(ev.tierValue ?? ev.value, S.target, cfg), T = TIERS[tier], gold = tier === 'large' || tier === 'mega', quiet = !!ev.quiet;
+  if (r.effects[0].type === 'silentUpdate' || ev.value < 0) { moveBars(after, false); at(1300, done); return; } // ajustes y reembolsos: sin celebración
+  flash(T.flash, tier === 'mega'); shake(T.shake);
+  if (!quiet) { audio.play(tier === 'mega' ? 'fanfare' : tier === 'large' ? 'arp4' : 'coin'); at(60, () => floater(labelOf(ev), gold, tier === 'mega')); }
+  at(80, () => moveBars(after, tier !== 'small'));
+  at(200, () => { burst(Math.min(T.n, reduced ? T.n >> 1 : T.n), T.h, ev.kind); if (tier === 'large') mk({ x: tipX(), y: 34, sprite: ['flower'], fps: 0, maxLife: 1.2 }); });
+  if (tier === 'mega' && !quiet) for (let i = 0; i < 30; i++) at(200 + i * 100, () => { for (let k = 0; k < 4; k++) petal(2.5, rr(0, 560)); });
+  if (quiet) at(1400, finish);
+  else at(250, () => showBanner({ name: nameOf(ev), label: labelOf(ev) + (ev.combo ? ' ' + t('combo', { n: ev.combo }) : ''), msg: cfg.showMessage ? ev.message : '' }, T.hold, finish));
+  function finish() {
+    nx.ticker = 0; // el ticker ('FALTAN…') se reescribe en cuanto la cola quede libre
+    const jobs = r.effects.slice(1).map((e) => (e.type === 'milestone' ? (d) => runMilestone(e.percent, d) : e.type === 'complete' ? runComplete : e.type === 'levelUp' ? (d) => runLevelUp(e.level, d) : null)).filter(Boolean);
+    Q.unshift(...jobs); done();
+  }
+}
+function runMilestone(m, done) {
+  audio.play('checkpoint'); drawFlag(m); flash(6); ring(32 + Math.round(m / 100 * cfg.blocks) * 8 + 2, 20);
+  showBanner({ name: t('checkpoint', { p: m }), label: '', msg: '' }, 2500 - 240, done);
+}
+function runLevelUp(n, done) { audio.play('fanfare'); flash(8, true); ring(tipX(), tipY, 24); showBanner({ name: t('level', { n }), label: '', msg: '' }, 2000, done); }
+function runComplete(done) {
+  const dur = cfg.completeDurationMs; celebrating = true; paint(); audio.play('fanfare'); els.widget.classList.add('celebrating');
+  for (let i = 0; i < 8; i++) at(i * 150, () => els.fill.classList.toggle('gold'));
+  for (let i = 0; i < Math.floor(cfg.blocks * 8 / 9); i++) { const s = 1200 + i * 40; at(s, () => mk({ x: 36 + i * 9, y: tipY, sprite: ['flower'], fps: 0, maxLife: (dur - s) / 1000 })); }
+  at(600, () => { unlocked = true; iconKey = ''; });
+  // texto grande con onda por letra
+  const big = els.big; big.textContent = ''; big.style.display = 'block';
+  [...t('goal')].forEach((ch) => { const s = document.createElement('span'); s.textContent = ch === ' ' ? '\u00a0' : ch; big.appendChild(s); });
+  const cols = ['pink-500', 'gold-400', 'pink-100'], wave = [0, 1, 2, 1, 0, 0], spans = [...big.children]; let on = true;
+  at(600, function w() { if (!on) return; spans.forEach((s, i) => { const k = Math.floor(clock / 80) + i; s.style.top = `calc(${-wave[k % 6] * (reduced ? 0 : 1)} * var(--u))`; s.style.color = V(cols[Math.floor(clock / 120 + i) % 3]); }); at(40, w); });
+  for (let i = 0; i < Math.floor((dur - 500) / 400); i++) at(i * 400, () => { for (let k = 0; k < 6; k++) { const sz = pick([[2, 2], [1, 3]]); mk({ x: rr(0, 480), y: -3, vy: rr(25, 50), amp: rr(2, 5), freq: rr(1.5, 2.5), phase: rr(0, 6), rect: [...sz, V(pick(['pink-200', 'pink-400', 'gold-400', 'pink-100', 'mint-300']))], maxLife: 8 }); } });
+  at(dur, () => {
+    on = false; celebrating = false; paint(); big.style.display = 'none'; els.widget.classList.remove('celebrating'); els.fill.classList.remove('gold');
+    if (cfg.onComplete === 'reset') at(10000 - 0, () => reset());
+    if (cfg.onComplete === 'next-goal') { const n = nextGoal(S, cfg); if (n !== S) { S = n; save(); Q.unshift(runNextGoal); } }
+    done();
+  });
+}
+function runNextGoal(done) { // metas encadenadas (?goals=MICRO:500,CAMARA:1000): el sobrante pasa a la siguiente
+  snap(); audio.play('arp4'); flash(4); ring(tipX(), tipY);
+  showBanner({ name: t('next'), label: `${S.goalIndex + 1}/${cfg.goals.length}`, msg: S.title }, 2500, () => { if (S.current >= S.target) Q.unshift(runComplete); done(); });
+}
+
+// ---------- ambientales ----------
+const nx = { petal: 500, wind: cfg.windEverySec * 1000, shine: 1500, sparkle: cfg.sparkleEverySec * 1000, flower: cfg.idleFlowerEverySec * 1000, ticker: 0 };
+let windUntil = 0, shineB = -1, shineAt = 0, tickIdx = 0;
+function wind() { windUntil = clock + 3000; for (let i = 0, n = Math.round(rr(6, 10)); i < n; i++) petal(2); }
+function idleFlower() {
+  const p = mk({ x: tipX(), y: tipY - 10, sprite: ['bud'], fps: 0 }); if (!p) return;
+  at(200, () => (p.sprite = ['half'])); at(400, () => (p.sprite = ['flower']));
+  at(1900, () => { P.splice(P.indexOf(p), 1); for (let i = 0; i < 3; i++) mk({ x: p.x + rr(-3, 3), y: p.y, vx: rr(-8, 8), vy: rr(6, 14), amp: 3, freq: 1, sprite: ['petalA', 'petalC', 'petalB', 'petalC'], fps: 6, maxLife: 3 }); });
+}
+const remainingText = () => `${t('remaining')} ${fmt(Math.max(0, S.target - S.current))}`;
+const TICKER = { last: () => S.recent[0] && `${t('last')}: ${nameOf(S.recent[0])} ${labelOf(S.recent[0])}`, top: () => S.topDonor && `${t('top')}: ${S.topDonor.name} ${fmt(S.topDonor.total)}`, remaining: remainingText };
+function tickerText() { // tickerMessages: claves conocidas o textos propios del streamer (textContent siempre)
+  const list = [...cfg.tickerMessages.map((m) => TICKER[m] || (() => m)), () => HOST?.notice?.()]; // aviso del anfitrión (p. ej. token caducado)
+  for (let i = 0; i < list.length; i++) { const s = list[(tickIdx++) % list.length](); if (s) return s; }
+  return '';
+}
+function ambient() {
+  if (document.hidden) return;
+  if (cfg.petals && clock >= nx.petal) { const [a, b] = cfg.petalBurst, n = a + Math.floor(rng() * (b - a + 1)); for (let i = 0; i < n && ambCount() < PETAL_MAX; i++) petal(clock < windUntil ? 2 : 1); nx.petal = clock + cfg.petalIntervalSec * 1000 * (0.7 + rng() * 0.6); }
+  if (cfg.petals && clock >= nx.wind) { wind(); nx.wind = clock + cfg.windEverySec * 1000; }
+  if (clock >= nx.shine) { shineB = 0; shineAt = clock; nx.shine = clock + cfg.shineEverySec * 1000; }
+  if (shineB >= 0 && clock >= shineAt) {
+    els.shine.style.display = 'block'; els.shine.style.left = `calc(${(shineB - 2) * 8} * var(--u))`; shineB++; shineAt = clock + 30;
+    if (shineB > Math.max(shown, shown2) + 2) { shineB = -1; els.shine.style.display = 'none'; }
+  }
+  if (clock >= nx.sparkle) { const n = Math.max(shown, 1); mk({ x: 32 + Math.floor(rng() * n) * 8 + 3, y: 34 + Math.floor(rr(0, 16)), sprite: ['spark1', 'spark2', 'spark1'], fps: 10, maxLife: 0.3 }); nx.sparkle = clock + cfg.sparkleEverySec * 1000; }
+  if (clock >= nx.flower && !busy) { idleFlower(); nx.flower = clock + cfg.idleFlowerEverySec * 1000; }
+  if (clock >= nx.ticker && !busy) { typeInto(els.ticker, tickerText(), 30); nx.ticker = clock + cfg.tickerEverySec * 1000; }
+}
+
+// ---------- modo manual, control remoto y atajos ----------
+const NAMES = ['Ana', 'Luis', 'Mei', 'Sakura', 'Pixel', 'Nico'], MSGS = ['¡Mucho éxito!', 'Gracias por el stream', '<script>alert(1)<\/script>', 'Este es un mensaje larguísimo para probar el recorte del banner'];
+const money = (pct) => Math.round(S.target * pct) / 100;
+function submitValue(value, o = {}) { combiner.add({ id: 'm' + Date.now().toString(36) + idc++, source: 'manual', kind: 'donation', name: pick(NAMES), rawAmount: value, rawCurrency: cfg.currency, value, message: pick(MSGS), ts: Date.now(), isTest: false, anon: false, ...o }, clock); }
+function test(kind, pct = 3) { const v = money(pct); submitValue(v, { kind, rawAmount: kind === 'bits' ? Math.round(v / cfg.bitsRate) : kind === 'sub' ? 1 : v }); }
+function clearJobs() {
+  Q.length = 0; tl.length = 0; P.length = 0; busy = false; combiner.items = []; celebrating = false; shineB = -1;
+  els.big.style.display = els.float.style.display = els.shine.style.display = 'none'; els.widget.classList.remove('celebrating');
+  els.banner.style.transform = els.frame.style.transform = ''; els.fill.classList.remove('gold'); els.mid.classList.remove('flash', 'gflash');
+}
+function snap() { // repinta el estado actual sin animar (reset, deshacer, cambio de meta)
+  shown = blocksFor(S.current); shown2 = goldFor(S.current); shownAmt = S.current; unlocked = S.current >= S.target; iconKey = '';
+  els.widget.querySelectorAll('.flag').forEach((f) => f.remove()); S.milestonesFired.forEach(drawFlag);
+  els.title.textContent = S.title; els.ticker.textContent = remainingText(); paint();
+}
+function reset() { clearJobs(); S = createState(cfg); relay?.send({ type: 'reset' }); save(); snap(); }
+function undo() {
+  const last = S.recent[0]; clearJobs(); S = undoLast(S, cfg);
+  if (last) relay?.send({ type: 'undone', ids: last.ids || [last.id] }); // el relay no lo volverá a entregar como pendiente
+  save(); snap();
+}
+function setTarget(v) { if (v > 0) { S = { ...S, target: v, level: levelOf(S.current, v, cfg), milestonesFired: S.milestonesFired.filter((m) => S.current >= m / 100 * v) }; clearJobs(); save(); snap(); } }
+function setTitle(v) { S = { ...S, title: String(v).slice(0, 24) }; els.title.textContent = S.title; save(); }
+function nextMilestone() { const m = cfg.milestones.find((x) => !S.milestonesFired.includes(x)); if (m === undefined) return complete(); submitValue(Math.max(0.01, Math.ceil(m / 100 * S.target - S.current + 0.01 * S.target)), { message: '' }); }
+function complete() { submitValue(Math.max(0.01, S.target - S.current), { message: '¡META!' }); }
+const ACT = { 1: ['1 %', () => test('donation', 1)], 2: ['3 %', () => test('donation', 3)], 3: ['7 %', () => test('donation', 7)], 4: ['12 %', () => test('donation', 12)],
+  b: ['bits', () => test('bits', 3)], s: ['sub', () => test('sub', 3)], p: ['pétalos', () => { for (let i = 0; i < 6; i++) petal(); }], w: ['viento', wind], f: ['flor', idleFlower],
+  t: ['tormenta', () => { for (let i = 0; i < 30; i++) at(i * 100, () => { for (let k = 0; k < 4; k++) petal(2.5, rr(0, 560)); }); }],
+  n: ['banner', () => enqueue((d) => showBanner({ name: pick(NAMES), label: '+' + fmt(5), msg: pick(MSGS).slice(0, cfg.maxMessageChars) }, 2500, d))],
+  x: ['combo', () => { for (let i = 0; i < 5; i++) test('donation', 1); }], m: ['hito', nextMilestone], c: ['meta', complete], z: ['deshacer', undo], r: ['reiniciar', reset] };
+addEventListener('keydown', (e) => { audio.unlock(); const a = ACT[e.key.toLowerCase()]; if (a && !e.ctrlKey && !e.metaKey) a[1](); });
+addEventListener('pointerdown', () => audio.unlock());
+// Panel de control (/control/): BroadcastChannel entre páginas del mismo navegador. VERIFICAR que OBS (dock vs. browser source) comparta canal.
+let bc = null; try { bc = new BroadcastChannel('sag-' + cfg.goalId); bc.onmessage = (m) => handle(m.data || {}); } catch { /* sin canal */ }
+function handle(d) {
+  switch (d.cmd) {
+    case 'event': return submit(d.ev || {});
+    case 'key': return ACT[d.key]?.[1]();
+    case 'reset': return reset();
+    case 'undo': return undo();
+    case 'target': return setTarget(Number(d.value));
+    case 'title': return setTitle(d.value);
+    case 'pause': paused = !!d.value; return pump();
+    case 'sound': audio.setEnabled(d.value); return audio.play('coin');
+    case 'hello': return status();
+  }
+}
+function status() {
+  const st = { current: S.current, target: S.target, pct: percentOf(S.current, S.target, cfg), level: lapView(S.current, S.target, cfg).level, title: S.title, paused, sound: audio.enabled, unit: cfg.unit, currency: cfg.currency, locale: cfg.locale, relay: !!relay?.up, recent: S.recent.slice(0, 5).map((e) => ({ name: nameOf(e), label: labelOf(e) })) };
+  bc?.postMessage({ cmd: 'status', ...st }); relay?.send({ type: 'status', ...st });
+}
+setInterval(status, 2000);
+// resetEvery: al cambiar de día/semana/mes la meta vuelve a cero (se espera a que no haya animaciones en curso)
+if (cfg.resetEvery !== 'none') setInterval(() => { if (!busy && !celebrating && periodKey(cfg.resetEvery) !== S.periodKey) reset(); }, 30000);
+
+// Relay (npm start): snapshot al conectar + eventos en vivo + comandos del panel.
+const inFlight = () => new Set([...combiner.items, ...Q.map((j) => j.ev).filter(Boolean)].flatMap((e) => e.ids || [e.id]));
+function onSnapshot({ state, pending = [] }) {
+  let changed = false;
+  if (state && state.goalId === cfg.goalId && (state.savedAt || 0) > (S.savedAt || 0)) { clearJobs(); S = createState(cfg, state); changed = true; }
+  if (state?.periodKey && S.periodKey && state.periodKey !== S.periodKey) relay.send({ type: 'reset' }); // el relay guardaba un período viejo
+  else if (S.savedAt) relay.send({ type: 'state', state: S }); // el relay está vacío o atrasado: se le sube el estado local
+  const busyIds = inFlight();
+  for (const raw of pending) { // llegaron con el overlay apagado → se suman sin animar ni re-celebrar
+    if (S.seenIds.includes(raw.id) || busyIds.has(raw.id) || raw.ts < periodStart(cfg.resetEvery)) continue; // de un período anterior: no cuenta
+    const r = applyEvent(S, convert(raw, cfg), cfg);
+    if (r.effects.length) { S = r.state; changed = true; }
+  }
+  if (changed) { save(); snap(); }
+}
+HOST?.onEvent?.((raw) => submit(raw)); HOST?.onCommand?.((d) => handle(d));
+if (!HOST && (cfg.source === 'relay' || (cfg.source === 'auto' && /^https?:$/.test(location.protocol)))) {
+  relay = connectRelay(relayUrlFor(cfg), { type: 'hello', role: 'overlay', goalId: cfg.goalId }, {
+    snapshot: onSnapshot,
+    event: (d) => { if (!inFlight().has(d.ev?.id)) submit(d.ev || {}); },
+    cmd: (d) => handle(d),
+    link: () => status(),
+  });
+}
+if (cfg.debug) for (const [k, [label, fn]] of Object.entries(ACT)) { const b = document.createElement('button'); b.textContent = `${k}: ${label}`; b.onclick = fn; els.dbg.appendChild(b); }
+const dbgTxt = document.createElement('div'); if (cfg.debug) els.dbg.prepend(dbgTxt);
+
+// ---------- bucle de tiempo fijo ----------
+const STEP = 1000 / 60, FRAME = 1000 / cfg.retroFps; let acc = 0, last = performance.now(), sinceDraw = 0, frames = 0, fpsT = last, fps = 0;
+function frame(now) {
+  const d = Math.min(now - last, 100); last = now; acc += d; sinceDraw += d;
+  while (acc >= STEP) { clock += STEP; runTl(); const cm = combiner.poll(clock); if (cm) dispatch(cm); ambient(); updateParticles(STEP / 1000); acc -= STEP; }
+  if (sinceDraw >= FRAME - 1) { sinceDraw = 0; drawParticles(); drawIcons(); frames++; }
+  if (cfg.debug && now - fpsT >= 1000) { fps = frames; frames = 0; fpsT = now; dbgTxt.textContent = `fps ${fps} · ${S.current}/${S.target} · part ${P.length} · cola ${Q.length} · relay ${relay ? (relay.up ? 'ok' : '…') : 'off'} · posados ${landings}`; }
+  requestAnimationFrame(frame);
+}
+paint(); els.ticker.textContent = remainingText();
+requestAnimationFrame(frame);
+
+};
+globalThis.__SAG_START = __m["main.js"];
+
+__m["../../relay/normalize.js"] = (() => {
+// Payloads externos → evento crudo { id, source, kind, name, rawAmount, rawCurrency, message, ts, isTest, anon, tier }.
+// El valor en unidades de la meta lo calcula el overlay (events.js/convert) con su config. Puro, sin red.
+// VERIFICAR (plan §12 #3): con SAVE_PAYLOADS=1 el relay guarda los payloads reales en payloads.jsonl para ajustar esto.
+const TIERS = { 1000: 'T1', 2000: 'T2', 3000: 'T3', prime: 'prime' };
+const tier = (p) => TIERS[String(p ?? '1000').toLowerCase()] || 'T1';
+const num = (x) => { const n = typeof x === 'number' ? x : parseFloat(String(x ?? '').replace(/[^0-9.-]/g, '')); return Number.isFinite(n) ? n : 0; };
+const str = (x, n = 200) => String(x ?? '').slice(0, n);
+const time = (x) => { const t = typeof x === 'number' ? x : Date.parse(x); return Number.isFinite(t) ? t : Date.now(); };
+
+// ---------- StreamElements (socket `event`) ----------
+function normalizeSE(e, { test = false } = {}) {
+  const d = e?.data || {}, ts = time(e?.createdAt);
+  const base = { id: e?._id ? `se:${e._id}` : undefined, source: 'streamelements', name: str(d.displayName || d.username || d.name, 30), message: str(d.message), ts, isTest: test || !!d.isTest, anon: false };
+  switch (e?.type) {
+    case 'tip': return [{ ...base, kind: 'donation', rawAmount: num(d.amount), rawCurrency: str(d.currency || 'USD', 10).toUpperCase() }];
+    case 'cheer': return [{ ...base, kind: 'bits', rawAmount: num(d.amount), rawCurrency: 'BITS' }];
+    case 'subscriber': { // regalo: cuenta 1 sub por receptor y se acredita a quien regala (`sender`)
+      const t = tier(d.tier);
+      return [{ ...base, kind: 'sub', rawAmount: 1, rawCurrency: 'SUB_' + t, tier: t, name: str(d.gifted && d.sender ? d.sender : base.name, 30) }];
+    }
+    case 'follow': return [{ ...base, kind: 'follow', rawAmount: 1, rawCurrency: 'COUNT' }];
+    case 'raid': return [{ ...base, kind: 'raid', rawAmount: num(d.amount), rawCurrency: 'VIEWERS' }];
+    default: return []; // communityGiftPurchase se ignora: cada sub regalada llega como `subscriber` y se contaría dos veces
+  }
+}
+
+// SE `event:test` (botones "emular" del dashboard): { listener: 'tip-latest', event: { name, amount, message } }.
+// Sin _id y suelen dispararse varias veces → id por contenido en ventanas de 5 s para deduplicar.
+const SE_TEST = { 'tip-latest': 'tip', 'cheer-latest': 'cheer', 'subscriber-latest': 'subscriber', 'follower-latest': 'follow', 'raid-latest': 'raid' };
+function normalizeSETest(p, now = Date.now()) {
+  const type = SE_TEST[p?.listener], ev = p?.event || {};
+  if (!type) return [];
+  return normalizeSE({ type, createdAt: now, data: { username: ev.name, amount: ev.amount, message: ev.message, currency: ev.currency, tier: ev.tier } }, { test: true })
+    .map((r) => ({ ...r, id: `se-test:${type}:${r.name}:${r.rawAmount}:${Math.floor(now / 5000)}` }));
+}
+
+// ---------- Streamlabs (socket `event`): { type, for, message: [ ... ], event_id } ----------
+function normalizeSL(p) {
+  const list = Array.isArray(p?.message) ? p.message : p?.message && typeof p.message === 'object' ? [p.message] : [];
+  const out = [];
+  list.forEach((m, i) => {
+    const rawId = m._id ?? m.id ?? (p.event_id ? `${p.event_id}${list.length > 1 ? ':' + i : ''}` : undefined);
+    const base = { id: rawId != null ? `sl:${rawId}` : undefined, source: 'streamlabs', name: str(m.from || m.display_name || m.name, 30), message: str(m.message), ts: time(m.created_at ? m.created_at * 1000 : undefined), isTest: !!m.isTest, anon: false };
+    switch (p.type) {
+      case 'donation': out.push({ ...base, kind: 'donation', rawAmount: num(m.amount), rawCurrency: str(m.currency || 'USD', 10).toUpperCase() }); break;
+      case 'bits': out.push({ ...base, kind: 'bits', rawAmount: num(m.amount), rawCurrency: 'BITS' }); break;
+      case 'subscription': case 'resub': {
+        const t = tier(m.sub_plan), gifter = m.gifter_display_name || m.gifter;
+        out.push({ ...base, kind: 'sub', rawAmount: 1, rawCurrency: 'SUB_' + t, tier: t, name: str(gifter || base.name, 30) }); break;
+      }
+      case 'follow': out.push({ ...base, kind: 'follow', rawAmount: 1, rawCurrency: 'COUNT' }); break;
+      case 'raid': out.push({ ...base, kind: 'raid', rawAmount: num(m.raiders ?? m.amount), rawCurrency: 'VIEWERS' }); break;
+      default: break; // subMysteryGift, host, superchat…: no suman (los regalos llegan como subscription individuales)
+    }
+  });
+  return out;
+}
+
+// ---------- Twitch EventSub (notificación: subscription.type + event) ----------
+// Regalos: se cuenta UNA vez el `channel.subscription.gift` (total, a nombre de quien regala) y se ignoran los
+// `channel.subscribe` con is_gift=true que llegan por cada receptor. Las renovaciones llegan como `subscription.message`.
+function normalizeTwitch(type, e, messageId, ts = Date.now()) {
+  if (!e) return [];
+  const anon = !!e.is_anonymous, base = { id: messageId ? `tw:${messageId}` : undefined, source: 'twitch', name: anon ? '' : str(e.user_name || e.user_login, 30), anon, message: '', ts, isTest: false };
+  switch (type) {
+    case 'channel.cheer': return [{ ...base, kind: 'bits', rawAmount: num(e.bits), rawCurrency: 'BITS', message: str(e.message) }];
+    case 'channel.subscribe': { if (e.is_gift) return []; const t = tier(e.tier); return [{ ...base, kind: 'sub', rawAmount: 1, rawCurrency: 'SUB_' + t, tier: t }]; }
+    case 'channel.subscription.message': { const t = tier(e.tier); return [{ ...base, kind: 'sub', rawAmount: 1, rawCurrency: 'SUB_' + t, tier: t, message: str(e.message?.text) }]; }
+    case 'channel.subscription.gift': { const t = tier(e.tier); return [{ ...base, kind: 'giftsub', rawAmount: Math.max(1, num(e.total)), rawCurrency: 'SUB_' + t, tier: t }]; }
+    case 'channel.follow': return [{ ...base, kind: 'follow', rawAmount: 1, rawCurrency: 'COUNT' }];
+    case 'channel.raid': return [{ ...base, kind: 'raid', rawAmount: num(e.viewers), rawCurrency: 'VIEWERS', name: str(e.from_broadcaster_user_name, 30) }];
+    default: return [];
+  }
+}
+
+// ---------- entrada genérica (panel, REST, Streamer.bot): valida y recorta todo ----------
+const KINDS = ['donation', 'bits', 'sub', 'giftsub', 'follow', 'raid', 'adjust'];
+function sanitize(raw) {
+  if (!raw || typeof raw !== 'object' || !KINDS.includes(raw.kind)) return null;
+  const amount = num(raw.rawAmount);
+  if (Math.abs(amount) > 1e9) return null;
+  const cur = /^[A-Z0-9_]{1,10}$/.test(String(raw.rawCurrency ?? '')) ? raw.rawCurrency : undefined;
+  return {
+    ...(raw.id != null && { id: str(raw.id, 120) }), source: str(raw.source || 'manual', 20), kind: raw.kind, name: str(raw.name, 30), rawAmount: amount,
+    ...(cur && { rawCurrency: cur }), message: str(raw.message), ts: raw.ts != null ? time(raw.ts) : Date.now(), isTest: !!raw.isTest, anon: !!raw.anon,
+    ...(['T1', 'T2', 'T3', 'prime'].includes(raw.tier) && { tier: raw.tier }), ...(raw.goalId && { goalId: str(raw.goalId, 40) }),
+  };
+}
+
+return { normalizeSE, normalizeSETest, normalizeSL, normalizeTwitch, sanitize };
+})();
+
+__m["../../relay/twitch-topics.js"] = (() => {
+// Suscripciones de EventSub que usa la meta. Puro: lo comparten el relay (Node) y la versión web (navegador).
+const SCOPES = ['bits:read', 'channel:read:subscriptions', 'moderator:read:followers'];
+// tipo, versión, scope necesario (null = ninguno), condición
+const TOPICS = [
+  ['channel.cheer', '1', 'bits:read', (u) => ({ broadcaster_user_id: u })],
+  ['channel.subscribe', '1', 'channel:read:subscriptions', (u) => ({ broadcaster_user_id: u })],
+  ['channel.subscription.message', '1', 'channel:read:subscriptions', (u) => ({ broadcaster_user_id: u })],
+  ['channel.subscription.gift', '1', 'channel:read:subscriptions', (u) => ({ broadcaster_user_id: u })],
+  ['channel.follow', '2', 'moderator:read:followers', (u) => ({ broadcaster_user_id: u, moderator_user_id: u })],
+  ['channel.raid', '1', null, (u) => ({ to_broadcaster_user_id: u })],
+];
+const topicsFor = (scopes) => TOPICS.filter(([, , s]) => !s || scopes.includes(s));
+
+return { SCOPES, topicsFor };
+})();
+
+__m["sources/direct.js"] = (() => {
+// Versión web pública: el propio overlay (navegador de OBS) se conecta a StreamElements, Streamlabs y Twitch, sin relay.
+// Las dependencias (io de socket.io, WebSocket, fetch) se inyectan para poder probarlo en Node con servidores simulados.
+const { normalizeSE, normalizeSETest, normalizeSL, normalizeTwitch } = __m["../../relay/normalize.js"];
+const { topicsFor } = __m["../../relay/twitch-topics.js"];
+
+const ioOpts = { transports: ['websocket'], reconnectionDelay: 1000, reconnectionDelayMax: 30000, randomizationFactor: 0.5, timeout: 15000 };
+const safe = (fn) => (p) => { try { return fn(p); } catch { return []; } };
+
+// status(s): 'conectando' | 'conectado' | 'reintentando' | 'error: …' — se muestra en la página de configuración
+function startDirectSE({ token, io, onEvents, status }) {
+  const s = io('https://realtime.streamelements.com', ioOpts);
+  status('conectando');
+  s.on('connect', () => s.emit('authenticate', { method: 'jwt', token }));
+  s.on('authenticated', () => status('conectado'));
+  s.on('unauthorized', () => { status('error: token rechazado'); s.disconnect(); });
+  s.on('connect_error', () => status('reintentando'));
+  s.on('event', (p) => onEvents(safe(normalizeSE)(p)));
+  s.on('event:test', (p) => onEvents(safe(normalizeSETest)(p)));
+  return { stop: () => s.close() };
+}
+
+function startDirectSL({ token, io, onEvents, status }) {
+  const s = io(`https://sockets.streamlabs.com?token=${encodeURIComponent(token)}`, ioOpts);
+  status('conectando');
+  s.on('connect', () => status('conectado'));
+  s.on('connect_error', (e) => status(/auth|token/i.test(e?.message) ? 'error: token rechazado' : 'reintentando'));
+  s.on('disconnect', (r) => { if (r === 'io server disconnect') { status('error: token rechazado'); } });
+  s.on('event', (p) => onEvents(safe(normalizeSL)(p)));
+  return { stop: () => s.close() };
+}
+
+const TW = { ws: 'wss://eventsub.wss.twitch.tv/ws', helix: 'https://api.twitch.tv/helix', validate: 'https://id.twitch.tv/oauth2/validate' };
+
+// Twitch EventSub por WebSocket: validar token → welcome → suscripciones (≤ 10 s) → notificaciones; keepalive y reconexión.
+function startDirectTwitch({ token, onEvents, status, WS = globalThis.WebSocket, fetchImpl = globalThis.fetch, urls = TW, setT = setTimeout, clearT = clearTimeout }) {
+  let info = null, ws = null, stopped = false, delay = 1000, retryT = null, keepT = null;
+  const seen = new Set();
+  async function subscribe(sessionId) {
+    let ok = 0;
+    const topics = topicsFor(info.scopes || []);
+    for (const [type, version, , cond] of topics) {
+      const r = await fetchImpl(`${urls.helix}/eventsub/subscriptions`, { method: 'POST', headers: { 'Client-Id': info.client_id, Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, version, condition: cond(info.user_id), transport: { method: 'websocket', session_id: sessionId } }) }).catch(() => null);
+      if (r && (r.ok || r.status === 409)) ok++;
+    }
+    status(ok ? 'conectado' : 'error: no se pudo suscribir');
+  }
+  const arm = (sec) => { clearT(keepT); keepT = setT(() => ws?.close(), (sec + 5) * 1000); };
+  function connect(url = urls.ws, replacing = null) {
+    const sock = new WS(url); let keep = 10;
+    if (!replacing) ws = sock;
+    sock.onmessage = (m) => {
+      let d; try { d = JSON.parse(m.data); } catch { return; }
+      const md = d.metadata || {}, p = d.payload || {};
+      if (md.message_id) { if (seen.has(md.message_id)) return; seen.add(md.message_id); if (seen.size > 500) seen.delete(seen.values().next().value); }
+      if (sock === ws) arm(keep);
+      if (md.message_type === 'session_welcome') {
+        keep = p.session?.keepalive_timeout_seconds || 10; delay = 1000;
+        if (replacing) { ws = sock; replacing.onclose = null; replacing.close(); } else subscribe(p.session.id);
+        arm(keep);
+      } else if (md.message_type === 'session_reconnect') connect(p.session?.reconnect_url, sock);
+      else if (md.message_type === 'notification') onEvents(normalizeTwitch(p.subscription?.type, p.event, md.message_id, Date.parse(md.message_timestamp) || Date.now()));
+      else if (md.message_type === 'revocation' && p.subscription?.status === 'authorization_revoked') status('error: permiso revocado');
+    };
+    sock.onclose = () => {
+      if (sock !== ws || stopped) return;
+      clearT(keepT); status('reintentando');
+      clearT(retryT); retryT = setT(() => connect(), delay * (0.75 + Math.random() * 0.5)); delay = Math.min(delay * 2, 30000);
+    };
+  }
+  async function begin() {
+    if (stopped) return;
+    status('conectando');
+    const r = await fetchImpl(urls.validate, { headers: { Authorization: `OAuth ${token}` } }).catch(() => null);
+    if (!r) { status('reintentando'); retryT = setT(begin, 30000); return; } // sin internet todavía (OBS arrancó antes que la red)
+    if (r.status === 401) { status('error: token caducado'); return; }
+    info = await r.json();
+    if (!stopped) connect();
+  }
+  begin();
+  return { stop() { stopped = true; clearT(retryT); clearT(keepT); if (ws) { ws.onclose = null; ws.close(); } } };
+}
+
+// Una sola fuente para bits/subs aunque se conecten varias (evita contarlos dos veces): Twitch > StreamElements > Streamlabs
+function twitchSource(connected) { return ['twitch', 'streamelements', 'streamlabs'].find((s) => connected.includes(s)) || 'any'; }
+
+return { startDirectSE, startDirectSL, startDirectTwitch, twitchSource };
+})();
+
+__m["../../relay/hub.js"] = (() => {
+// Centro del relay: recibe eventos (conectores, panel, REST), deduplica, los guarda y los reparte a los overlays.
+// El overlay sigue siendo quien convierte y reduce (state.js); el relay guarda el estado que el overlay le devuelve
+// y le entrega al conectar un snapshot + los eventos que llegaron mientras estaba apagado (se aplican sin animar).
+const { sanitize } = __m["../../relay/normalize.js"];
+
+const LOG_MAX = 300, SEEN_MAX = 2000;
+const hash = (s) => { let h = 5381; for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) | 0; return (h >>> 0).toString(36); };
+const TWITCH_KINDS = { bits: 'bitsFrom', sub: 'subsFrom', giftsub: 'subsFrom', follow: 'subsFrom', raid: 'subsFrom' };
+
+// rules: { bitsFrom, subsFrom, donationsFrom[] } — 'any' desactiva el filtro. Evita contar bits/subs dos veces (plan §12 #15).
+function sourceAllowed(ev, rules) {
+  if (ev.source === 'manual' || ev.source === 'test' || ev.source === 'chat') return true; // cargados a mano por ti o tus mods
+  if (ev.kind === 'donation') return rules.donationsFrom.includes('any') || rules.donationsFrom.includes(ev.source);
+  const key = TWITCH_KINDS[ev.kind];
+  return !key || rules[key] === 'any' || rules[key] === ev.source;
+}
+
+function createHub({ store, log, rules = { bitsFrom: 'any', subsFrom: 'any', donationsFrom: ['any'] } }) {
+  const d = store.data, clients = new Set(), seen = new Set(d.seen), connectors = {};
+  let idc = 0;
+
+  function goal(id) {
+    if (!d.goals[id]) { // un goal nuevo solo recibe pendientes desde ahora (salvo el primero de una instalación nueva)
+      d.goals[id] = { state: null, since: Object.keys(d.goals).length ? Date.now() : d.createdAt - 1 };
+      store.save();
+    }
+    return d.goals[id];
+  }
+  const send = (role, goalId, msg) => { for (const c of clients) if (c.role === role && (!goalId || c.goalId === goalId)) c.send(msg); };
+  const counts = () => ({ overlays: [...clients].filter((c) => c.role === 'overlay').length, controls: [...clients].filter((c) => c.role === 'control').length });
+  const relayInfo = () => ({ type: 'relay', connectors, ...counts() });
+
+  function intake(input) {
+    const ev = sanitize(input);
+    if (!ev) return { ok: false, reason: 'invalid' };
+    ev.id ??= ev.source === 'manual' ? `m:${Date.now().toString(36)}${(idc++).toString(36)}` : `h:${hash(`${ev.source}|${ev.kind}|${ev.name}|${ev.rawAmount}|${ev.ts}`)}`;
+    if (seen.has(ev.id)) { log.debug('duplicado ignorado', ev.id); return { ok: false, reason: 'duplicate', id: ev.id }; }
+    if (!sourceAllowed(ev, rules)) { log.debug(`${ev.kind} de ${ev.source} ignorado por bitsFrom/subsFrom/donationsFrom`); return { ok: false, reason: 'filtered', id: ev.id }; }
+    seen.add(ev.id); d.seen.push(ev.id);
+    if (d.seen.length > SEEN_MAX) d.seen.splice(0, d.seen.length - SEEN_MAX).forEach((x) => seen.delete(x));
+    ev.rx = Date.now(); d.log.push(ev); if (d.log.length > LOG_MAX) d.log.splice(0, d.log.length - LOG_MAX);
+    store.save();
+    log.info(`${ev.isTest ? '[prueba] ' : ''}${ev.source} ${ev.kind} ${ev.rawAmount}${ev.rawCurrency ? ' ' + ev.rawCurrency : ''} de ${ev.name || '—'}`);
+    send('overlay', ev.goalId, { type: 'event', ev });
+    return { ok: true, id: ev.id };
+  }
+
+  function snapshot(goalId) {
+    const g = goal(goalId), seenByOverlay = new Set(g.state?.seenIds || []);
+    const pending = d.log.filter((e) => e.rx > g.since && (!e.goalId || e.goalId === goalId) && !seenByOverlay.has(e.id));
+    return { type: 'snapshot', state: g.state, pending };
+  }
+
+  function onMessage(c, m) {
+    if (!m || typeof m !== 'object') return;
+    if (m.type === 'hello') {
+      c.role = m.role === 'control' ? 'control' : 'overlay'; c.goalId = String(m.goalId || 'main').slice(0, 40);
+      if (c.role === 'overlay') c.send(snapshot(c.goalId));
+      else send('overlay', c.goalId, { type: 'cmd', cmd: 'hello' }); // que el overlay mande su estado ya
+      send('control', null, relayInfo());
+      return;
+    }
+    if (!c.role) return;
+    const g = c.role === 'overlay' ? goal(c.goalId) : null;
+    if (g) switch (m.type) {
+      case 'state': // gana el más reciente (varios overlays de la misma meta calculan lo mismo)
+        if (m.state?.goalId === c.goalId && (m.state.savedAt || 0) >= (g.state?.savedAt || 0)) { g.state = m.state; store.save(); }
+        return;
+      case 'status': return send('control', c.goalId, { ...m, type: 'status' });
+      case 'undone': { const ids = new Set(m.ids || []); d.log = d.log.filter((e) => !ids.has(e.id)); store.save(); return; } // no re-aplicar lo deshecho
+      case 'reset': g.since = Date.now(); store.save(); return;
+      default: return;
+    }
+    if (m.type === 'cmd') {
+      if (m.cmd === 'event') return intake({ ...m.ev, source: 'manual', id: undefined, goalId: c.goalId });
+      return send('overlay', c.goalId, { ...m, type: 'cmd' });
+    }
+  }
+
+  return {
+    intake, snapshot, onMessage, counts,
+    attach(c) { clients.add(c); },
+    detach(c) { clients.delete(c); send('control', null, relayInfo()); },
+    command(goalId, cmd) { send('overlay', goalId, { ...cmd, type: 'cmd' }); },
+    setConnector(name, status) { if (connectors[name] === status) return; connectors[name] = status; send('control', null, relayInfo()); },
+    connectors,
+  };
+}
+
+return { sourceAllowed, createHub };
+})();
+
+__m["hosts/direct.js"] = (() => {
+// Anfitrión de la versión web pública (dist/web/overlay.html). Sin servidor: el overlay se conecta solo a los servicios.
+// Config en ?query (título, meta, tema…) y tokens en el #fragmento: el navegador NUNCA envía el # al servidor de la página.
+// ?preview=1 (vista previa de la página de configuración): no guarda progreso y escucha comandos de prueba del padre.
+const { startDirectSE, startDirectSL, startDirectTwitch, twitchSource } = __m["sources/direct.js"];
+const { sourceAllowed } = __m["../../relay/hub.js"];
+
+const secrets = new URLSearchParams(location.hash.slice(1)), q = new URLSearchParams(location.search);
+const preview = q.get('preview') === '1', KEY = 'sag:' + (q.get('goalId') || 'main');
+const tokens = { streamelements: secrets.get('se'), streamlabs: secrets.get('sl'), twitch: secrets.get('tw') };
+const used = Object.keys(tokens).filter((k) => tokens[k]);
+const rules = { bitsFrom: twitchSource(used), subsFrom: twitchSource(used), donationsFrom: ['any'] };
+const connectors = {};
+let onEvent = null, onCommand = null;
+
+const report = () => { if (window.parent !== window) window.parent.postMessage({ sag: 'status', connectors }, location.origin); };
+const status = (name) => (s) => { connectors[name] = s; report(); };
+const deliver = (list) => { for (const ev of list) if (sourceAllowed(ev, rules)) onEvent?.(ev); };
+// Si un token deja de valer, el ticker lo avisa (mejor eso que perder aportes en silencio durante un directo)
+const NOTICE = { twitch: 'RECONECTA TWITCH', streamelements: 'REVISA STREAMELEMENTS', streamlabs: 'REVISA STREAMLABS' };
+
+let saved = null;
+if (!preview) try { saved = JSON.parse(localStorage.getItem(KEY)); } catch { /* sin localStorage */ }
+globalThis.__SAG_HOST = {
+  search: location.search, saved,
+  save: preview ? null : (s) => { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch { /* ignorar */ } },
+  onEvent: (cb) => { onEvent = cb; }, onCommand: (cb) => { onCommand = cb; },
+  notice: () => { const bad = Object.entries(connectors).find(([, s]) => /token|permiso/.test(s)); return bad ? NOTICE[bad[0]] : ''; },
+};
+globalThis.__SAG_START();
+
+window.addEventListener('message', (m) => { if (m.origin === location.origin && m.data?.sag === 'cmd') onCommand?.(m.data.cmd); });
+if (window.parent !== window) setInterval(report, 2000);
+
+if (tokens.streamelements) startDirectSE({ token: tokens.streamelements, io: globalThis.io, onEvents: deliver, status: status('streamelements') });
+if (tokens.streamlabs) startDirectSL({ token: tokens.streamlabs, io: globalThis.io, onEvents: deliver, status: status('streamlabs') });
+if (tokens.twitch) startDirectTwitch({ token: tokens.twitch, onEvents: deliver, status: status('twitch') });
+report();
+
+return {  };
+})();
+
+})();
+</script>
+</body>
+</html>

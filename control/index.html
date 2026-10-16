@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Sakura Arcade Goal · Control</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font: 14px system-ui, sans-serif; background: #2B1030; color: #FFF0F6; margin: 0; padding: 10px; }
+  h1 { font-size: 15px; margin: 0 0 8px; } h2 { font-size: 12px; text-transform: uppercase; color: #FF8DBF; margin: 14px 0 6px; }
+  button, input, select { font: inherit; padding: 6px 9px; border: 2px solid #FF8DBF; background: #4A1942; color: #FFF0F6; }
+  button { cursor: pointer; } button:hover { background: #C2307A; } input { width: 110px; } input.w { width: 190px; }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; } #st { background: #4A1942; padding: 8px; border: 2px solid #7A2A63; }
+  #dot { display: inline-block; width: 10px; height: 10px; background: #7A2A63; margin-right: 6px; } #dot.on { background: #8CF2D2; }
+  small { color: #FFC6DE; } ul { margin: 4px 0 0; padding-left: 18px; }
+  #conn { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; } #conn li { padding: 3px 8px; border: 2px solid #7A2A63; background: #4A1942; }
+  #conn li.on { border-color: #8CF2D2; } #conn li.warn { border-color: #FFD36B; } #conn li.off { color: #FFC6DE; }
+</style></head>
+<body>
+<h1>🌸 Sakura Arcade Goal · Control <small>(meta: <input id="goalId" value="main" style="width:70px">)</small></h1>
+<div id="st"><span id="dot"></span><b id="stTitle">Esperando al overlay…</b><div id="stNums"></div><ul id="stRecent"></ul>
+  <small>Con el relay (npm start / iniciar.bat) funciona desde cualquier navegador o dock de OBS. Sin relay, el overlay debe estar abierto en este mismo navegador.</small></div>
+<h2>Conexiones</h2>
+<ul id="conn"><li class="off">relay: comprobando…</li></ul>
+<div class="row" style="margin-top:6px"><a href="twitch.html" style="color:#FFC6DE">Conectar Twitch (bits y subs) →</a></div>
+
+<h2>Aporte rápido</h2>
+<div class="row"><select id="kind"><option value="donation">Donación</option><option value="bits">Bits</option><option value="sub">Sub</option></select>
+  <button data-q="1">+1</button><button data-q="5">+5</button><button data-q="20">+20</button><button data-q="50">+50</button></div>
+<h2>Aporte personalizado</h2>
+<div class="row"><input id="amt" type="number" step="any" placeholder="monto"><input id="nm" class="w" placeholder="nombre" maxlength="30"><input id="msg" class="w" placeholder="mensaje" maxlength="80"><button id="send">Enviar</button><button id="adj" title="Corrige el monto sin celebrar (admite negativos)">Ajuste silencioso</button></div>
+
+<h2>Probar animaciones</h2>
+<div class="row" id="tests"></div>
+
+<h2>Ajustes</h2>
+<div class="row"><input id="target" type="number" min="1" placeholder="meta"><button id="setT">Cambiar meta</button><input id="title" class="w" maxlength="24" placeholder="título"><button id="setN">Cambiar título</button></div>
+<div class="row" style="margin-top:6px"><button id="undo">↶ Deshacer último</button><button id="pause">⏸ Pausar cola</button><button id="sound">🔇 Sonido</button><button id="reset">Reiniciar meta</button></div>
+
+<h2>URL del overlay</h2>
+<div class="row"><input id="scale" type="number" min="1" max="4" value="1" style="width:60px" title="scale"><input id="pi" type="number" step="0.5" value="4" style="width:70px" title="petalIntervalSec"><button id="copy">Copiar URL del overlay</button><small id="url"></small></div>
+<script src="control.js" type="module"></script>
+</body></html>

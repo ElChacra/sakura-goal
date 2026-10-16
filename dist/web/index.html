@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Sakura Arcade Goal · Barra de metas 8-bit para tu stream</title>
+<meta name="description" content="Barra de metas pixel-art rosada para OBS. Gratis y sin instalar nada: conecta tu cuenta, personalízala y copia la URL.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 6' shape-rendering='crispEdges'%3E%3Cpath fill='%23FF5CA8' d='M1 0h2v1H1zM4 0h2v1H4zM0 1h7v2H0zM1 3h5v1H1zM2 4h3v1H2zM3 5h1v1H3z'/%3E%3C/svg%3E">
+<style>
+  @font-face { font-family: 'PS2P'; src: url('fonts/PressStart2P-Regular.woff2') format('woff2'); font-display: swap; }
+  :root { --ink: #2B1030; --plum: #4A1942; --plum2: #7A2A63; --pink: #FF5CA8; --pink2: #FF8DBF; --pink3: #FFC6DE; --cream: #FFF0F6; --gold: #FFD84D; --mint: #8CF2D2; --bad: #FFB86B; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #1E0B22; color: var(--cream); font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  a { color: var(--pink3); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px 48px; }
+  header { text-align: center; padding: 40px 16px 24px; }
+  h1 { font: 22px/1.5 'PS2P', monospace; color: var(--pink2); margin: 0 0 12px; text-shadow: 3px 3px 0 var(--ink); }
+  header p { margin: 0 auto; max-width: 620px; color: var(--pink3); }
+  .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .badges span { border: 2px solid var(--plum2); padding: 2px 10px; font-size: 14px; }
+  section { background: var(--plum); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); margin: 24px 0; padding: 20px; }
+  h2 { font: 13px/1.6 'PS2P', monospace; color: var(--gold); margin: 0 0 14px; }
+  h2 b { color: var(--pink2); margin-right: 8px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .card { border: 2px solid var(--plum2); padding: 14px; background: #3C1236; }
+  .card h3 { margin: 0 0 4px; font-size: 17px; } .card small { color: var(--pink3); display: block; margin-bottom: 10px; }
+  .card.on { border-color: var(--mint); }
+  button, .btn { font: inherit; font-weight: 600; padding: 9px 14px; border: 2px solid var(--ink); background: var(--pink); color: var(--ink); cursor: pointer; box-shadow: 3px 3px 0 var(--ink); }
+  button:hover { background: var(--pink2); } button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  button.ghost { background: transparent; color: var(--cream); border-color: var(--plum2); box-shadow: none; }
+  button.twitch { background: #9146FF; color: #fff; }
+  input, select { font: inherit; width: 100%; padding: 8px; background: #2A0F2C; color: var(--cream); border: 2px solid var(--plum2); }
+  input:focus, select:focus { outline: 2px solid var(--pink2); }
+  label { display: block; font-size: 14px; color: var(--pink3); margin-bottom: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .check { display: flex; gap: 8px; align-items: center; color: var(--cream); font-size: 15px; } .check input { width: auto; }
+  details { margin-top: 8px; font-size: 14px; color: var(--pink3); } summary { cursor: pointer; }
+  .st { font-size: 14px; margin-top: 8px; } .st.ok { color: var(--mint); } .st.bad { color: var(--bad); }
+  .preview { background: repeating-conic-gradient(#2a2030 0 25%, #1c1622 0 50%) 0 0 / 24px 24px; border: 2px solid var(--ink); overflow: hidden; position: relative; }
+  .preview iframe { border: 0; display: block; transform-origin: 0 0; background: transparent; }
+  .tests { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; } .tests button { font-size: 14px; padding: 6px 10px; }
+  .url { display: flex; gap: 8px; margin: 10px 0; } .url input { font-family: ui-monospace, monospace; font-size: 13px; }
+  .warn { border-left: 4px solid var(--gold); padding: 8px 12px; background: #3C1236; font-size: 15px; }
+  ol li { margin: 6px 0; } code { background: #2A0F2C; padding: 1px 5px; }
+  footer { text-align: center; font-size: 14px; color: var(--pink3); }
+  .muted { color: var(--pink3); font-size: 14px; }
+  @media (max-width: 520px) { h1 { font-size: 16px; } .url { flex-direction: column; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>🌸 Sakura Arcade Goal</h1>
+  <p>Barra de metas <b>pixel-art 8-bit</b> en tonos rosados para tu stream: pétalos que caen, animaciones con cada aporte, hitos y fiesta al llegar a la meta.</p>
+  <div class="badges"><span>Gratis</span><span>Sin instalar nada</span><span>OBS · Streamlabs Desktop</span><span>Twitch · StreamElements · Streamlabs</span></div>
+</header>
+<div class="wrap">
+
+<section>
+  <h2><b>1</b>Conecta tus cuentas</h2>
+  <p class="muted">Conecta una o varias. Si conectas Twitch y otro servicio, los bits y subs se cuentan solo una vez.</p>
+  <div class="cards">
+    <div class="card" id="cTw">
+      <h3>Twitch</h3><small>Bits, subs, subs regaladas, seguidores y raids</small>
+      <button class="twitch" id="twGo">Conectar con Twitch</button>
+      <button class="ghost" id="twOut" hidden>Desconectar</button>
+      <div class="st" id="twSt"></div>
+    </div>
+    <div class="card" id="cSe">
+      <h3>StreamElements</h3><small>Donaciones (tips), y bits/subs si no conectas Twitch</small>
+      <label for="se">Token JWT</label><input id="se" type="password" autocomplete="off" spellcheck="false" placeholder="eyJhbGciOi…">
+      <details><summary>¿Dónde lo encuentro?</summary>streamelements.com → tu avatar (arriba a la derecha) → <b>Account</b> → pestaña <b>Channels</b> → <b>Show secrets</b> → copia el <b>JWT Token</b>.</details>
+      <div class="st" id="seSt"></div>
+    </div>
+    <div class="card" id="cSl">
+      <h3>Streamlabs</h3><small>Donaciones de Streamlabs (PayPal, tarjeta…)</small>
+      <label for="sl">Socket API Token</label><input id="sl" type="password" autocomplete="off" spellcheck="false" placeholder="eyJ0eXAiOi…">
+      <details><summary>¿Dónde lo encuentro?</summary>streamlabs.com → <b>Settings</b> → <b>API Settings</b> → <b>API Tokens</b> → copia <b>Your Socket API Token</b>.</details>
+      <div class="st" id="slSt"></div>
+    </div>
+  </div>
+  <label class="check" style="margin-top:14px"><input type="checkbox" id="remember" checked> Recordar mis conexiones en este navegador</label>
+</section>
+
+<section>
+  <h2><b>2</b>Personaliza tu meta</h2>
+  <div class="grid">
+    <div><label for="title">Título (máx. 24)</label><input id="title" maxlength="24" value="NUEVO MICRO"></div>
+    <div><label for="target">Meta</label><input id="target" type="number" min="1" value="500"></div>
+    <div><label for="currency">Moneda</label><select id="currency">
+      <option>USD</option><option>EUR</option><option>MXN</option><option>ARS</option><option>CLP</option><option>COP</option><option>PEN</option><option>BRL</option><option>GBP</option><option>CAD</option></select></div>
+    <div><label for="start">Ya llevas (opcional)</label><input id="start" type="number" min="0" value="0"></div>
+    <div><label for="theme">Tema</label><select id="theme"><option value="sakura">Sakura</option><option value="bubblegum">Bubblegum</option><option value="strawberry">Strawberry</option><option value="sakura-night">Sakura Night</option></select></div>
+    <div><label for="scale">Tamaño</label><select id="scale"><option value="1">Normal (960 × 270)</option><option value="2">Grande (1920 × 540)</option><option value="3">Enorme (2880 × 810)</option></select></div>
+    <div><label for="onComplete">Al llegar al 100 %</label><select id="onComplete"><option value="overflow">Seguir contando (nivel 2 dorado)</option><option value="hold">Quedarse llena</option><option value="reset">Volver a 0</option></select></div>
+    <div><label for="resetEvery">Reiniciar sola</label><select id="resetEvery"><option value="none">Nunca</option><option value="daily">Cada día</option><option value="weekly">Cada semana</option><option value="monthly">Cada mes</option></select></div>
+    <div><label for="goalIcon">Ícono de la meta</label><select id="goalIcon"><option value="star">Estrella</option><option value="gift">Regalo</option><option value="trophy">Trofeo</option><option value="heart">Corazón</option></select></div>
+    <div><label for="petalIntervalSec">Pétalos cada… (segundos)</label><input id="petalIntervalSec" type="number" min="1" max="30" step="0.5" value="4"></div>
+    <div><label for="lang">Idioma de la barra</label><select id="lang"><option value="es">Español</option><option value="en">English</option></select></div>
+    <div><label for="subT1">Una sub vale</label><input id="subT1" type="number" min="0" step="0.01" value="5"></div>
+  </div>
+  <div class="grid" style="margin-top:14px">
+    <label class="check"><input type="checkbox" id="petalLanding"> Pétalos que se posan en la barra</label>
+    <label class="check"><input type="checkbox" id="showPercentInBar"> Porcentaje dentro de la barra</label>
+    <label class="check"><input type="checkbox" id="sound"> Sonido chiptune</label>
+    <label class="check"><input type="checkbox" id="showMessage" checked> Mostrar el mensaje del donante</label>
+  </div>
+  <details><summary>Más opciones</summary>
+    <div class="grid" style="margin-top:10px">
+      <div><label for="goals">Metas encadenadas (TITULO:500,OTRA:1000)</label><input id="goals" placeholder="MICRO:500,CAMARA:1000"></div>
+      <div><label for="bitsRate">Valor de 1 bit</label><input id="bitsRate" type="number" min="0" step="0.001" value="0.01"></div>
+      <div><label for="goalId">Nombre interno (para tener varias barras)</label><input id="goalId" value="main" maxlength="40"></div>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2><b>3</b>Vista previa</h2>
+  <div class="preview" id="pv"><iframe id="frame" title="Vista previa de la barra" scrolling="no"></iframe></div>
+  <div class="tests" id="tests"></div>
+  <p class="muted">Los botones son solo para probar aquí: no cambian la barra de tu stream.</p>
+</section>
+
+<section>
+  <h2><b>4</b>Ponla en OBS</h2>
+  <div class="url"><input id="url" readonly aria-label="URL para OBS"><button id="copy">Copiar URL</button></div>
+  <p class="warn">⚠ Esta URL lleva tus conexiones dentro. <b>No la muestres en pantalla ni la compartas.</b> Si alguna vez se filtra, desconecta Twitch aquí y genera un token nuevo en StreamElements/Streamlabs.</p>
+  <ol>
+    <li>En OBS, en <b>Fuentes</b> pulsa <b>+</b> → <b>Navegador</b> → ponle un nombre → Aceptar.</li>
+    <li>Pega la URL en <b>URL</b>. Pon <b>Ancho <span id="w">960</span></b> y <b>Alto <span id="h">270</span></b>.</li>
+    <li><b>Desmarca</b> «Apagar la fuente cuando no esté visible» (si no, se pierden aportes al cambiar de escena).</li>
+    <li>Si activaste el sonido, marca «Controlar audio mediante OBS». Aceptar.</li>
+    <li>Colócala donde quieras. <b>No la estires</b> con las esquinas: para hacerla más grande cambia el <i>Tamaño</i> aquí y copia la URL otra vez.</li>
+  </ol>
+  <p class="muted">El progreso se guarda en tu OBS. Para empezar de cero, en la escena: clic derecho en la fuente → Interactuar → pulsa <code>R</code>. ¿Cambiaste algo aquí? Copia la URL de nuevo y pégala en las propiedades de la fuente.</p>
+</section>
+
+<footer>
+  <p>Tus tokens nunca pasan por ningún servidor de esta página: se quedan en tu navegador y en la URL de OBS, y van directo a Twitch / StreamElements / Streamlabs.</p>
+  <p>Fuente <i>Press Start 2P</i> (SIL OFL 1.1) · <a href="licencias.txt">Licencias</a></p>
+</footer>
+</div>
+<script src="site-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

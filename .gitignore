@@ -1,0 +1,9 @@
+node_modules/
+.env
+state.json
+state.json.tmp
+state.json.bad-*
+payloads.jsonl
+*.zip
+twitch-token.json
+test/visual/capturas/
