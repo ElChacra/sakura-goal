@@ -56,7 +56,7 @@
   }
 
   // ---------- URL para OBS ----------
-  function overlayUrl({ preview = false } = {}) {
+  function overlayUrl({ preview = false, load = 0 } = {}) {
     const u = new URL('overlay.html', location.href), p = u.searchParams;
     for (const k of FIELDS) {
       const v = $(k).value.trim();
@@ -66,7 +66,7 @@
     if (!p.has('title')) p.set('title', $('title').value);
     if (!p.has('target')) p.set('target', $('target').value);
     for (const k of CHECKS) if ($(k).checked !== DEFAULTS[k]) p.set(k, $(k).checked ? '1' : '0');
-    if (preview) { p.set('preview', '1'); p.set('comboHoldMs', '0'); }
+    if (preview) { p.set('preview', '1'); p.set('comboHoldMs', '0'); if (load) p.set('load', String(load)); } // load: fuerza recarga aunque solo cambie el #token
     const secret = new URLSearchParams();
     if (tw) secret.set('tw', tw.token);
     if ($('se').value.trim()) secret.set('se', $('se').value.trim());
@@ -83,12 +83,12 @@
     $('w').textContent = w; $('h').textContent = h;
   }
   new ResizeObserver(fit).observe(pv);
-  let timer = null, shownUrl = '';
+  let timer = null, shownUrl = '', loads = 0;
   function refresh() {
     persist(); fit(); $('url').value = overlayUrl();
     const next = overlayUrl({ preview: true });
     if (next === shownUrl) return; // nada cambió (p. ej. el campo solo perdió el foco): no cortar la animación de prueba
-    clearTimeout(timer); timer = setTimeout(() => { shownUrl = next; frame.src = next; }, 500);
+    clearTimeout(timer); timer = setTimeout(() => { shownUrl = next; frame.src = overlayUrl({ preview: true, load: ++loads }); }, 500);
   }
   const STATUS = { streamelements: 'seSt', streamlabs: 'slSt', twitch: 'twSt' }, CARD = { streamelements: 'cSe', streamlabs: 'cSl', twitch: 'cTw' };
   window.addEventListener('message', (m) => {

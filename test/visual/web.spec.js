@@ -87,6 +87,7 @@ describe.skipIf(!browser || !fs.existsSync(WEB))('página pública (dist/web) en
 
   it.skipIf(!online)('tokens falsos contra los servicios REALES: cada tarjeta dice qué falla (y CORS de Twitch funciona)', async () => {
     const { page, ctx } = await open(base);
+    await expect.poll(() => inFrame(page).locator('#title').textContent(), { timeout: 8000 }).toBe('NUEVO MICRO'); // pegar el token DESPUÉS de cargar la vista previa (solo cambia el #)
     await page.fill('#se', 'eyJ.token.falso'); await page.fill('#sl', 'token-falso-streamlabs');
     await expect.poll(() => page.textContent('#seSt'), { timeout: 20000 }).toMatch(/Token rechazado/);
     await expect.poll(() => page.textContent('#slSt'), { timeout: 20000 }).toMatch(/Token rechazado/);
