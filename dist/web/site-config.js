@@ -3,5 +3,5 @@
 // OAuth Redirect URL = la dirección exacta de esta página (p. ej. https://tunombre.github.io/sakura-goal/).
 // El Client ID es público (no es un secreto): sirve para todos los streamers que usen la página.
 window.SAG_SITE = {
-  twitchClientId: '',
+  twitchClientId: 'ed8iom15u8c6itak92j1ianou9drvl',
 };
