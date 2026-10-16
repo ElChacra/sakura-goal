@@ -4,7 +4,7 @@
   --font: 'PS2P', 'Pixelify Sans', monospace;
   --ink: #2B1030; --plum-800: #4A1942; --plum-600: #7A2A63;
   --pink-700: #C2307A; --pink-500: #FF5CA8; --pink-400: #FF8DBF; --pink-200: #FFC6DE; --pink-100: #FFF0F6;
-  --gold-400: #FFD84D; --gold-600: #C98A00; --mint-300: #8CF2D2; --lav-300: #B9A4FF;
+  --gold-400: #FFD84D; --gold-600: #C98A00; --mint-300: #8CF2D2; --mint-600: #3BA88A; --lav-300: #B9A4FF;
   --frame: var(--pink-400); --frame-hi: var(--pink-200); /* marco de la barra y del banner (pulsa entre ambos) */
 }
 /* Temas (plan 5.7): solo redefinen variables; el mapa de colores de sprites sale de aquí y de THEME_SPRITES en main.js */

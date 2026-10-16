@@ -12,6 +12,8 @@ export const SPRITES = {
   gift: ['.P.W.P.', '..PWP..', 'MMMWMMM', 'MLMWMLM', 'MMMWMMM', 'MLMWMLM', 'DDDWDDD'],
   trophy: ['YYYYYYY', 'YYWYYYY', '.YYYYY.', '.YYYYY.', '..YYY..', '...Y...', '.YYYYY.'],
   gem: ['..GGG..', '.GWGGV.', 'GWGGGGV', '.GGGGV.', '..GGV..', '...V...'],
+  coinA: ['.YYY.', 'YWYYO', 'YWYYO', 'YYYYO', '.OOO.'], // moneda de frente / de canto: gira alternando A-B
+  coinB: ['.Y.', 'YWO', 'YWO', 'YYO', '.O.'],
   spark1: ['.W.', 'WYW', '.W.'],
   spark2: ['..W..', '..W..', 'WWYWW', '..W..', '..W..'],
 };

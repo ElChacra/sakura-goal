@@ -14,7 +14,8 @@ const root = document.documentElement;
 root.style.setProperty('--u', 2 * cfg.scale + 'px');
 root.dataset.theme = cfg.theme;
 const cs = getComputedStyle(root), V = (n) => cs.getPropertyValue('--' + n).trim();
-const CH = { K: 'ink', L: 'pink-200', D: 'pink-700', W: 'pink-100', P: 'pink-500', Y: 'gold-400', M: 'pink-400', G: 'mint-300', B: 'plum-600', V: 'lav-300' };
+const CH = { K: 'ink', L: 'pink-200', D: 'pink-700', W: 'pink-100', P: 'pink-500', Y: 'gold-400', O: 'gold-600', M: 'pink-400', G: 'mint-300', B: 'plum-600', V: 'lav-300' };
+const C = (...names) => names.map(V); // paleta escalonada para partículas (colores por tramos de vida, sin degradados)
 const hex = (c) => V(CH[c]);
 const DARK = (c) => ({ L: 'M', M: 'D', D: 'B', W: 'L', P: 'D', Y: 'D' }[c] || c); // capa trasera, más oscura
 const SP = buildSprites(hex), SPLOCK = buildSprites(hex, () => 'B'), SPDARK = buildSprites(hex, DARK);
@@ -81,7 +82,7 @@ const tipX = () => 32 + (shown2 > 0 ? shown2 : shown) * 8, tipY = 42;
 // ---------- canvas: partículas ----------
 const bx = els.back.getContext('2d'), fx = els.front.getContext('2d'); bx.imageSmoothingEnabled = fx.imageSmoothingEnabled = false;
 const P = [];
-const mk = (o) => { if (P.length > 400) return null; const p = { x: 0, y: 0, vx: 0, vy: 0, ax: 0, ay: 0, sprite: null, fps: 6, life: 0, maxLife: Infinity, layer: 'front', amp: 0, freq: 0, phase: 0, blink: false, rect: null, amb: false, ...o }; P.push(p); return p; };
+const mk = (o) => { if (P.length > 700) return null; const p = { x: 0, y: 0, vx: 0, vy: 0, ax: 0, ay: 0, sprite: null, fps: 6, life: 0, maxLife: Infinity, layer: 'front', amp: 0, freq: 0, phase: 0, blink: false, rect: null, amb: false, ...o }; P.push(p); return p; };
 function petal(speed = 1, x) {
   const back = rng() < 0.5, k = back ? 0.7 : 1;
   mk({ amb: true, layer: back ? 'back' : 'front', x: x ?? 480 * (0.3 + rng() * 0.8), y: -6, vx: -rr(6, 14) * speed * k, vy: rr(10, 18) * k,
@@ -89,13 +90,13 @@ function petal(speed = 1, x) {
 }
 const ambCount = () => P.reduce((n, p) => n + (p.amb ? 1 : 0), 0);
 function burst(n, hearts, kind, x = tipX(), y = tipY) { // explosión radial hacia arriba con gravedad
-  const extra = kind === 'bits' ? 'gem' : kind === 'sub' ? 'star' : 'heart';
+  const extra = kind === 'bits' ? 'gem' : kind === 'sub' || kind === 'giftsub' ? 'star' : 'heart';
   for (let i = 0; i < n + hearts; i++) {
     const a = rr(-150, -30) * Math.PI / 180, s = rr(30, 70), h = i >= n;
     mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 90, maxLife: rr(0.8, 1.4), blink: true, sprite: h ? [extra] : ['petalA', 'petalC', 'petalB', 'petalC'] });
   }
 }
-function ring(x, y, n = 16) { for (let i = 0; i < n; i++) { const a = i / n * 6.2832; mk({ x, y, vx: Math.cos(a) * 45, vy: Math.sin(a) * 45, maxLife: 1, blink: true, sprite: ['petalA', 'petalC', 'petalB', 'petalC'] }); } }
+function ring(x, y, n = 16, sprite = ['petalA', 'petalC', 'petalB', 'petalC']) { for (let i = 0; i < n; i++) { const a = i / n * 6.2832; mk({ x, y, vx: Math.cos(a) * 45, vy: Math.sin(a) * 45, maxLife: 1, blink: true, sprite }); } }
 let landings = 0; // contador para ?debug=1
 const LAND_Y = 21; // centro de un pétalo posado sobre el borde superior del marco (y=24)
 function land(p) { // A10 (petalLanding): se posa 1,5 s, resbala por el marco y cae
@@ -107,7 +108,14 @@ function updateParticles(dt) {
     const p = P[i]; p.life += dt;
     if (p.life >= p.maxLife || p.y > 141 || p.x < -12 || p.x > 560) { P.splice(i, 1); continue; }
     const py = p.y;
+    if (p.orbit) { // estrellas de sub: giran alrededor de la punta y luego salen disparadas
+      const o = p.orbit; o.a += o.w * dt; p.x = o.cx + Math.cos(o.a) * o.r; p.y = o.cy + Math.sin(o.a) * o.r * 0.5;
+      if (p.life >= o.until) { p.vx = Math.cos(o.a) * 70; p.vy = Math.sin(o.a) * 35 - 25; p.ay = 70; p.orbit = null; }
+      continue;
+    }
     p.vx += p.ax * dt; p.vy += p.ay * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+    if (p.trail && (p.tt = (p.tt || 0) + dt) >= 0.04) { p.tt = 0; mk({ x: p.x, y: p.y, rect: [1, 1], colors: p.trail, maxLife: 0.25 }); }
+    if (p.onLand && py < LAND_Y && p.y >= LAND_Y) { const f = p.onLand; P.splice(i, 1); f(p); continue; } // regalos y gemas que tocan la barra
     if (cfg.petalLanding && p.amb && !p.landed && p.layer === 'front' && py < LAND_Y && p.y >= LAND_Y) {
       const x = p.x + Math.sin(p.life * p.freq * 6.2832 + p.phase) * p.amp;
       if (x > 28 && x < 452 && rng() < 0.25) land(p); else p.landed = true; // solo se decide una vez por pétalo
@@ -119,7 +127,7 @@ function drawParticles() {
   for (const p of P) {
     if (p.blink && p.maxLife - p.life < 0.3 && Math.floor(p.life * 20) % 2) continue;
     const c = p.layer === 'back' ? bx : fx, ox = p.amp ? Math.sin(p.life * p.freq * 6.2832 + p.phase) * p.amp : 0;
-    if (p.rect) { c.fillStyle = p.rect[2]; c.fillRect(Math.round(p.x + ox), Math.round(p.y), p.rect[0], p.rect[1]); continue; }
+    if (p.rect) { c.fillStyle = p.colors ? p.colors[Math.min(p.colors.length - 1, Math.floor((p.life / p.maxLife) * p.colors.length))] : p.rect[2]; c.fillRect(Math.round(p.x + ox), Math.round(p.y), p.rect[0], p.rect[1]); continue; }
     const s = (p.layer === 'back' ? SPDARK : SP)[p.sprite[Math.floor(p.life * p.fps) % p.sprite.length]];
     c.drawImage(s, Math.round(p.x + ox - (s.width >> 1)), Math.round(p.y - (s.height >> 1)));
   }
@@ -141,11 +149,20 @@ function drawFlag(m) {
 S.milestonesFired.forEach(drawFlag);
 
 // ---------- piezas de animación ----------
-const TIERS = { small: { flash: 2, shake: 0, n: 6, h: 0, hold: 2500 }, medium: { flash: 4, shake: 4, n: 14, h: 2, hold: 3500 }, large: { flash: 6, shake: 8, n: 28, h: 5, hold: 4500 }, mega: { flash: 8, shake: 12, n: 60, h: 10, hold: 6000 } };
+// n: pétalos de la explosión · h: extras (corazones/gemas/estrellas) · extra: monedas/gemas/estrellas propias del tipo
+// ring: anillo de corazones · fireworks: fuegos artificiales · bloom/fountain: flor que florece y fuentes laterales (large+)
+const TIERS = {
+  small: { flash: 2, shake: 0, n: 6, h: 0, hold: 2500, extra: 3, ring: 0, fireworks: 0 },
+  medium: { flash: 4, shake: 4, n: 14, h: 2, hold: 3500, extra: 6, ring: 8, fireworks: 0 },
+  large: { flash: 6, shake: 8, n: 28, h: 5, hold: 4500, extra: 10, ring: 12, fireworks: 1, bloom: 1, fountain: 1 },
+  mega: { flash: 8, shake: 12, n: 60, h: 10, hold: 6000, extra: 16, ring: 16, fireworks: 5, bloom: 1, fountain: 1, rainbow: 1, big: 1 },
+};
+// Color de cada tipo de aporte (monto del banner y "+X" flotante)
+const KIND_COLOR = { bits: 'mint-300', sub: 'lav-300', giftsub: 'lav-300' };
 function flash(n, gold) { for (let i = 0; i < n; i++) at(i * 60, () => { els.mid.classList.toggle(gold ? 'gflash' : 'flash', i % 2 === 0); if (i === n - 1) els.mid.classList.remove('flash', 'gflash'); }); }
 function shake(n) { if (reduced) return; for (let i = 0; i <= n; i++) at(i * 50, () => { els.frame.style.transform = i === n ? '' : `translateX(calc(${i % 2 ? -1 : 1} * var(--u)))`; }); }
-function floater(text, gold, blinkIt) {
-  const f = els.float; f.textContent = text; f.style.color = V(gold ? 'gold-400' : 'pink-100'); f.style.display = 'block';
+function floater(text, gold, blinkIt, color) {
+  const f = els.float; f.textContent = text; f.style.color = V(color || (gold ? 'gold-400' : 'pink-100')); f.style.display = 'block';
   f.style.left = `calc(${Math.min(tipX() - 8, 360)} * var(--u))`;
   for (let i = 0; i <= 12; i++) at(i * 40, () => { f.style.top = `calc(${24 - i} * var(--u))`; });
   for (let i = 0; i < 6; i++) at(500 + i * 70, () => { f.style.visibility = i % 2 ? 'visible' : 'hidden'; }); if (!blinkIt) at(500, () => { f.style.visibility = 'visible'; });
@@ -155,7 +172,8 @@ function stepBar(get, set, goal, sparkly, done) { // llena/vacía bloque a bloqu
   const diff = Math.abs(goal - get()); if (!diff) return done();
   const inc = Math.max(diff > 30 ? 2 : 1, Math.ceil(diff * 30 / 1200)), dir = Math.sign(goal - get());
   (function tick() {
-    const nv = dir > 0 ? Math.min(goal, get() + inc) : Math.max(goal, get() - inc); set(nv); paint();
+    const old = get(), nv = dir > 0 ? Math.min(goal, old + inc) : Math.max(goal, old - inc); set(nv); paint();
+    if (dir > 0) for (let b = old; b < nv; b++) mk({ x: 32 + b * 8, y: 32, rect: [6, 20], colors: C('pink-100', 'pink-200'), maxLife: 0.12 }); // cada bloque nuevo destella
     if (sparkly && dir > 0 && rng() < 0.25) mk({ x: 32 + nv * 8 - 4, y: 36 + rr(0, 12), sprite: ['spark1', 'spark2', 'spark1'], fps: 10, maxLife: 0.3 });
     if (nv === goal) done(); else at(30, tick);
   })();
@@ -164,8 +182,8 @@ function roll(to, ms) {
   const from = shownAmt, steps = Math.max(1, Math.min(30, Math.round(ms / 40)));
   for (let i = 1; i <= steps; i++) at(i * 40, () => { shownAmt = Math.round((from + (to - from) * i / steps) * 100) / 100; paint(); });
 }
-function showBanner({ name, label, msg }, hold, done) {
-  els.bName.textContent = name; els.bAmt.textContent = label; els.bMsg.textContent = '';
+function showBanner({ name, label, msg, color = 'gold-400' }, hold, done) {
+  els.bName.textContent = name; els.bAmt.textContent = label; els.bMsg.textContent = ''; els.bAmt.style.color = V(color);
   els.bHeart.getContext('2d').drawImage(SP.heart, 0, 0);
   const off = (i) => `translateX(calc(${Math.round(456 * (1 - i / 8)) - 0} * var(--u)))`;
   for (let i = 1; i <= 8; i++) at(i * 30, () => { els.banner.style.transform = off(i); });
@@ -182,7 +200,7 @@ function pump() { if (busy || paused || !Q.length) return; busy = true; Q.shift(
 const combiner = new Combiner({ windowMs: cfg.comboWindowMs, holdMs: cfg.comboHoldMs });
 let idc = 0;
 const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t('mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
-const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') : '+' + fmt(e.tierValue ?? e.value));
+const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'raid' ? `${t('raid')} ${e.rawAmount}` : e.kind === 'follow' ? t('follow') : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') + (e.tier && e.tier !== 'T1' ? ' ' + (e.tier === 'prime' ? 'PRIME' : e.tier) : '') : '+' + fmt(e.tierValue ?? e.value));
 function submit(raw) { // entrada de eventos crudos (panel de control, conectores futuros): se normalizan y pasan por el combinador
   const ev = convert({ source: 'manual', id: 'm' + Date.now().toString(36) + idc++, ...raw }, cfg);
   if (!S.seenIds.includes(ev.id)) combiner.add(ev, clock);
@@ -213,18 +231,92 @@ function runDonation(ev, done) {
   const { before, after } = r.effects[0], tier = tierOf(ev.tierValue ?? ev.value, S.target, cfg), T = TIERS[tier], gold = tier === 'large' || tier === 'mega', quiet = !!ev.quiet;
   if (r.effects[0].type === 'silentUpdate' || ev.value < 0) { moveBars(after, false); at(1300, done); return; } // ajustes y reembolsos: sin celebración
   flash(T.flash, tier === 'mega'); shake(T.shake);
-  if (!quiet) { audio.play(tier === 'mega' ? 'fanfare' : tier === 'large' ? 'arp4' : 'coin'); at(60, () => floater(labelOf(ev), gold, tier === 'mega')); }
+  const kc = KIND_COLOR[ev.kind];
+  if (!quiet) { audio.play(soundFor(ev.kind, tier)); at(60, () => floater(labelOf(ev), gold, tier === 'mega', kc)); }
   at(80, () => moveBars(after, tier !== 'small'));
-  at(200, () => { burst(Math.min(T.n, reduced ? T.n >> 1 : T.n), T.h, ev.kind); if (tier === 'large') mk({ x: tipX(), y: 34, sprite: ['flower'], fps: 0, maxLife: 1.2 }); });
-  if (tier === 'mega' && !quiet) for (let i = 0; i < 30; i++) at(200 + i * 100, () => { for (let k = 0; k < 4; k++) petal(2.5, rr(0, 560)); });
+  at(200, () => burst(Math.min(T.n, reduced ? T.n >> 1 : T.n), T.h, ev.kind));
+  if (!quiet) tierFx(T, ev);
   if (quiet) at(1400, finish);
-  else at(250, () => showBanner({ name: nameOf(ev), label: labelOf(ev) + (ev.combo ? ' ' + t('combo', { n: ev.combo }) : ''), msg: cfg.showMessage ? ev.message : '' }, T.hold, finish));
+  else at(250, () => showBanner({ name: nameOf(ev), label: labelOf(ev) + (ev.combo ? ' ' + t('combo', { n: ev.combo }) : ''), msg: cfg.showMessage ? ev.message : '', color: kc }, T.hold, finish));
   function finish() {
     nx.ticker = 0; // el ticker ('FALTAN…') se reescribe en cuanto la cola quede libre
     const jobs = r.effects.slice(1).map((e) => (e.type === 'milestone' ? (d) => runMilestone(e.percent, d) : e.type === 'complete' ? runComplete : e.type === 'levelUp' ? (d) => runLevelUp(e.level, d) : null)).filter(Boolean);
     Q.unshift(...jobs); done();
   }
 }
+// ---------- efectos por nivel y por tipo de aporte ----------
+function soundFor(kind, tier) {
+  if (tier === 'mega') return 'fanfare';
+  if (kind === 'bits') return 'crystal';
+  if (kind === 'sub' || kind === 'giftsub') return 'powerup';
+  return tier === 'large' ? 'arp4' : 'coin';
+}
+function waveText(text, ms, delay = 0) { // texto grande (16 px) con onda por letra y colores que rotan; devuelve stop()
+  const big = els.big; big.textContent = ''; big.style.display = 'block';
+  [...text].forEach((ch) => { const s = document.createElement('span'); s.textContent = ch === ' ' ? '\u00a0' : ch; big.appendChild(s); });
+  const cols = ['pink-500', 'gold-400', 'pink-100'], wave = [0, 1, 2, 1, 0, 0], spans = [...big.children], tok = (big._tok = (big._tok || 0) + 1);
+  const stop = () => { if (big._tok !== tok) return; big._tok++; big.style.display = 'none'; els.widget.classList.remove('bigtext'); };
+  at(delay, function w() { if (big._tok !== tok) return; spans.forEach((s, i) => { const k = Math.floor(clock / 80) + i; s.style.top = `calc(${-wave[k % 6] * (reduced ? 0 : 1)} * var(--u))`; s.style.color = V(cols[Math.floor(clock / 120 + i) % 3]); }); at(40, w); });
+  if (ms) at(ms, stop);
+  return stop;
+}
+function coins(n, x = tipX(), y = tipY) { // donación: monedas que giran y saltan desde la punta
+  for (let i = 0; i < n; i++) { const a = rr(-125, -55) * Math.PI / 180, s = rr(55, 90); mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 170, sprite: ['coinA', 'coinB'], fps: rr(7, 11), maxLife: rr(0.9, 1.3), blink: true }); }
+}
+function sparkAt(x, y, cols = C('pink-100', 'mint-300', 'lav-300')) {
+  mk({ x, y, sprite: ['spark1', 'spark2', 'spark1'], fps: 10, maxLife: 0.3 });
+  for (let k = 0; k < 4; k++) { const a = k * 1.5708 + 0.785; mk({ x, y, vx: Math.cos(a) * 30, vy: Math.sin(a) * 30, rect: [1, 1], colors: cols, maxLife: 0.35 }); }
+}
+function gemRain(n) { // bits: gemas con estela que caen y chispean al tocar la barra
+  for (let i = 0; i < n; i++) at(i * 70, () => mk({ x: rr(36, 444), y: -4, vy: rr(80, 120), ay: 40, sprite: ['gem'], fps: 0, maxLife: 2, trail: C('mint-300', 'lav-300', 'plum-600'), onLand: (p) => sparkAt(Math.round(p.x), LAND_Y + 2) }));
+}
+function starOrbit(n) { // subs: estrellas que orbitan la punta y luego salen disparadas
+  const cx = tipX(), cy = tipY - 2;
+  for (let i = 0; i < n; i++) mk({ x: cx, y: cy, sprite: ['star'], fps: 0, maxLife: 2.4, blink: true, orbit: { cx, cy, r: 18, w: 5, a: (i / n) * 6.2832, until: 1.2 } });
+}
+function giftDrop(n) { // subs regaladas: una caja por sub que cae y se abre al tocar la barra
+  for (let i = 0; i < n; i++) at(i * 200, () => mk({ x: rr(48, 432), y: -8, vy: 20, ay: 150, sprite: ['gift'], fps: 0, maxLife: 3,
+    onLand: (p) => { burst(reduced ? 4 : 8, 2, 'giftsub', Math.round(p.x), LAND_Y); audio.play('pop'); } }));
+}
+const FW = [['pink-100', 'gold-400', 'pink-500', 'pink-700'], ['pink-100', 'mint-300', 'mint-600', 'plum-600'], ['pink-100', 'lav-300', 'pink-400', 'plum-600']];
+function firework(x, y, pal = FW[0]) { // radial de 1 px con estela, colores por tramos (sin degradados)
+  sparkAt(x, y, C('pink-100', 'gold-400'));
+  for (let k = 0; k < 16; k++) { const a = (k / 16) * 6.2832, s = rr(38, 58); mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 35, rect: [1, 1], colors: C(...pal), maxLife: rr(0.7, 1), trail: C(pal[1], pal[3]) }); }
+}
+function fountain(ms = 1200) { // pétalos que brotan hacia arriba desde las dos esquinas de abajo
+  for (let tms = 0; tms < ms; tms += 70) at(tms, () => { for (const [x, d] of [[30, 1], [450, -1]]) mk({ x, y: 134, vx: d * rr(15, 45), vy: -rr(95, 125), ay: 120, sprite: ['petalA', 'petalC', 'petalB', 'petalC'], fps: 8, maxLife: 2 }); });
+}
+function bloom(x = tipX(), y = 34) { // flor que florece en la punta (brote → media → flor) y se deshoja en anillo
+  const p = mk({ x, y, sprite: ['bud'], fps: 0, maxLife: 1.6 }); if (!p) return;
+  at(120, () => (p.sprite = ['half'])); at(240, () => (p.sprite = ['flower'])); at(1300, () => ring(p.x, p.y, 10));
+}
+function rainbow(ms = 2000) { // nivel mega: el relleno alterna oro → menta → lavanda por pasos
+  const tints = ['gold', 'tint-mint', 'tint-lav'];
+  for (let i = 0; i * 110 < ms; i++) at(i * 110, () => { els.fill.classList.remove(...tints); els.fill.classList.add(tints[i % 3]); });
+  at(ms, () => els.fill.classList.remove(...tints));
+}
+function raidParade(viewers) { // raid: desfile de pétalos por abajo
+  for (let i = 0; i < Math.min(30, 6 + Math.floor(viewers / 5)); i++) at(i * 80, () => mk({ x: -6, y: rr(118, 130), vx: rr(85, 110), sprite: ['petalA', 'petalC', 'petalB', 'petalC'], fps: 8, maxLife: 7 }));
+}
+function tierFx(T, ev) {
+  const k = ev.kind, x = tipX();
+  at(200, () => {
+    if (k === 'bits') gemRain(Math.min(24, T.extra + Math.floor(ev.rawAmount / 100)));
+    else if (k === 'sub') starOrbit(Math.max(4, T.extra >> 1));
+    else if (k === 'giftsub') { giftDrop(Math.min(10, ev.rawAmount || 1)); starOrbit(6); }
+    else if (k === 'raid') raidParade(ev.rawAmount);
+    else if (k === 'follow') mk({ x, y: tipY, vy: -25, sprite: ['heart'], fps: 0, maxLife: 1.4, blink: true });
+    else coins(T.extra);
+    if (T.ring) ring(x, tipY, T.ring, ['heart']);
+  });
+  if (T.bloom) at(260, () => bloom());
+  if (T.fountain && !reduced) at(300, () => fountain());
+  for (let i = 0; i < (reduced ? Math.min(1, T.fireworks) : T.fireworks); i++) at(350 + i * 380, () => firework(Math.round(rr(70, 410)), Math.round(rr(8, 44)), FW[i % 3]));
+  if (T.rainbow && !reduced) at(1300, () => rainbow());
+  if (T.big) at(300, () => { els.widget.classList.add('bigtext'); waveText(t('mega'), 1900); });
+  if (T.big) for (let i = 0; i < 30; i++) at(200 + i * 100, () => { for (let n = 0; n < (reduced ? 2 : 4); n++) petal(2.5, rr(0, 560)); }); // tormenta de pétalos
+}
+
 function runMilestone(m, done) {
   audio.play('checkpoint'); drawFlag(m); flash(6); ring(32 + Math.round(m / 100 * cfg.blocks) * 8 + 2, 20);
   showBanner({ name: t('checkpoint', { p: m }), label: '', msg: '' }, 2500 - 240, done);
@@ -235,14 +327,10 @@ function runComplete(done) {
   for (let i = 0; i < 8; i++) at(i * 150, () => els.fill.classList.toggle('gold'));
   for (let i = 0; i < Math.floor(cfg.blocks * 8 / 9); i++) { const s = 1200 + i * 40; at(s, () => mk({ x: 36 + i * 9, y: tipY, sprite: ['flower'], fps: 0, maxLife: (dur - s) / 1000 })); }
   at(600, () => { unlocked = true; iconKey = ''; });
-  // texto grande con onda por letra
-  const big = els.big; big.textContent = ''; big.style.display = 'block';
-  [...t('goal')].forEach((ch) => { const s = document.createElement('span'); s.textContent = ch === ' ' ? '\u00a0' : ch; big.appendChild(s); });
-  const cols = ['pink-500', 'gold-400', 'pink-100'], wave = [0, 1, 2, 1, 0, 0], spans = [...big.children]; let on = true;
-  at(600, function w() { if (!on) return; spans.forEach((s, i) => { const k = Math.floor(clock / 80) + i; s.style.top = `calc(${-wave[k % 6] * (reduced ? 0 : 1)} * var(--u))`; s.style.color = V(cols[Math.floor(clock / 120 + i) % 3]); }); at(40, w); });
+  const stopText = waveText(t('goal'), dur, 600);
   for (let i = 0; i < Math.floor((dur - 500) / 400); i++) at(i * 400, () => { for (let k = 0; k < 6; k++) { const sz = pick([[2, 2], [1, 3]]); mk({ x: rr(0, 480), y: -3, vy: rr(25, 50), amp: rr(2, 5), freq: rr(1.5, 2.5), phase: rr(0, 6), rect: [...sz, V(pick(['pink-200', 'pink-400', 'gold-400', 'pink-100', 'mint-300']))], maxLife: 8 }); } });
   at(dur, () => {
-    on = false; celebrating = false; paint(); big.style.display = 'none'; els.widget.classList.remove('celebrating'); els.fill.classList.remove('gold');
+    stopText(); celebrating = false; paint(); els.widget.classList.remove('celebrating'); els.fill.classList.remove('gold');
     if (cfg.onComplete === 'reset') at(10000 - 0, () => reset());
     if (cfg.onComplete === 'next-goal') { const n = nextGoal(S, cfg); if (n !== S) { S = n; save(); Q.unshift(runNextGoal); } }
     done();
@@ -290,7 +378,7 @@ function submitValue(value, o = {}) { combiner.add({ id: 'm' + Date.now().toStri
 function test(kind, pct = 3) { const v = money(pct); submitValue(v, { kind, rawAmount: kind === 'bits' ? Math.round(v / cfg.bitsRate) : kind === 'sub' ? 1 : v }); }
 function clearJobs() {
   Q.length = 0; tl.length = 0; P.length = 0; busy = false; combiner.items = []; celebrating = false; shineB = -1;
-  els.big.style.display = els.float.style.display = els.shine.style.display = 'none'; els.widget.classList.remove('celebrating');
+  els.big.style.display = els.float.style.display = els.shine.style.display = 'none'; els.widget.classList.remove('celebrating', 'bigtext'); els.fill.classList.remove('tint-mint', 'tint-lav');
   els.banner.style.transform = els.frame.style.transform = ''; els.fill.classList.remove('gold'); els.mid.classList.remove('flash', 'gflash');
 }
 function snap() { // repinta el estado actual sin animar (reset, deshacer, cambio de meta)

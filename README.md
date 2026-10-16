@@ -7,6 +7,21 @@ Suma donaciones, bits y subs de **StreamElements, Streamlabs, Ko-fi y Twitch**, 
 |---|---|---|
 | ![donación](capturas/donacion-mega.gif) | ![meta](capturas/meta-lograda.gif) | ![noche](capturas/petalos-noche.gif) |
 
+## Efectos de cada aporte
+El nivel depende de cuánto aporta respecto a la meta (pequeña < 2 %, mediana 2–5 %, grande 5–10 %, mega ≥ 10 %):
+
+| Pequeña | Mediana | Grande | Mega |
+|---|---|---|---|
+| Cada bloque nuevo destella, explosión de pétalos, banner | + anillo de corazones y sacudida | + flor que florece en la punta, fuentes de pétalos desde las esquinas, 1 fuego artificial | + 5 fuegos artificiales con estela, barra arcoíris, **«¡MEGA APORTE!»** con onda y tormenta de pétalos |
+
+Y cada tipo tiene su propio efecto, sonido y color:
+
+| Donación | Bits | Sub | Subs regaladas | Raid / follow (si cuentan en la meta) |
+|---|---|---|---|---|
+| Monedas doradas que giran · dorado | Lluvia de gemas que chispean al tocar la barra (más bits, más gemas) · menta | Estrellas que orbitan la punta, «+SUB T2» · lavanda | Una caja de regalo por sub que cae y se abre · lavanda | Desfile de pétalos «RAID 80» / corazón «FOLLOW» |
+
+Con  (o el ajuste de accesibilidad del sistema) se quitan la sacudida, el arcoíris y las fuentes, y hay menos fuegos y pétalos.
+
 ## ¿Qué versión uso?
 | Quiero… | Usa | Necesita |
 |---|---|---|

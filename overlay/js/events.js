@@ -29,7 +29,7 @@ export function convert(raw, cfg) {
   }
   return { id: raw.id ?? hash(`${raw.source}|${raw.name}|${amount}|${ts}`), source: raw.source ?? 'manual', kind: raw.kind, name: raw.name || '',
     rawAmount: amount, rawCurrency: raw.rawCurrency, value: round2(value), message: cleanMessage(raw.message, cfg),
-    ts, isTest: !!raw.isTest, anon: !!raw.anon };
+    ts, isTest: !!raw.isTest, anon: !!raw.anon, ...(raw.tier && { tier: raw.tier }) }; // tier: para mostrar "+SUB T2"
 }
 // small < 2 %, medium 2–5 %, large 5–10 %, mega ≥ 10 % (tierMode=percent) o umbrales absolutos
 export function tierOf(value, target, cfg) {

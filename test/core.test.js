@@ -60,7 +60,7 @@ describe('conversión y tiers', () => {
     expect(convert({ kind: 'donation', rawAmount: 5, rawCurrency: 'USD' }, c).value).toBe(5);
     const clp = cfg('?rates={"USD":1,"CLP":0.001}'); expect(convert({ kind: 'donation', rawAmount: 5000, rawCurrency: 'CLP' }, clp).value).toBe(5);
     expect(convert({ kind: 'bits', rawAmount: 500 }, c).value).toBe(5);
-    expect(convert({ kind: 'sub', rawAmount: 1, tier: 'T2' }, c).value).toBe(10);
+    expect(convert({ kind: 'sub', rawAmount: 1, tier: 'T2' }, c)).toMatchObject({ value: 10, tier: 'T2' });
     expect(convert({ kind: 'donation', rawAmount: 3, rawCurrency: 'XXX' }, c).value).toBe(0); // sin tasa → no suma
     expect(convert({ kind: 'donation', rawAmount: 3 }, c)).toMatchObject({ value: 3, rawCurrency: 'USD' }); // sin moneda → la de la meta
   });
