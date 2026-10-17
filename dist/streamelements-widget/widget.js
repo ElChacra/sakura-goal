@@ -5,7 +5,7 @@ const __m = {};
 __m["config.js"] = (() => {
 // Un solo objeto config: defaults + override por query string (?petalIntervalSec=6)
 const DEFAULTS = {
-  goalId: 'main', title: 'META', target: 500, start: 0, unit: 'currency', currency: 'USD', locale: 'es', lang: 'es',
+  goalId: 'main', goalType: 'mix', title: 'META', target: 500, start: 0, unit: 'currency', currency: 'USD', locale: 'es', lang: 'es',
   theme: 'sakura', scale: 1, blocks: 52, retroFps: 60,
   petals: 1, petalIntervalSec: 4, petalBurst: '1-2', petalMax: 24, petalLanding: 0,
   windEverySec: 30, shineEverySec: 6, sparkleEverySec: 2.5, idleFlowerEverySec: 20, tickerEverySec: 8,
@@ -22,6 +22,12 @@ const DEFAULTS = {
   sound: 0, volume: 0.15, persist: 1,
   // source: auto = relay si la página se sirve por http(s) (npm start); manual = solo teclado/panel en el mismo navegador
   source: 'auto', relayUrl: '', debug: 0, seed: null, reducedMotion: null,
+};
+
+// Tipos de barra: [unit, qué suma]. mix = todo convertido a dinero (comportamiento original).
+const GOAL_TYPES = {
+  mix: ['currency', ['donations', 'bits', 'subs']], donations: ['currency', ['donations']],
+  bits: ['bits', ['bits']], subs: ['count', ['subs']], follows: ['count', ['follows']],
 };
 
 function coerce(def, raw) {
@@ -47,6 +53,12 @@ function getConfig(search = location.search) {
   const m = String(cfg.petalBurst).match(/^(\d+)(?:-(\d+))?$/); // "1-2" → [1,2]
   cfg.petalBurst = m ? [Number(m[1]), Number(m[2] ?? m[1])] : [1, 2];
   cfg.blockedWords = cfg.blockedWords.map((w) => w.toLowerCase()).filter(Boolean);
+  // goalType: atajo para "qué mide la barra". unit/count explícitos en la URL mandan sobre él.
+  if (!GOAL_TYPES[cfg.goalType]) cfg.goalType = 'mix';
+  const [unit, count] = GOAL_TYPES[cfg.goalType];
+  if (!q.has('unit')) cfg.unit = unit;
+  if (!q.has('count')) cfg.count = [...count];
+  if (cfg.goalType === 'follows' && !q.has('tickerMessages')) cfg.tickerMessages = ['last', 'remaining']; // "TOP" no tiene sentido contando seguidores
   cfg.goals = cfg.goals.map((s) => { const i = s.lastIndexOf(':'), target = Number(s.slice(i + 1)); return i > 0 && target > 0 ? { title: s.slice(0, i).trim().slice(0, 24), target } : null; }).filter(Boolean);
   if (cfg.goals.length && !q.has('onComplete')) cfg.onComplete = 'next-goal';
   if (!['hold', 'overflow', 'next-goal', 'reset'].includes(cfg.onComplete)) cfg.onComplete = 'overflow';
@@ -60,7 +72,7 @@ function getConfig(search = location.search) {
   return cfg;
 }
 
-return { DEFAULTS, getConfig };
+return { DEFAULTS, GOAL_TYPES, getConfig };
 })();
 
 __m["sprites.js"] = (() => {
@@ -103,8 +115,8 @@ return { SPRITES, buildSprites };
 
 __m["i18n.js"] = (() => {
 const D = {
-  es: { goal: '¡META LOGRADA!', checkpoint: '¡CHECKPOINT {p}%!', last: 'ÚLTIMO', top: 'TOP', remaining: 'FALTAN', anon: 'ANÓNIMO', level: '¡NIVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} APORTES', combo: '¡X{n} COMBO!', mixed: '{n} DONANTES', next: '¡NUEVA META!', mega: '¡MEGA APORTE!', raid: 'RAID', follow: 'FOLLOW' },
-  en: { goal: 'GOAL REACHED!', checkpoint: 'CHECKPOINT {p}%!', last: 'LATEST', top: 'TOP', remaining: 'LEFT', anon: 'ANONYMOUS', level: 'LEVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} GIFTS', combo: 'X{n} COMBO!', mixed: '{n} DONORS', next: 'NEW GOAL!', mega: 'MEGA GIFT!', raid: 'RAID', follow: 'FOLLOW' },
+  es: { goal: '¡META LOGRADA!', checkpoint: '¡CHECKPOINT {p}%!', last: 'ÚLTIMO', top: 'TOP', remaining: 'FALTAN', anon: 'ANÓNIMO', level: '¡NIVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} APORTES', combo: '¡X{n} COMBO!', mixed: '{n} DONANTES', next: '¡NUEVA META!', mega: '¡MEGA APORTE!', raid: 'RAID', follow: 'FOLLOW', follows: 'FOLLOWS', mixedFollow: '{n} SEGUIDORES' },
+  en: { goal: 'GOAL REACHED!', checkpoint: 'CHECKPOINT {p}%!', last: 'LATEST', top: 'TOP', remaining: 'LEFT', anon: 'ANONYMOUS', level: 'LEVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} GIFTS', combo: 'X{n} COMBO!', mixed: '{n} DONORS', next: 'NEW GOAL!', mega: 'MEGA GIFT!', raid: 'RAID', follow: 'FOLLOW', follows: 'FOLLOWS', mixedFollow: '{n} FOLLOWERS' },
 };
 const makeT = (lang) => (k, v = {}) => (D[lang] || D.es)[k].replace(/\{(\w+)\}/g, (_, n) => v[n]);
 
@@ -575,8 +587,8 @@ const enqueue = (job, front) => { front ? Q.unshift(job) : Q.push(job); pump(); 
 function pump() { if (busy || paused || !Q.length) return; busy = true; Q.shift()(() => { busy = false; pump(); }); }
 const combiner = new Combiner({ windowMs: cfg.comboWindowMs, holdMs: cfg.comboHoldMs });
 let idc = 0;
-const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t('mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
-const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'raid' ? `${t('raid')} ${e.rawAmount}` : e.kind === 'follow' ? t('follow') : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') + (e.tier && e.tier !== 'T1' ? ' ' + (e.tier === 'prime' ? 'PRIME' : e.tier) : '') : '+' + fmt(e.tierValue ?? e.value));
+const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t(e.kind === 'follow' ? 'mixedFollow' : 'mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
+const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'raid' ? `${t('raid')} ${e.rawAmount}` : e.kind === 'follow' ? `+${e.rawAmount || 1} ${t(e.rawAmount > 1 ? 'follows' : 'follow')}` : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') + (e.tier && e.tier !== 'T1' ? ' ' + (e.tier === 'prime' ? 'PRIME' : e.tier) : '') : '+' + fmt(e.tierValue ?? e.value));
 function submit(raw) { // entrada de eventos crudos (panel de control, conectores futuros): se normalizan y pasan por el combinador
   const ev = convert({ source: 'manual', id: 'm' + Date.now().toString(36) + idc++, ...raw }, cfg);
   if (!S.seenIds.includes(ev.id)) combiner.add(ev, clock);
@@ -751,7 +763,12 @@ function ambient() {
 const NAMES = ['Ana', 'Luis', 'Mei', 'Sakura', 'Pixel', 'Nico'], MSGS = ['¡Mucho éxito!', 'Gracias por el stream', '<script>alert(1)<\/script>', 'Este es un mensaje larguísimo para probar el recorte del banner'];
 const money = (pct) => Math.round(S.target * pct) / 100;
 function submitValue(value, o = {}) { combiner.add({ id: 'm' + Date.now().toString(36) + idc++, source: 'manual', kind: 'donation', name: pick(NAMES), rawAmount: value, rawCurrency: cfg.currency, value, message: pick(MSGS), ts: Date.now(), isTest: false, anon: false, ...o }, clock); }
-function test(kind, pct = 3) { const v = money(pct); submitValue(v, { kind, rawAmount: kind === 'bits' ? Math.round(v / cfg.bitsRate) : kind === 'sub' ? 1 : v }); }
+function test(kind, pct = 3) { // teclas de prueba: valores coherentes con lo que mide la barra (dinero, bits o cantidad)
+  const v = money(pct), whole = Math.max(1, Math.round(v));
+  if (kind === 'bits') return submitValue(cfg.unit === 'bits' ? whole : cfg.unit === 'count' ? 1 : v, { kind, rawAmount: cfg.unit === 'bits' ? whole : Math.round(v / cfg.bitsRate) });
+  if (kind === 'sub') return submitValue(cfg.unit === 'count' ? 1 : v, { kind, rawAmount: 1 });
+  submitValue(cfg.unit === 'count' ? whole : v, { kind, rawAmount: cfg.unit === 'count' ? whole : v });
+}
 function clearJobs() {
   Q.length = 0; tl.length = 0; P.length = 0; busy = false; combiner.items = []; celebrating = false; shineB = -1;
   els.big.style.display = els.float.style.display = els.shine.style.display = 'none'; els.widget.classList.remove('celebrating', 'bigtext'); els.fill.classList.remove('tint-mint', 'tint-lav');
@@ -784,6 +801,7 @@ let bc = null; try { bc = new BroadcastChannel('sag-' + cfg.goalId); bc.onmessag
 function handle(d) {
   switch (d.cmd) {
     case 'event': return submit(d.ev || {});
+    case 'events': return (Array.isArray(d.list) ? d.list.slice(0, 20) : []).forEach((e) => submit(e)); // varios a la vez → un combo
     case 'key': return ACT[d.key]?.[1]();
     case 'reset': return reset();
     case 'undo': return undo();

@@ -30,14 +30,16 @@
     },
     "group": "Meta"
   },
-  "unit": {
+  "goalType": {
     "type": "dropdown",
     "label": "Qué mide la barra",
-    "value": "currency",
+    "value": "mix",
     "options": {
-      "currency": "Dinero",
+      "mix": "Todo junto (donaciones + bits + subs en dinero)",
+      "donations": "Solo donaciones",
       "bits": "Bits",
-      "count": "Cantidad (subs/follows)"
+      "subs": "Subs",
+      "follows": "Seguidores"
     },
     "group": "Meta"
   },
@@ -55,7 +57,7 @@
   },
   "goalId": {
     "type": "text",
-    "label": "ID de la meta (cámbialo para tener varias barras)",
+    "label": "ID de la meta: usa uno distinto en cada barra para que guarden su progreso por separado",
     "value": "main",
     "group": "Meta"
   },

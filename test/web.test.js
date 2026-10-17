@@ -4,6 +4,8 @@ import { EventEmitter } from 'node:events';
 import { WebSocketServer } from 'ws';
 import { startDirectSE, startDirectSL, startDirectTwitch, twitchSource } from '../overlay/js/sources/direct.js';
 import { buildWeb } from '../scripts/build.js';
+import { getConfig } from '../overlay/js/config.js';
+import { convert } from '../overlay/js/events.js';
 
 const until = async (fn, ms = 3000) => { const t = Date.now(); while (!fn()) { if (Date.now() - t > ms) throw new Error('timeout'); await new Promise((r) => setTimeout(r, 10)); } };
 // socket.io simulado: registra lo que emite el conector y deja disparar eventos del "servidor"
@@ -74,6 +76,30 @@ describe('conector web: Twitch EventSub con el WebSocket nativo', () => {
     const st = [];
     tw = startDirectTwitch({ token: 'x', onEvents() {}, status: (s) => st.push(s), fetchImpl: async () => ({ ok: false, status: 401 }), WS: class { constructor() { throw new Error('no debería conectar'); } } });
     await until(() => st.includes('error: token caducado'));
+  });
+});
+
+describe('tipos de barra (goalType)', () => {
+  const ev = (kind, rawAmount, o = {}) => ({ kind, rawAmount, rawCurrency: kind === 'donation' ? 'USD' : undefined, ...o });
+  const val = (q, e) => convert(e, getConfig(q)).value;
+  it('cada tipo suma solo lo suyo y en su unidad', () => {
+    // seguidores: 1 por follow; dinero, bits y subs no suman
+    expect([val('?goalType=follows', ev('follow', 1)), val('?goalType=follows', ev('donation', 50)), val('?goalType=follows', ev('bits', 500)), val('?goalType=follows', ev('sub', 1))]).toEqual([1, 0, 0, 0]);
+    // subs: 1 por sub y N por N regaladas
+    expect([val('?goalType=subs', ev('sub', 1, { tier: 'T3' })), val('?goalType=subs', ev('giftsub', 5)), val('?goalType=subs', ev('follow', 1))]).toEqual([1, 5, 0]);
+    // bits: 1 a 1
+    expect([val('?goalType=bits', ev('bits', 1500)), val('?goalType=bits', ev('donation', 10))]).toEqual([1500, 0]);
+    // donaciones: solo dinero
+    expect([val('?goalType=donations', ev('donation', 7)), val('?goalType=donations', ev('bits', 500)), val('?goalType=donations', ev('sub', 1))]).toEqual([7, 0, 0]);
+    // todo junto (por defecto): todo convertido a dinero
+    expect([val('', ev('donation', 7)), val('', ev('bits', 500)), val('', ev('sub', 1))]).toEqual([7, 5, 5]);
+  });
+  it('unit/count explícitos mandan; tipo desconocido = todo junto; seguidores sin "TOP" en el ticker', () => {
+    expect(getConfig('?goalType=follows&count=follows,raids')).toMatchObject({ unit: 'count', count: ['follows', 'raids'] });
+    expect(getConfig('?goalType=bits&unit=currency').unit).toBe('currency');
+    expect(getConfig('?goalType=nada')).toMatchObject({ goalType: 'mix', unit: 'currency', count: ['donations', 'bits', 'subs'] });
+    expect(getConfig('?goalType=follows').tickerMessages).toEqual(['last', 'remaining']);
+    expect(getConfig('?goalType=subs').tickerMessages).toEqual(['last', 'top', 'remaining']);
   });
 });
 

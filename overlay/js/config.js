@@ -1,6 +1,6 @@
 // Un solo objeto config: defaults + override por query string (?petalIntervalSec=6)
 export const DEFAULTS = {
-  goalId: 'main', title: 'META', target: 500, start: 0, unit: 'currency', currency: 'USD', locale: 'es', lang: 'es',
+  goalId: 'main', goalType: 'mix', title: 'META', target: 500, start: 0, unit: 'currency', currency: 'USD', locale: 'es', lang: 'es',
   theme: 'sakura', scale: 1, blocks: 52, retroFps: 60,
   petals: 1, petalIntervalSec: 4, petalBurst: '1-2', petalMax: 24, petalLanding: 0,
   windEverySec: 30, shineEverySec: 6, sparkleEverySec: 2.5, idleFlowerEverySec: 20, tickerEverySec: 8,
@@ -17,6 +17,12 @@ export const DEFAULTS = {
   sound: 0, volume: 0.15, persist: 1,
   // source: auto = relay si la página se sirve por http(s) (npm start); manual = solo teclado/panel en el mismo navegador
   source: 'auto', relayUrl: '', debug: 0, seed: null, reducedMotion: null,
+};
+
+// Tipos de barra: [unit, qué suma]. mix = todo convertido a dinero (comportamiento original).
+export const GOAL_TYPES = {
+  mix: ['currency', ['donations', 'bits', 'subs']], donations: ['currency', ['donations']],
+  bits: ['bits', ['bits']], subs: ['count', ['subs']], follows: ['count', ['follows']],
 };
 
 function coerce(def, raw) {
@@ -42,6 +48,12 @@ export function getConfig(search = location.search) {
   const m = String(cfg.petalBurst).match(/^(\d+)(?:-(\d+))?$/); // "1-2" → [1,2]
   cfg.petalBurst = m ? [Number(m[1]), Number(m[2] ?? m[1])] : [1, 2];
   cfg.blockedWords = cfg.blockedWords.map((w) => w.toLowerCase()).filter(Boolean);
+  // goalType: atajo para "qué mide la barra". unit/count explícitos en la URL mandan sobre él.
+  if (!GOAL_TYPES[cfg.goalType]) cfg.goalType = 'mix';
+  const [unit, count] = GOAL_TYPES[cfg.goalType];
+  if (!q.has('unit')) cfg.unit = unit;
+  if (!q.has('count')) cfg.count = [...count];
+  if (cfg.goalType === 'follows' && !q.has('tickerMessages')) cfg.tickerMessages = ['last', 'remaining']; // "TOP" no tiene sentido contando seguidores
   cfg.goals = cfg.goals.map((s) => { const i = s.lastIndexOf(':'), target = Number(s.slice(i + 1)); return i > 0 && target > 0 ? { title: s.slice(0, i).trim().slice(0, 24), target } : null; }).filter(Boolean);
   if (cfg.goals.length && !q.has('onComplete')) cfg.onComplete = 'next-goal';
   if (!['hold', 'overflow', 'next-goal', 'reset'].includes(cfg.onComplete)) cfg.onComplete = 'overflow';

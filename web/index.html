@@ -45,6 +45,14 @@
   ol li { margin: 6px 0; } code { background: #2A0F2C; padding: 1px 5px; }
   footer { text-align: center; font-size: 14px; color: var(--pink3); }
   .muted { color: var(--pink3); font-size: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 6px; }
+  .chip { font-size: 14px; padding: 6px 12px; background: #2A0F2C; color: var(--cream); border: 2px solid var(--plum2); box-shadow: none; }
+  .chip.on { background: var(--pink); color: var(--ink); border-color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  .types { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 8px 0 6px; }
+  .type { background: #2A0F2C; color: var(--cream); border: 2px solid var(--plum2); box-shadow: none; text-align: left; }
+  .type b { display: block; font-size: 15px; } .type span { font-size: 13px; color: var(--pink3); font-weight: 400; }
+  .type.on { border-color: var(--gold); background: #3C1236; box-shadow: 3px 3px 0 var(--ink); }
+  h3.sub { font-size: 15px; margin: 18px 0 4px; color: var(--cream); }
   @media (max-width: 520px) { h1 { font-size: 16px; } .url { flex-direction: column; } }
 </style>
 </head>
@@ -83,11 +91,18 @@
 </section>
 
 <section>
-  <h2><b>2</b>Personaliza tu meta</h2>
+  <h2><b>2</b>Tus barras</h2>
+  <p class="muted">Crea una barra por meta (donaciones, seguidores, bits…). Cada una guarda sus ajustes aquí y <b>su propio progreso en OBS</b>: puedes tener varias a la vez, o cambiar de una a otra sin perder nada.</p>
+  <div class="chips" id="bars"></div>
+  <div class="chips"><button class="ghost" id="newBar">+ Nueva barra</button><button class="ghost" id="dupBar">Duplicar</button><button class="ghost" id="delBar">Borrar esta barra</button></div>
+  <h3 class="sub">¿Qué mide esta barra?</h3>
+  <div class="types" id="types"></div>
+  <p class="muted" id="typeHint"></p>
+  <h3 class="sub">Ajustes de esta barra</h3>
   <div class="grid">
     <div><label for="title">Título (máx. 24)</label><input id="title" maxlength="24" value="NUEVO MICRO"></div>
-    <div><label for="target">Meta</label><input id="target" type="number" min="1" value="500"></div>
-    <div><label for="currency">Moneda</label><select id="currency">
+    <div><label for="target" id="targetLabel">Meta</label><input id="target" type="number" min="1" value="500"></div>
+    <div id="wCurrency"><label for="currency">Moneda</label><select id="currency">
       <option>USD</option><option>EUR</option><option>MXN</option><option>ARS</option><option>CLP</option><option>COP</option><option>PEN</option><option>BRL</option><option>GBP</option><option>CAD</option></select></div>
     <div><label for="start">Ya llevas (opcional)</label><input id="start" type="number" min="0" value="0"></div>
     <div><label for="theme">Tema</label><select id="theme"><option value="sakura">Sakura</option><option value="bubblegum">Bubblegum</option><option value="strawberry">Strawberry</option><option value="sakura-night">Sakura Night</option></select></div>
@@ -97,7 +112,7 @@
     <div><label for="goalIcon">Ícono de la meta</label><select id="goalIcon"><option value="star">Estrella</option><option value="gift">Regalo</option><option value="trophy">Trofeo</option><option value="heart">Corazón</option></select></div>
     <div><label for="petalIntervalSec">Pétalos cada… (segundos)</label><input id="petalIntervalSec" type="number" min="1" max="30" step="0.5" value="4"></div>
     <div><label for="lang">Idioma de la barra</label><select id="lang"><option value="es">Español</option><option value="en">English</option></select></div>
-    <div><label for="subT1">Una sub vale</label><input id="subT1" type="number" min="0" step="0.01" value="5"></div>
+    <div id="wSubT1"><label for="subT1">Una sub vale</label><input id="subT1" type="number" min="0" step="0.01" value="5"></div>
   </div>
   <div class="grid" style="margin-top:14px">
     <label class="check"><input type="checkbox" id="petalLanding"> Pétalos que se posan en la barra</label>
@@ -108,8 +123,7 @@
   <details><summary>Más opciones</summary>
     <div class="grid" style="margin-top:10px">
       <div><label for="goals">Metas encadenadas (TITULO:500,OTRA:1000)</label><input id="goals" placeholder="MICRO:500,CAMARA:1000"></div>
-      <div><label for="bitsRate">Valor de 1 bit</label><input id="bitsRate" type="number" min="0" step="0.001" value="0.01"></div>
-      <div><label for="goalId">Nombre interno (para tener varias barras)</label><input id="goalId" value="main" maxlength="40"></div>
+      <div id="wBitsRate"><label for="bitsRate">Valor de 1 bit</label><input id="bitsRate" type="number" min="0" step="0.001" value="0.01"></div>
     </div>
   </details>
 </section>
@@ -132,6 +146,7 @@
     <li>Si activaste el sonido, marca «Controlar audio mediante OBS». Aceptar.</li>
     <li>Colócala donde quieras. <b>No la estires</b> con las esquinas: para hacerla más grande cambia el <i>Tamaño</i> aquí y copia la URL otra vez.</li>
   </ol>
+  <p class="muted"><b>¿Varias barras a la vez?</b> Añade una fuente de Navegador por barra, cada una con su URL. Elige la barra arriba, copia su URL y pégala en su fuente.</p>
   <p class="muted">El progreso se guarda en tu OBS. Para empezar de cero, en la escena: clic derecho en la fuente → Interactuar → pulsa <code>R</code>. ¿Cambiaste algo aquí? Copia la URL de nuevo y pégala en las propiedades de la fuente.</p>
 </section>
 

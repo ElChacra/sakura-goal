@@ -199,8 +199,8 @@ const enqueue = (job, front) => { front ? Q.unshift(job) : Q.push(job); pump(); 
 function pump() { if (busy || paused || !Q.length) return; busy = true; Q.shift()(() => { busy = false; pump(); }); }
 const combiner = new Combiner({ windowMs: cfg.comboWindowMs, holdMs: cfg.comboHoldMs });
 let idc = 0;
-const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t('mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
-const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'raid' ? `${t('raid')} ${e.rawAmount}` : e.kind === 'follow' ? t('follow') : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') + (e.tier && e.tier !== 'T1' ? ' ' + (e.tier === 'prime' ? 'PRIME' : e.tier) : '') : '+' + fmt(e.tierValue ?? e.value));
+const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t(e.kind === 'follow' ? 'mixedFollow' : 'mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
+const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'raid' ? `${t('raid')} ${e.rawAmount}` : e.kind === 'follow' ? `+${e.rawAmount || 1} ${t(e.rawAmount > 1 ? 'follows' : 'follow')}` : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') + (e.tier && e.tier !== 'T1' ? ' ' + (e.tier === 'prime' ? 'PRIME' : e.tier) : '') : '+' + fmt(e.tierValue ?? e.value));
 function submit(raw) { // entrada de eventos crudos (panel de control, conectores futuros): se normalizan y pasan por el combinador
   const ev = convert({ source: 'manual', id: 'm' + Date.now().toString(36) + idc++, ...raw }, cfg);
   if (!S.seenIds.includes(ev.id)) combiner.add(ev, clock);
@@ -375,7 +375,12 @@ function ambient() {
 const NAMES = ['Ana', 'Luis', 'Mei', 'Sakura', 'Pixel', 'Nico'], MSGS = ['¡Mucho éxito!', 'Gracias por el stream', '<script>alert(1)</script>', 'Este es un mensaje larguísimo para probar el recorte del banner'];
 const money = (pct) => Math.round(S.target * pct) / 100;
 function submitValue(value, o = {}) { combiner.add({ id: 'm' + Date.now().toString(36) + idc++, source: 'manual', kind: 'donation', name: pick(NAMES), rawAmount: value, rawCurrency: cfg.currency, value, message: pick(MSGS), ts: Date.now(), isTest: false, anon: false, ...o }, clock); }
-function test(kind, pct = 3) { const v = money(pct); submitValue(v, { kind, rawAmount: kind === 'bits' ? Math.round(v / cfg.bitsRate) : kind === 'sub' ? 1 : v }); }
+function test(kind, pct = 3) { // teclas de prueba: valores coherentes con lo que mide la barra (dinero, bits o cantidad)
+  const v = money(pct), whole = Math.max(1, Math.round(v));
+  if (kind === 'bits') return submitValue(cfg.unit === 'bits' ? whole : cfg.unit === 'count' ? 1 : v, { kind, rawAmount: cfg.unit === 'bits' ? whole : Math.round(v / cfg.bitsRate) });
+  if (kind === 'sub') return submitValue(cfg.unit === 'count' ? 1 : v, { kind, rawAmount: 1 });
+  submitValue(cfg.unit === 'count' ? whole : v, { kind, rawAmount: cfg.unit === 'count' ? whole : v });
+}
 function clearJobs() {
   Q.length = 0; tl.length = 0; P.length = 0; busy = false; combiner.items = []; celebrating = false; shineB = -1;
   els.big.style.display = els.float.style.display = els.shine.style.display = 'none'; els.widget.classList.remove('celebrating', 'bigtext'); els.fill.classList.remove('tint-mint', 'tint-lav');
@@ -408,6 +413,7 @@ let bc = null; try { bc = new BroadcastChannel('sag-' + cfg.goalId); bc.onmessag
 function handle(d) {
   switch (d.cmd) {
     case 'event': return submit(d.ev || {});
+    case 'events': return (Array.isArray(d.list) ? d.list.slice(0, 20) : []).forEach((e) => submit(e)); // varios a la vez → un combo
     case 'key': return ACT[d.key]?.[1]();
     case 'reset': return reset();
     case 'undo': return undo();

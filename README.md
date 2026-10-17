@@ -40,8 +40,8 @@ Una página web donde el streamer conecta su cuenta, personaliza la barra con vi
 ### Para quien la usa
 1. Entra a la página (p. ej. `https://tunombre.github.io/sakura-goal/`).
 2. **Conecta** Twitch con un clic y/o pega el token de StreamElements o Streamlabs (la página explica dónde está).
-3. Elige título, meta, tema, tamaño… y prueba las animaciones en la vista previa.
-4. **Copia la URL** y en OBS: Fuentes → + → Navegador → pégala, con el ancho y alto que indica la página. Desmarca «Apagar la fuente cuando no esté visible».
+3. En **Tus barras** elige qué mide cada barra: 💰 donaciones, 💎 bits, ⭐ subs, 💜 seguidores o 🌸 todo junto. Puedes crear varias (p. ej. una de donaciones y otra de seguidores): cada una guarda sus ajustes en la página y **su propio progreso en OBS**. Ajusta título, meta, tema, tamaño… y prueba las animaciones en la vista previa.
+4. **Copia la URL** de la barra elegida (una fuente de Navegador por barra si quieres varias a la vez) y en OBS: Fuentes → + → Navegador → pégala, con el ancho y alto que indica la página. Desmarca «Apagar la fuente cuando no esté visible».
 
 Si un token deja de valer (el de Twitch dura unos 60 días), la barra lo avisa en su texto rotativo («RECONECTA TWITCH»): basta con volver a la página, reconectar y pegar la URL nueva en OBS.
 
@@ -149,6 +149,7 @@ Todo se configura con parámetros en la URL (el panel la genera). Los más usado
 | Parámetro | Ejemplo | Qué hace |
 |---|---|---|
 | `title`, `target` | `title=NUEVO%20MICRO&target=500` | Título (máx. 24) y meta |
+| `goalType` | `mix` · `donations` · `bits` · `subs` · `follows` | **Qué mide la barra**: todo junto en dinero (por defecto), solo donaciones, bits, subs (1 por sub, 5 regaladas = 5) o seguidores. Usa un `goalId` distinto por barra para que cada una guarde su progreso |
 | `goals` | `goals=MICRO:500,CAMARA:1000` | **Metas encadenadas**: al completar una pasa a la siguiente con el sobrante |
 | `onComplete` | `overflow` · `hold` · `next-goal` · `reset` | Al llegar al 100 %: seguir contando en una barra dorada (nivel 2…), quedarse llena, siguiente meta o volver a 0 |
 | `theme` | `sakura` · `bubblegum` · `strawberry` · `sakura-night` | Tema de colores |
