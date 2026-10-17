@@ -127,7 +127,8 @@ const DEFAULTS = {
   tierMode: 'percent', tiers: { small: 0, medium: 2, large: 5, mega: 10 },
   bannerHoldMs: 3500, showMessage: 1, maxMessageChars: 40, blockedWords: [], anonymousIfPrivate: 1,
   milestones: [25, 50, 75], onComplete: 'overflow', completeDurationMs: 8000, goalIcon: 'star',
-  goals: [], resetEvery: 'none', // none | daily | weekly (desde el lunes) | monthly, en hora local
+  goals: [], rewards: [], // rewards: títulos de recompensas que cuentan (vacío = todas)
+  rotateSec: 15, resetEvery: 'none', // none | daily | weekly (desde el lunes) | monthly, en hora local
   // metas encadenadas: ?goals=NUEVO MICRO:500,CAMARA:1000 (implica onComplete=next-goal)
   // Conversión de unidades (4.5). Valores de subRates y rates: AJUSTAR por el streamer, no son una verdad.
   count: ['donations', 'bits', 'subs'], bitsRate: 0.01, rates: { USD: 1 }, subRates: { T1: 5, T2: 10, T3: 25, prime: 5 },
@@ -141,6 +142,7 @@ const DEFAULTS = {
 const GOAL_TYPES = {
   mix: ['currency', ['donations', 'bits', 'subs']], donations: ['currency', ['donations']],
   bits: ['bits', ['bits']], subs: ['count', ['subs']], follows: ['count', ['follows']],
+  redemptions: ['count', ['redemptions']], points: ['points', ['redemptions']], // canjes de puntos: cuántos / cuántos puntos
 };
 
 function coerce(def, raw) {
@@ -166,12 +168,14 @@ function getConfig(search = location.search) {
   const m = String(cfg.petalBurst).match(/^(\d+)(?:-(\d+))?$/); // "1-2" → [1,2]
   cfg.petalBurst = m ? [Number(m[1]), Number(m[2] ?? m[1])] : [1, 2];
   cfg.blockedWords = cfg.blockedWords.map((w) => w.toLowerCase()).filter(Boolean);
+  cfg.rewards = cfg.rewards.map((w) => w.trim().toLowerCase()).filter(Boolean);
+  cfg.rotateSec = Math.min(600, Math.max(5, cfg.rotateSec || 15));
   // goalType: atajo para "qué mide la barra". unit/count explícitos en la URL mandan sobre él.
   if (!GOAL_TYPES[cfg.goalType]) cfg.goalType = 'mix';
   const [unit, count] = GOAL_TYPES[cfg.goalType];
   if (!q.has('unit')) cfg.unit = unit;
   if (!q.has('count')) cfg.count = [...count];
-  if (cfg.goalType === 'follows' && !q.has('tickerMessages')) cfg.tickerMessages = ['last', 'remaining']; // "TOP" no tiene sentido contando seguidores
+  if (['follows', 'redemptions'].includes(cfg.goalType) && !q.has('tickerMessages')) cfg.tickerMessages = ['last', 'remaining']; // "TOP" no tiene sentido contando seguidores
   cfg.goals = cfg.goals.map((s) => { const i = s.lastIndexOf(':'), target = Number(s.slice(i + 1)); return i > 0 && target > 0 ? { title: s.slice(0, i).trim().slice(0, 24), target } : null; }).filter(Boolean);
   if (cfg.goals.length && !q.has('onComplete')) cfg.onComplete = 'next-goal';
   if (!['hold', 'overflow', 'next-goal', 'reset'].includes(cfg.onComplete)) cfg.onComplete = 'overflow';
@@ -205,6 +209,7 @@ const SPRITES = {
   gem: ['..GGG..', '.GWGGV.', 'GWGGGGV', '.GGGGV.', '..GGV..', '...V...'],
   coinA: ['.YYY.', 'YWYYO', 'YWYYO', 'YYYYO', '.OOO.'], // moneda de frente / de canto: gira alternando A-B
   coinB: ['.Y.', 'YWO', 'YWO', 'YYO', '.O.'],
+  orb: ['.VVVV.', 'VWVVVV', 'VV..VV', 'VV..VB', 'VVVVBB', '.VBBB.'], // canjes de puntos del canal
   spark1: ['.W.', 'WYW', '.W.'],
   spark2: ['..W..', '..W..', 'WWYWW', '..W..', '..W..'],
 };
@@ -228,8 +233,8 @@ return { SPRITES, buildSprites };
 
 __m["i18n.js"] = (() => {
 const D = {
-  es: { goal: '¡META LOGRADA!', checkpoint: '¡CHECKPOINT {p}%!', last: 'ÚLTIMO', top: 'TOP', remaining: 'FALTAN', anon: 'ANÓNIMO', level: '¡NIVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} APORTES', combo: '¡X{n} COMBO!', mixed: '{n} DONANTES', next: '¡NUEVA META!', mega: '¡MEGA APORTE!', raid: 'RAID', follow: 'FOLLOW', follows: 'FOLLOWS', mixedFollow: '{n} SEGUIDORES' },
-  en: { goal: 'GOAL REACHED!', checkpoint: 'CHECKPOINT {p}%!', last: 'LATEST', top: 'TOP', remaining: 'LEFT', anon: 'ANONYMOUS', level: 'LEVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} GIFTS', combo: 'X{n} COMBO!', mixed: '{n} DONORS', next: 'NEW GOAL!', mega: 'MEGA GIFT!', raid: 'RAID', follow: 'FOLLOW', follows: 'FOLLOWS', mixedFollow: '{n} FOLLOWERS' },
+  es: { goal: '¡META LOGRADA!', checkpoint: '¡CHECKPOINT {p}%!', last: 'ÚLTIMO', top: 'TOP', remaining: 'FALTAN', anon: 'ANÓNIMO', level: '¡NIVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} APORTES', combo: '¡X{n} COMBO!', mixed: '{n} DONANTES', next: '¡NUEVA META!', mega: '¡MEGA APORTE!', raid: 'RAID', follow: 'FOLLOW', follows: 'FOLLOWS', mixedFollow: '{n} SEGUIDORES', redeem: 'CANJE', pts: 'PTS', mixedRedeem: '{n} CANJES' },
+  en: { goal: 'GOAL REACHED!', checkpoint: 'CHECKPOINT {p}%!', last: 'LATEST', top: 'TOP', remaining: 'LEFT', anon: 'ANONYMOUS', level: 'LEVEL {n}!', bits: 'BITS', sub: 'SUB', contrib: '+{n} GIFTS', combo: 'X{n} COMBO!', mixed: '{n} DONORS', next: 'NEW GOAL!', mega: 'MEGA GIFT!', raid: 'RAID', follow: 'FOLLOW', follows: 'FOLLOWS', mixedFollow: '{n} FOLLOWERS', redeem: 'REDEEM', pts: 'PTS', mixedRedeem: '{n} REDEEMS' },
 };
 const makeT = (lang) => (k, v = {}) => (D[lang] || D.es)[k].replace(/\{(\w+)\}/g, (_, n) => v[n]);
 
@@ -352,7 +357,9 @@ return { levelOf, blocksOf, lapView, goldOf, percentOf, periodStart, periodKey, 
 
 __m["events.js"] = (() => {
 // Normalización y conversión de unidades (plan 4.4 / 4.5). Puro, sin DOM.
-const GROUP = { donation: 'donations', bits: 'bits', sub: 'subs', giftsub: 'subs', follow: 'follows', raid: 'raids' };
+const GROUP = { donation: 'donations', bits: 'bits', sub: 'subs', giftsub: 'subs', follow: 'follows', raid: 'raids', redemption: 'redemptions' };
+// rewards: si se eligió alguna recompensa, solo cuentan los canjes de esas (sin distinguir mayúsculas)
+const rewardOk = (raw, cfg) => raw.kind !== 'redemption' || !cfg.rewards?.length || cfg.rewards.includes(String(raw.reward || '').trim().toLowerCase());
 const round2 = (n) => Math.round(n * 100) / 100;
 const hash = (s) => { let h = 5381; for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) | 0; return (h >>> 0).toString(36); };
 const rate = (c, cfg) => cfg.rates[c] ?? (c === cfg.currency ? 1 : null);
@@ -375,14 +382,15 @@ function convert(raw, cfg) {
   raw = { ...raw, rawCurrency: raw.rawCurrency || cfg.currency }; // sin moneda (REST, Streamer.bot) = la de la meta
   let value = 0;
   if (raw.kind === 'adjust') value = amount;
-  else if (cfg.count.includes(GROUP[raw.kind])) {
+  else if (cfg.count.includes(GROUP[raw.kind]) && rewardOk(raw, cfg)) {
     if (cfg.unit === 'count') value = raw.kind === 'giftsub' ? amount || 1 : 1;
+    else if (cfg.unit === 'points') value = raw.kind === 'redemption' ? amount : 0; // puntos del canal gastados
     else if (cfg.unit === 'bits') value = raw.kind === 'bits' ? amount : inCurrency(raw, cfg) / cfg.bitsRate;
     else value = inCurrency({ ...raw, rawAmount: amount }, cfg);
   }
   return { id: raw.id ?? hash(`${raw.source}|${raw.name}|${amount}|${ts}`), source: raw.source ?? 'manual', kind: raw.kind, name: raw.name || '',
     rawAmount: amount, rawCurrency: raw.rawCurrency, value: round2(value), message: cleanMessage(raw.message, cfg),
-    ts, isTest: !!raw.isTest, anon: !!raw.anon, ...(raw.tier && { tier: raw.tier }) }; // tier: para mostrar "+SUB T2"
+    ts, isTest: !!raw.isTest, anon: !!raw.anon, ...(raw.tier && { tier: raw.tier }), ...(raw.reward && { reward: String(raw.reward).slice(0, 45) }) }; // tier: para mostrar "+SUB T2"
 }
 // small < 2 %, medium 2–5 %, large 5–10 %, mega ≥ 10 % (tierMode=percent) o umbrales absolutos
 function tierOf(value, target, cfg) {
@@ -591,7 +599,7 @@ function petal(speed = 1, x) {
 }
 const ambCount = () => P.reduce((n, p) => n + (p.amb ? 1 : 0), 0);
 function burst(n, hearts, kind, x = tipX(), y = tipY) { // explosión radial hacia arriba con gravedad
-  const extra = kind === 'bits' ? 'gem' : kind === 'sub' || kind === 'giftsub' ? 'star' : 'heart';
+  const extra = kind === 'bits' ? 'gem' : kind === 'sub' || kind === 'giftsub' ? 'star' : kind === 'redemption' ? 'orb' : 'heart';
   for (let i = 0; i < n + hearts; i++) {
     const a = rr(-150, -30) * Math.PI / 180, s = rr(30, 70), h = i >= n;
     mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 90, maxLife: rr(0.8, 1.4), blink: true, sprite: h ? [extra] : ['petalA', 'petalC', 'petalB', 'petalC'] });
@@ -659,7 +667,7 @@ const TIERS = {
   mega: { flash: 8, shake: 12, n: 60, h: 10, hold: 6000, extra: 16, ring: 16, fireworks: 5, bloom: 1, fountain: 1, rainbow: 1, big: 1 },
 };
 // Color de cada tipo de aporte (monto del banner y "+X" flotante)
-const KIND_COLOR = { bits: 'mint-300', sub: 'lav-300', giftsub: 'lav-300' };
+const KIND_COLOR = { bits: 'mint-300', sub: 'lav-300', giftsub: 'lav-300', redemption: 'lav-300' };
 function flash(n, gold) { for (let i = 0; i < n; i++) at(i * 60, () => { els.mid.classList.toggle(gold ? 'gflash' : 'flash', i % 2 === 0); if (i === n - 1) els.mid.classList.remove('flash', 'gflash'); }); }
 function shake(n) { if (reduced) return; for (let i = 0; i <= n; i++) at(i * 50, () => { els.frame.style.transform = i === n ? '' : `translateX(calc(${i % 2 ? -1 : 1} * var(--u)))`; }); }
 function floater(text, gold, blinkIt, color) {
@@ -697,14 +705,20 @@ function showBanner({ name, label, msg, color = 'gold-400' }, hold, done) {
 // ---------- cola, combos y secuencias ----------
 const Q = []; let busy = false;
 const enqueue = (job, front) => { front ? Q.unshift(job) : Q.push(job); pump(); };
-function pump() { if (busy || paused || !Q.length) return; busy = true; Q.shift()(() => { busy = false; pump(); }); }
+function pump() {
+  if (busy || paused || !Q.length) { if (!busy && !Q.length) HOST?.idle?.(); return; } // la rotación espera a que acabe la animación
+  busy = true; HOST?.busy?.(); Q.shift()(() => { busy = false; pump(); });
+}
 const combiner = new Combiner({ windowMs: cfg.comboWindowMs, holdMs: cfg.comboHoldMs });
 let idc = 0;
-const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t(e.kind === 'follow' ? 'mixedFollow' : 'mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
-const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'raid' ? `${t('raid')} ${e.rawAmount}` : e.kind === 'follow' ? `+${e.rawAmount || 1} ${t(e.rawAmount > 1 ? 'follows' : 'follow')}` : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') + (e.tier && e.tier !== 'T1' ? ' ' + (e.tier === 'prime' ? 'PRIME' : e.tier) : '') : '+' + fmt(e.tierValue ?? e.value));
-function submit(raw) { // entrada de eventos crudos (panel de control, conectores futuros): se normalizan y pasan por el combinador
+const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t(e.kind === 'follow' ? 'mixedFollow' : e.kind === 'redemption' ? 'mixedRedeem' : 'mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
+const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'raid' ? `${t('raid')} ${e.rawAmount}` : e.kind === 'follow' ? `+${e.rawAmount || 1} ${t(e.rawAmount > 1 ? 'follows' : 'follow')}` : e.kind === 'redemption' ? (cfg.unit === 'points' ? `+${e.rawAmount} ${t('pts')}` : `+${e.combo || 1} ${t('redeem')}`) : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') + (e.tier && e.tier !== 'T1' ? ' ' + (e.tier === 'prime' ? 'PRIME' : e.tier) : '') : '+' + fmt(e.tierValue ?? e.value));
+function submit(raw) { // entrada de eventos crudos (panel de control, conectores): se normalizan y pasan por el combinador
   const ev = convert({ source: 'manual', id: 'm' + Date.now().toString(36) + idc++, ...raw }, cfg);
-  if (!S.seenIds.includes(ev.id)) combiner.add(ev, clock);
+  if (S.seenIds.includes(ev.id)) return;
+  // En una rotación de barras: si este aporte cuenta para esta barra y no está a la vista, se pide paso y se anima tras la transición
+  if (ev.value && HOST?.whenVisible && !HOST.visible()) { HOST.focus(); HOST.whenVisible(() => combiner.add(ev, clock)); return; }
+  combiner.add(ev, clock);
 }
 function dispatch(ev) { // evento (o combo) listo → cola FIFO; si la cola se llena, los pequeños se resumen en "+N APORTES"
   const job = (d) => runDonationJob(ev, d); job.ev = ev; enqueue(job);
@@ -750,6 +764,7 @@ function soundFor(kind, tier) {
   if (tier === 'mega') return 'fanfare';
   if (kind === 'bits') return 'crystal';
   if (kind === 'sub' || kind === 'giftsub') return 'powerup';
+  if (kind === 'redemption') return 'pop';
   return tier === 'large' ? 'arp4' : 'coin';
 }
 function waveText(text, ms, delay = 0) { // texto grande (16 px) con onda por letra y colores que rotan; devuelve stop()
@@ -761,8 +776,8 @@ function waveText(text, ms, delay = 0) { // texto grande (16 px) con onda por le
   if (ms) at(ms, stop);
   return stop;
 }
-function coins(n, x = tipX(), y = tipY) { // donación: monedas que giran y saltan desde la punta
-  for (let i = 0; i < n; i++) { const a = rr(-125, -55) * Math.PI / 180, s = rr(55, 90); mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 170, sprite: ['coinA', 'coinB'], fps: rr(7, 11), maxLife: rr(0.9, 1.3), blink: true }); }
+function coins(n, x = tipX(), y = tipY, sprite = ['coinA', 'coinB']) { // donación: monedas que giran y saltan desde la punta (canjes: orbes)
+  for (let i = 0; i < n; i++) { const a = rr(-125, -55) * Math.PI / 180, s = rr(55, 90); mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 170, sprite, fps: sprite.length > 1 ? rr(7, 11) : 0, maxLife: rr(0.9, 1.3), blink: true }); }
 }
 function sparkAt(x, y, cols = C('pink-100', 'mint-300', 'lav-300')) {
   mk({ x, y, sprite: ['spark1', 'spark2', 'spark1'], fps: 10, maxLife: 0.3 });
@@ -807,6 +822,7 @@ function tierFx(T, ev) {
     else if (k === 'giftsub') { giftDrop(Math.min(10, ev.rawAmount || 1)); starOrbit(6); }
     else if (k === 'raid') raidParade(ev.rawAmount);
     else if (k === 'follow') mk({ x, y: tipY, vy: -25, sprite: ['heart'], fps: 0, maxLife: 1.4, blink: true });
+    else if (k === 'redemption') coins(T.extra, x, tipY, ['orb']);
     else coins(T.extra);
     if (T.ring) ring(x, tipY, T.ring, ['heart']);
   });

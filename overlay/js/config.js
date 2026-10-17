@@ -9,7 +9,8 @@ export const DEFAULTS = {
   tierMode: 'percent', tiers: { small: 0, medium: 2, large: 5, mega: 10 },
   bannerHoldMs: 3500, showMessage: 1, maxMessageChars: 40, blockedWords: [], anonymousIfPrivate: 1,
   milestones: [25, 50, 75], onComplete: 'overflow', completeDurationMs: 8000, goalIcon: 'star',
-  goals: [], resetEvery: 'none', // none | daily | weekly (desde el lunes) | monthly, en hora local
+  goals: [], rewards: [], // rewards: títulos de recompensas que cuentan (vacío = todas)
+  rotateSec: 15, resetEvery: 'none', // none | daily | weekly (desde el lunes) | monthly, en hora local
   // metas encadenadas: ?goals=NUEVO MICRO:500,CAMARA:1000 (implica onComplete=next-goal)
   // Conversión de unidades (4.5). Valores de subRates y rates: AJUSTAR por el streamer, no son una verdad.
   count: ['donations', 'bits', 'subs'], bitsRate: 0.01, rates: { USD: 1 }, subRates: { T1: 5, T2: 10, T3: 25, prime: 5 },
@@ -23,6 +24,7 @@ export const DEFAULTS = {
 export const GOAL_TYPES = {
   mix: ['currency', ['donations', 'bits', 'subs']], donations: ['currency', ['donations']],
   bits: ['bits', ['bits']], subs: ['count', ['subs']], follows: ['count', ['follows']],
+  redemptions: ['count', ['redemptions']], points: ['points', ['redemptions']], // canjes de puntos: cuántos / cuántos puntos
 };
 
 function coerce(def, raw) {
@@ -48,12 +50,14 @@ export function getConfig(search = location.search) {
   const m = String(cfg.petalBurst).match(/^(\d+)(?:-(\d+))?$/); // "1-2" → [1,2]
   cfg.petalBurst = m ? [Number(m[1]), Number(m[2] ?? m[1])] : [1, 2];
   cfg.blockedWords = cfg.blockedWords.map((w) => w.toLowerCase()).filter(Boolean);
+  cfg.rewards = cfg.rewards.map((w) => w.trim().toLowerCase()).filter(Boolean);
+  cfg.rotateSec = Math.min(600, Math.max(5, cfg.rotateSec || 15));
   // goalType: atajo para "qué mide la barra". unit/count explícitos en la URL mandan sobre él.
   if (!GOAL_TYPES[cfg.goalType]) cfg.goalType = 'mix';
   const [unit, count] = GOAL_TYPES[cfg.goalType];
   if (!q.has('unit')) cfg.unit = unit;
   if (!q.has('count')) cfg.count = [...count];
-  if (cfg.goalType === 'follows' && !q.has('tickerMessages')) cfg.tickerMessages = ['last', 'remaining']; // "TOP" no tiene sentido contando seguidores
+  if (['follows', 'redemptions'].includes(cfg.goalType) && !q.has('tickerMessages')) cfg.tickerMessages = ['last', 'remaining']; // "TOP" no tiene sentido contando seguidores
   cfg.goals = cfg.goals.map((s) => { const i = s.lastIndexOf(':'), target = Number(s.slice(i + 1)); return i > 0 && target > 0 ? { title: s.slice(0, i).trim().slice(0, 24), target } : null; }).filter(Boolean);
   if (cfg.goals.length && !q.has('onComplete')) cfg.onComplete = 'next-goal';
   if (!['hold', 'overflow', 'next-goal', 'reset'].includes(cfg.onComplete)) cfg.onComplete = 'overflow';

@@ -1,5 +1,7 @@
 // Normalización y conversión de unidades (plan 4.4 / 4.5). Puro, sin DOM.
-const GROUP = { donation: 'donations', bits: 'bits', sub: 'subs', giftsub: 'subs', follow: 'follows', raid: 'raids' };
+const GROUP = { donation: 'donations', bits: 'bits', sub: 'subs', giftsub: 'subs', follow: 'follows', raid: 'raids', redemption: 'redemptions' };
+// rewards: si se eligió alguna recompensa, solo cuentan los canjes de esas (sin distinguir mayúsculas)
+const rewardOk = (raw, cfg) => raw.kind !== 'redemption' || !cfg.rewards?.length || cfg.rewards.includes(String(raw.reward || '').trim().toLowerCase());
 const round2 = (n) => Math.round(n * 100) / 100;
 const hash = (s) => { let h = 5381; for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) | 0; return (h >>> 0).toString(36); };
 const rate = (c, cfg) => cfg.rates[c] ?? (c === cfg.currency ? 1 : null);
@@ -22,14 +24,15 @@ export function convert(raw, cfg) {
   raw = { ...raw, rawCurrency: raw.rawCurrency || cfg.currency }; // sin moneda (REST, Streamer.bot) = la de la meta
   let value = 0;
   if (raw.kind === 'adjust') value = amount;
-  else if (cfg.count.includes(GROUP[raw.kind])) {
+  else if (cfg.count.includes(GROUP[raw.kind]) && rewardOk(raw, cfg)) {
     if (cfg.unit === 'count') value = raw.kind === 'giftsub' ? amount || 1 : 1;
+    else if (cfg.unit === 'points') value = raw.kind === 'redemption' ? amount : 0; // puntos del canal gastados
     else if (cfg.unit === 'bits') value = raw.kind === 'bits' ? amount : inCurrency(raw, cfg) / cfg.bitsRate;
     else value = inCurrency({ ...raw, rawAmount: amount }, cfg);
   }
   return { id: raw.id ?? hash(`${raw.source}|${raw.name}|${amount}|${ts}`), source: raw.source ?? 'manual', kind: raw.kind, name: raw.name || '',
     rawAmount: amount, rawCurrency: raw.rawCurrency, value: round2(value), message: cleanMessage(raw.message, cfg),
-    ts, isTest: !!raw.isTest, anon: !!raw.anon, ...(raw.tier && { tier: raw.tier }) }; // tier: para mostrar "+SUB T2"
+    ts, isTest: !!raw.isTest, anon: !!raw.anon, ...(raw.tier && { tier: raw.tier }), ...(raw.reward && { reward: String(raw.reward).slice(0, 45) }) }; // tier: para mostrar "+SUB T2"
 }
 // small < 2 %, medium 2–5 %, large 5–10 %, mega ≥ 10 % (tierMode=percent) o umbrales absolutos
 export function tierOf(value, target, cfg) {

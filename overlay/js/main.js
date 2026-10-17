@@ -90,7 +90,7 @@ function petal(speed = 1, x) {
 }
 const ambCount = () => P.reduce((n, p) => n + (p.amb ? 1 : 0), 0);
 function burst(n, hearts, kind, x = tipX(), y = tipY) { // explosión radial hacia arriba con gravedad
-  const extra = kind === 'bits' ? 'gem' : kind === 'sub' || kind === 'giftsub' ? 'star' : 'heart';
+  const extra = kind === 'bits' ? 'gem' : kind === 'sub' || kind === 'giftsub' ? 'star' : kind === 'redemption' ? 'orb' : 'heart';
   for (let i = 0; i < n + hearts; i++) {
     const a = rr(-150, -30) * Math.PI / 180, s = rr(30, 70), h = i >= n;
     mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 90, maxLife: rr(0.8, 1.4), blink: true, sprite: h ? [extra] : ['petalA', 'petalC', 'petalB', 'petalC'] });
@@ -158,7 +158,7 @@ const TIERS = {
   mega: { flash: 8, shake: 12, n: 60, h: 10, hold: 6000, extra: 16, ring: 16, fireworks: 5, bloom: 1, fountain: 1, rainbow: 1, big: 1 },
 };
 // Color de cada tipo de aporte (monto del banner y "+X" flotante)
-const KIND_COLOR = { bits: 'mint-300', sub: 'lav-300', giftsub: 'lav-300' };
+const KIND_COLOR = { bits: 'mint-300', sub: 'lav-300', giftsub: 'lav-300', redemption: 'lav-300' };
 function flash(n, gold) { for (let i = 0; i < n; i++) at(i * 60, () => { els.mid.classList.toggle(gold ? 'gflash' : 'flash', i % 2 === 0); if (i === n - 1) els.mid.classList.remove('flash', 'gflash'); }); }
 function shake(n) { if (reduced) return; for (let i = 0; i <= n; i++) at(i * 50, () => { els.frame.style.transform = i === n ? '' : `translateX(calc(${i % 2 ? -1 : 1} * var(--u)))`; }); }
 function floater(text, gold, blinkIt, color) {
@@ -196,14 +196,20 @@ function showBanner({ name, label, msg, color = 'gold-400' }, hold, done) {
 // ---------- cola, combos y secuencias ----------
 const Q = []; let busy = false;
 const enqueue = (job, front) => { front ? Q.unshift(job) : Q.push(job); pump(); };
-function pump() { if (busy || paused || !Q.length) return; busy = true; Q.shift()(() => { busy = false; pump(); }); }
+function pump() {
+  if (busy || paused || !Q.length) { if (!busy && !Q.length) HOST?.idle?.(); return; } // la rotación espera a que acabe la animación
+  busy = true; HOST?.busy?.(); Q.shift()(() => { busy = false; pump(); });
+}
 const combiner = new Combiner({ windowMs: cfg.comboWindowMs, holdMs: cfg.comboHoldMs });
 let idc = 0;
-const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t(e.kind === 'follow' ? 'mixedFollow' : 'mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
-const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'raid' ? `${t('raid')} ${e.rawAmount}` : e.kind === 'follow' ? `+${e.rawAmount || 1} ${t(e.rawAmount > 1 ? 'follows' : 'follow')}` : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') + (e.tier && e.tier !== 'T1' ? ' ' + (e.tier === 'prime' ? 'PRIME' : e.tier) : '') : '+' + fmt(e.tierValue ?? e.value));
-function submit(raw) { // entrada de eventos crudos (panel de control, conectores futuros): se normalizan y pasan por el combinador
+const nameOf = (e) => (e.summary ? t('mixed', { n: e.summary }) : e.mixed ? t(e.kind === 'follow' ? 'mixedFollow' : e.kind === 'redemption' ? 'mixedRedeem' : 'mixed', { n: e.combo }) : (e.anon && cfg.anonymousIfPrivate) || !e.name ? t('anon') : e.name);
+const labelOf = (e) => (e.summary ? t('contrib', { n: e.summary }) : e.kind === 'raid' ? `${t('raid')} ${e.rawAmount}` : e.kind === 'follow' ? `+${e.rawAmount || 1} ${t(e.rawAmount > 1 ? 'follows' : 'follow')}` : e.kind === 'redemption' ? (cfg.unit === 'points' ? `+${e.rawAmount} ${t('pts')}` : `+${e.combo || 1} ${t('redeem')}`) : e.kind === 'bits' ? `+${e.rawAmount} ${t('bits')}` : e.kind === 'giftsub' ? `+${e.rawAmount} ${t('sub')}` : e.kind === 'sub' ? '+' + t('sub') + (e.tier && e.tier !== 'T1' ? ' ' + (e.tier === 'prime' ? 'PRIME' : e.tier) : '') : '+' + fmt(e.tierValue ?? e.value));
+function submit(raw) { // entrada de eventos crudos (panel de control, conectores): se normalizan y pasan por el combinador
   const ev = convert({ source: 'manual', id: 'm' + Date.now().toString(36) + idc++, ...raw }, cfg);
-  if (!S.seenIds.includes(ev.id)) combiner.add(ev, clock);
+  if (S.seenIds.includes(ev.id)) return;
+  // En una rotación de barras: si este aporte cuenta para esta barra y no está a la vista, se pide paso y se anima tras la transición
+  if (ev.value && HOST?.whenVisible && !HOST.visible()) { HOST.focus(); HOST.whenVisible(() => combiner.add(ev, clock)); return; }
+  combiner.add(ev, clock);
 }
 function dispatch(ev) { // evento (o combo) listo → cola FIFO; si la cola se llena, los pequeños se resumen en "+N APORTES"
   const job = (d) => runDonationJob(ev, d); job.ev = ev; enqueue(job);
@@ -249,6 +255,7 @@ function soundFor(kind, tier) {
   if (tier === 'mega') return 'fanfare';
   if (kind === 'bits') return 'crystal';
   if (kind === 'sub' || kind === 'giftsub') return 'powerup';
+  if (kind === 'redemption') return 'pop';
   return tier === 'large' ? 'arp4' : 'coin';
 }
 function waveText(text, ms, delay = 0) { // texto grande (16 px) con onda por letra y colores que rotan; devuelve stop()
@@ -260,8 +267,8 @@ function waveText(text, ms, delay = 0) { // texto grande (16 px) con onda por le
   if (ms) at(ms, stop);
   return stop;
 }
-function coins(n, x = tipX(), y = tipY) { // donación: monedas que giran y saltan desde la punta
-  for (let i = 0; i < n; i++) { const a = rr(-125, -55) * Math.PI / 180, s = rr(55, 90); mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 170, sprite: ['coinA', 'coinB'], fps: rr(7, 11), maxLife: rr(0.9, 1.3), blink: true }); }
+function coins(n, x = tipX(), y = tipY, sprite = ['coinA', 'coinB']) { // donación: monedas que giran y saltan desde la punta (canjes: orbes)
+  for (let i = 0; i < n; i++) { const a = rr(-125, -55) * Math.PI / 180, s = rr(55, 90); mk({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, ay: 170, sprite, fps: sprite.length > 1 ? rr(7, 11) : 0, maxLife: rr(0.9, 1.3), blink: true }); }
 }
 function sparkAt(x, y, cols = C('pink-100', 'mint-300', 'lav-300')) {
   mk({ x, y, sprite: ['spark1', 'spark2', 'spark1'], fps: 10, maxLife: 0.3 });
@@ -306,6 +313,7 @@ function tierFx(T, ev) {
     else if (k === 'giftsub') { giftDrop(Math.min(10, ev.rawAmount || 1)); starOrbit(6); }
     else if (k === 'raid') raidParade(ev.rawAmount);
     else if (k === 'follow') mk({ x, y: tipY, vy: -25, sprite: ['heart'], fps: 0, maxLife: 1.4, blink: true });
+    else if (k === 'redemption') coins(T.extra, x, tipY, ['orb']);
     else coins(T.extra);
     if (T.ring) ring(x, tipY, T.ring, ['heart']);
   });

@@ -60,7 +60,7 @@ describe('Twitch EventSub: normalización', () => {
     expect(convert(normalizeTwitch('channel.subscription.gift', TW.gift, 'g')[0], cfg).value).toBe(25);
   });
   it('solo se suscribe a lo que permiten los scopes del token', () => {
-    expect(topicsFor(SCOPES).length).toBe(6);
+    expect(topicsFor(SCOPES).length).toBe(7);
     expect(topicsFor(['bits:read']).map((t) => t[0])).toEqual(['channel.cheer', 'channel.raid']);
   });
   it('reglas: con Twitch conectado, bits y subs salen solo de Twitch', () => {
@@ -101,7 +101,7 @@ describe('Twitch EventSub: sesión WebSocket (servidor simulado)', () => {
     twitch.start();
     await until(() => t.conns.length === 1);
     t.conns[0].ws.send(welcome('S1'));
-    await until(() => t.posts.length === 6);
+    await until(() => t.posts.length === 7);
     expect(t.posts[0].body).toMatchObject({ type: 'channel.cheer', condition: { broadcaster_user_id: '99' }, transport: { method: 'websocket', session_id: 'S1' } });
     expect(t.posts[0].headers).toMatchObject({ 'Client-Id': 'cid', Authorization: 'Bearer abc123token' });
     await until(() => /^conectado/.test(t.hub.connectors.twitch));
@@ -117,13 +117,13 @@ describe('Twitch EventSub: sesión WebSocket (servidor simulado)', () => {
     twitch.start();
     await until(() => t.conns.length === 1);
     t.conns[0].ws.send(welcome('S1'));
-    await until(() => t.posts.length === 6);
+    await until(() => t.posts.length === 7);
     t.conns[0].ws.send(msg('session_reconnect', { session: { id: 'S1', reconnect_url: `ws://127.0.0.1:${t.port}/reconnect` } }));
     await until(() => t.conns.length === 2);
     expect(t.conns[1].url).toBe('/reconnect');
     t.conns[1].ws.send(welcome('S2'));
     await until(() => t.conns[0].ws.readyState === WebSocket.CLOSED);
-    expect(t.posts.length).toBe(6);
+    expect(t.posts.length).toBe(7);
     t.conns[1].ws.send(msg('notification', { subscription: { type: 'channel.subscription.gift' }, event: TW.gift }));
     await until(() => t.events.length === 1);
     expect(t.events[0]).toMatchObject({ kind: 'giftsub', rawAmount: 5 });
@@ -133,11 +133,11 @@ describe('Twitch EventSub: sesión WebSocket (servidor simulado)', () => {
     const t = await setup();
     twitch.start();
     await until(() => t.conns.length === 1);
-    t.conns[0].ws.send(welcome('S1')); await until(() => t.posts.length === 6);
+    t.conns[0].ws.send(welcome('S1')); await until(() => t.posts.length === 7);
     t.conns[0].ws.close(4000);
     await until(() => t.conns.length === 2, 4000);
-    t.conns[1].ws.send(welcome('S3')); await until(() => t.posts.length === 12);
-    expect(t.posts[11].body.transport.session_id).toBe('S3');
+    t.conns[1].ws.send(welcome('S3')); await until(() => t.posts.length === 14);
+    expect(t.posts[13].body.transport.session_id).toBe('S3');
   });
 
   it('token inválido: no conecta y lo informa', async () => {

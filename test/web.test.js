@@ -6,6 +6,8 @@ import { startDirectSE, startDirectSL, startDirectTwitch, twitchSource } from '.
 import { buildWeb } from '../scripts/build.js';
 import { getConfig } from '../overlay/js/config.js';
 import { convert } from '../overlay/js/events.js';
+import { normalizeTwitch, sanitize } from '../relay/normalize.js';
+import { SCOPES, topicsFor } from '../relay/twitch-topics.js';
 
 const until = async (fn, ms = 3000) => { const t = Date.now(); while (!fn()) { if (Date.now() - t > ms) throw new Error('timeout'); await new Promise((r) => setTimeout(r, 10)); } };
 // socket.io simulado: registra lo que emite el conector y deja disparar eventos del "servidor"
@@ -100,6 +102,30 @@ describe('tipos de barra (goalType)', () => {
     expect(getConfig('?goalType=nada')).toMatchObject({ goalType: 'mix', unit: 'currency', count: ['donations', 'bits', 'subs'] });
     expect(getConfig('?goalType=follows').tickerMessages).toEqual(['last', 'remaining']);
     expect(getConfig('?goalType=subs').tickerMessages).toEqual(['last', 'top', 'remaining']);
+  });
+});
+
+describe('canjes de puntos del canal', () => {
+  const tw = normalizeTwitch('channel.channel_points_custom_reward_redemption.add',
+    { user_name: 'Ana', user_input: '', reward: { id: 'r1', title: 'Hidratarse', cost: 500 } }, 'msg-1')[0];
+  it('EventSub → evento "redemption" con coste, título de la recompensa y mensaje', () => {
+    expect(tw).toMatchObject({ id: 'tw:msg-1', source: 'twitch', kind: 'redemption', rawAmount: 500, reward: 'Hidratarse', name: 'Ana', message: 'Hidratarse' });
+    expect(sanitize({ ...tw }).reward).toBe('Hidratarse'); // pasa por el relay sin perder la recompensa
+  });
+  it('canjes cuenta 1 por canje; puntos suma el coste; el resto de barras no lo cuentan', () => {
+    expect(convert(tw, getConfig('?goalType=redemptions')).value).toBe(1);
+    expect(convert(tw, getConfig('?goalType=points')).value).toBe(500);
+    for (const t of ['mix', 'donations', 'bits', 'subs', 'follows']) expect(convert(tw, getConfig('?goalType=' + t)).value, t).toBe(0);
+    expect(convert({ kind: 'donation', rawAmount: 5 }, getConfig('?goalType=points')).value).toBe(0);
+  });
+  it('filtro por recompensa (sin distinguir mayúsculas)', () => {
+    expect(convert(tw, getConfig('?goalType=redemptions&rewards=hidratarse, Cantar')).value).toBe(1);
+    expect(convert(tw, getConfig('?goalType=redemptions&rewards=Cantar una canción')).value).toBe(0);
+  });
+  it('Twitch pide el permiso de canjes y se suscribe al evento solo si el token lo tiene', () => {
+    expect(SCOPES).toContain('channel:read:redemptions');
+    expect(topicsFor(['bits:read']).map((t) => t[0])).not.toContain('channel.channel_points_custom_reward_redemption.add');
+    expect(topicsFor(['channel:read:redemptions']).map((t) => t[0])).toContain('channel.channel_points_custom_reward_redemption.add');
   });
 });
 

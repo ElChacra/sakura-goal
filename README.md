@@ -16,9 +16,9 @@ El nivel depende de cuánto aporta respecto a la meta (pequeña < 2 %, mediana 2
 
 Y cada tipo tiene su propio efecto, sonido y color:
 
-| Donación | Bits | Sub | Subs regaladas | Raid / follow (si cuentan en la meta) |
-|---|---|---|---|---|
-| Monedas doradas que giran · dorado | Lluvia de gemas que chispean al tocar la barra (más bits, más gemas) · menta | Estrellas que orbitan la punta, «+SUB T2» · lavanda | Una caja de regalo por sub que cae y se abre · lavanda | Desfile de pétalos «RAID 80» / corazón «FOLLOW» |
+| Donación | Bits | Sub | Subs regaladas | Raid / follow (si cuentan en la meta) | Canje de puntos |
+|---|---|---|---|---|---|
+| Monedas doradas que giran · dorado | Lluvia de gemas que chispean al tocar la barra (más bits, más gemas) · menta | Estrellas que orbitan la punta, «+SUB T2» · lavanda | Una caja de regalo por sub que cae y se abre · lavanda | Desfile de pétalos «RAID 80» / corazón «FOLLOW» | Orbes de puntos «+1 CANJE» o «+500 PTS» · lavanda |
 
 Con  (o el ajuste de accesibilidad del sistema) se quitan la sacudida, el arcoíris y las fuentes, y hay menos fuegos y pétalos.
 
@@ -40,8 +40,11 @@ Una página web donde el streamer conecta su cuenta, personaliza la barra con vi
 ### Para quien la usa
 1. Entra a la página (p. ej. `https://tunombre.github.io/sakura-goal/`).
 2. **Conecta** Twitch con un clic y/o pega el token de StreamElements o Streamlabs (la página explica dónde está).
-3. En **Tus barras** elige qué mide cada barra: 💰 donaciones, 💎 bits, ⭐ subs, 💜 seguidores o 🌸 todo junto. Puedes crear varias (p. ej. una de donaciones y otra de seguidores): cada una guarda sus ajustes en la página y **su propio progreso en OBS**. Ajusta título, meta, tema, tamaño… y prueba las animaciones en la vista previa.
-4. **Copia la URL** de la barra elegida (una fuente de Navegador por barra si quieres varias a la vez) y en OBS: Fuentes → + → Navegador → pégala, con el ancho y alto que indica la página. Desmarca «Apagar la fuente cuando no esté visible».
+3. En **Tus barras** elige qué mide cada barra: 💰 donaciones, 💎 bits, ⭐ subs, 💜 seguidores, 🎟️ canjes de puntos del canal, 🪙 puntos gastados o 🌸 todo junto. Puedes crear varias (p. ej. una de donaciones y otra de seguidores): cada una guarda sus ajustes en la página y **su propio progreso en OBS**. Ajusta título, meta, tema, tamaño… y prueba las animaciones en la vista previa.
+   **🔁 Rotar barras:** marca 2 o más barras y se turnarán en una sola fuente cada N segundos. Si llega un aporte para una barra que no se ve (p. ej. un sub mientras se ve la de seguidores), salta a ella con la transición y lo celebra; no cambia en plena celebración.
+
+   ![rotación](capturas/rotacion.gif)
+4. **Copia la URL** de la barra elegida (o la de la rotación) (una fuente de Navegador por barra si quieres varias a la vez) y en OBS: Fuentes → + → Navegador → pégala, con el ancho y alto que indica la página. Desmarca «Apagar la fuente cuando no esté visible».
 
 Si un token deja de valer (el de Twitch dura unos 60 días), la barra lo avisa en su texto rotativo («RECONECTA TWITCH»): basta con volver a la página, reconectar y pegar la URL nueva en OBS.
 
@@ -99,7 +102,7 @@ Suman `Donation` y `Subscription` (`KOFI_TYPES` admite también `shop order` y `
 ### 1.3 Twitch (bits, subs, regalos, seguidores, raids)
 1. En [dev.twitch.tv/console/apps](https://dev.twitch.tv/console/apps) → *Register Your Application*: categoría *Broadcaster Suite*, cliente **Público**, OAuth Redirect URL **`http://localhost:3000/control/twitch.html`** (con el puerto de tu relay).
 2. Pon el *Client ID* en `.env` (`TWITCH_CLIENT_ID=`) y reinicia el relay.
-3. Panel → **Conectar Twitch (bits y subs)** → *Conectar con Twitch* → autoriza. Solo pide permisos de lectura.
+3. Panel → **Conectar Twitch (bits y subs)** → *Conectar con Twitch* → autoriza. Solo pide permisos de lectura (bits, subs, seguidores y canjes de puntos). Si conectaste Twitch antes de que existieran las metas de canjes, desconecta y vuelve a conectar para dar ese permiso.
 
 El token dura unos 60 días; el relay avisa cuando falta poco y basta con volver a pulsar Conectar. 5 subs regaladas cuentan como 5 subs, a nombre de quien regala.
 
@@ -149,7 +152,9 @@ Todo se configura con parámetros en la URL (el panel la genera). Los más usado
 | Parámetro | Ejemplo | Qué hace |
 |---|---|---|
 | `title`, `target` | `title=NUEVO%20MICRO&target=500` | Título (máx. 24) y meta |
-| `goalType` | `mix` · `donations` · `bits` · `subs` · `follows` | **Qué mide la barra**: todo junto en dinero (por defecto), solo donaciones, bits, subs (1 por sub, 5 regaladas = 5) o seguidores. Usa un `goalId` distinto por barra para que cada una guarde su progreso |
+| `goalType` | `mix` · `donations` · `bits` · `subs` · `follows` · `redemptions` · `points` | **Qué mide la barra**: todo junto en dinero (por defecto), solo donaciones, bits, subs (1 por sub, 5 regaladas = 5), seguidores, canjes de puntos del canal (1 por canje) o puntos gastados. Usa un `goalId` distinto por barra para que cada una guarde su progreso |
+| `rewards` | `rewards=Hidratarse,Cantar` | Solo cuentan los canjes de estas recompensas (vacío = todas) |
+| `bar` + `rotateSec` | `?rotateSec=15&bar=<config 1>&bar=<config 2>` | Versión web: varias barras rotando en una fuente (la página genera esta URL) |
 | `goals` | `goals=MICRO:500,CAMARA:1000` | **Metas encadenadas**: al completar una pasa a la siguiente con el sobrante |
 | `onComplete` | `overflow` · `hold` · `next-goal` · `reset` | Al llegar al 100 %: seguir contando en una barra dorada (nivel 2…), quedarse llena, siguiente meta o volver a 0 |
 | `theme` | `sakura` · `bubblegum` · `strawberry` · `sakura-night` | Tema de colores |

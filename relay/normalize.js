@@ -69,12 +69,14 @@ export function normalizeTwitch(type, e, messageId, ts = Date.now()) {
     case 'channel.subscription.gift': { const t = tier(e.tier); return [{ ...base, kind: 'giftsub', rawAmount: Math.max(1, num(e.total)), rawCurrency: 'SUB_' + t, tier: t }]; }
     case 'channel.follow': return [{ ...base, kind: 'follow', rawAmount: 1, rawCurrency: 'COUNT' }];
     case 'channel.raid': return [{ ...base, kind: 'raid', rawAmount: num(e.viewers), rawCurrency: 'VIEWERS', name: str(e.from_broadcaster_user_name, 30) }];
+    case 'channel.channel_points_custom_reward_redemption.add': // canje de puntos: rawAmount = coste en puntos; reward = título de la recompensa
+      return [{ ...base, kind: 'redemption', rawAmount: num(e.reward?.cost), rawCurrency: 'POINTS', reward: str(e.reward?.title, 45), message: str(e.user_input || e.reward?.title) }];
     default: return [];
   }
 }
 
 // ---------- entrada genérica (panel, REST, Streamer.bot): valida y recorta todo ----------
-const KINDS = ['donation', 'bits', 'sub', 'giftsub', 'follow', 'raid', 'adjust'];
+const KINDS = ['donation', 'bits', 'sub', 'giftsub', 'follow', 'raid', 'redemption', 'adjust'];
 export function sanitize(raw) {
   if (!raw || typeof raw !== 'object' || !KINDS.includes(raw.kind)) return null;
   const amount = num(raw.rawAmount);
@@ -83,6 +85,6 @@ export function sanitize(raw) {
   return {
     ...(raw.id != null && { id: str(raw.id, 120) }), source: str(raw.source || 'manual', 20), kind: raw.kind, name: str(raw.name, 30), rawAmount: amount,
     ...(cur && { rawCurrency: cur }), message: str(raw.message), ts: raw.ts != null ? time(raw.ts) : Date.now(), isTest: !!raw.isTest, anon: !!raw.anon,
-    ...(['T1', 'T2', 'T3', 'prime'].includes(raw.tier) && { tier: raw.tier }), ...(raw.goalId && { goalId: str(raw.goalId, 40) }),
+    ...(['T1', 'T2', 'T3', 'prime'].includes(raw.tier) && { tier: raw.tier }), ...(raw.goalId && { goalId: str(raw.goalId, 40) }), ...(raw.reward && { reward: str(raw.reward, 45) }),
   };
 }

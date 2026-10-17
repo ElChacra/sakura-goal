@@ -14,6 +14,7 @@ export const SPRITES = {
   gem: ['..GGG..', '.GWGGV.', 'GWGGGGV', '.GGGGV.', '..GGV..', '...V...'],
   coinA: ['.YYY.', 'YWYYO', 'YWYYO', 'YYYYO', '.OOO.'], // moneda de frente / de canto: gira alternando A-B
   coinB: ['.Y.', 'YWO', 'YWO', 'YYO', '.O.'],
+  orb: ['.VVVV.', 'VWVVVV', 'VV..VV', 'VV..VB', 'VVVVBB', '.VBBB.'], // canjes de puntos del canal
   spark1: ['.W.', 'WYW', '.W.'],
   spark2: ['..W..', '..W..', 'WWYWW', '..W..', '..W..'],
 };

@@ -98,6 +98,7 @@
   <h3 class="sub">¿Qué mide esta barra?</h3>
   <div class="types" id="types"></div>
   <p class="muted" id="typeHint"></p>
+  <div id="wRewards" hidden style="max-width:520px"><label for="rewards">Solo estas recompensas (opcional, separadas por comas; vacío = todas)</label><input id="rewards" placeholder="Hidratarse, Cantar una canción" maxlength="300"></div>
   <h3 class="sub">Ajustes de esta barra</h3>
   <div class="grid">
     <div><label for="title">Título (máx. 24)</label><input id="title" maxlength="24" value="NUEVO MICRO"></div>
@@ -126,10 +127,17 @@
       <div id="wBitsRate"><label for="bitsRate">Valor de 1 bit</label><input id="bitsRate" type="number" min="0" step="0.001" value="0.01"></div>
     </div>
   </details>
+  <div class="card" id="rotCard" style="margin-top:18px">
+    <h3 style="margin:0 0 4px">🔁 Rotar barras en una sola fuente</h3>
+    <small>Marca 2 o más barras: se irán turnando con una transición. Si llega un aporte para una que no se ve (p. ej. un sub mientras se ve la de seguidores), salta a ella y lo celebra.</small>
+    <div class="chips" id="rotBars"></div>
+    <div style="max-width:260px"><label for="rotSec">Cambiar cada (segundos)</label><input id="rotSec" type="number" min="5" max="600" value="15"></div>
+  </div>
 </section>
 
 <section>
   <h2><b>3</b>Vista previa</h2>
+  <div class="chips" id="pvMode"><button type="button" class="chip on" data-m="bar">Esta barra</button><button type="button" class="chip" data-m="rot" id="pvRot">🔁 Rotación</button></div>
   <div class="preview" id="pv"><iframe id="frame" title="Vista previa de la barra" scrolling="no"></iframe></div>
   <div class="tests" id="tests"></div>
   <p class="muted">Los botones son solo para probar aquí: no cambian la barra de tu stream.</p>
@@ -137,7 +145,10 @@
 
 <section>
   <h2><b>4</b>Ponla en OBS</h2>
+  <label for="url">URL de la barra elegida</label>
   <div class="url"><input id="url" readonly aria-label="URL para OBS"><button id="copy">Copiar URL</button></div>
+  <div id="rotUrlBox" hidden><label for="rotUrl">🔁 URL de la rotación (todas las barras marcadas en una sola fuente)</label>
+  <div class="url"><input id="rotUrl" readonly aria-label="URL de la rotación para OBS"><button id="copyRot">Copiar URL</button></div></div>
   <p class="warn">⚠ Esta URL lleva tus conexiones dentro. <b>No la muestres en pantalla ni la compartas.</b> Si alguna vez se filtra, desconecta Twitch aquí y genera un token nuevo en StreamElements/Streamlabs.</p>
   <ol>
     <li>En OBS, en <b>Fuentes</b> pulsa <b>+</b> → <b>Navegador</b> → ponle un nombre → Aceptar.</li>

@@ -69,7 +69,7 @@ describe.skipIf(!browser || !fs.existsSync(WEB))('página pública (dist/web) en
     let authUrl = null;
     await page.route('https://id.twitch.tv/oauth2/authorize**', (r) => { authUrl = new URL(r.request().url()); r.fulfill({ status: 200, body: 'twitch' }); });
     await page.click('#twGo'); await expect.poll(() => authUrl, { timeout: 5000 }).not.toBeNull();
-    expect(Object.fromEntries(authUrl.searchParams)).toMatchObject({ response_type: 'token', client_id: 'cliente-publico-123', redirect_uri: base, scope: 'bits:read channel:read:subscriptions moderator:read:followers' });
+    expect(Object.fromEntries(authUrl.searchParams)).toMatchObject({ response_type: 'token', client_id: 'cliente-publico-123', redirect_uri: base, scope: 'bits:read channel:read:subscriptions moderator:read:followers channel:read:redemptions' });
     const state = authUrl.searchParams.get('state');
     await page.route('https://id.twitch.tv/oauth2/validate', (r) => r.fulfill({ status: 200, contentType: 'application/json', headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ login: 'anastreams', user_id: '9', client_id: 'cliente-publico-123', scopes: [], expires_in: 5184000 }) }));
     await page.goto(base + '#access_token=tokfalso123&state=forjado'); // state que no es el nuestro: se rechaza
@@ -183,6 +183,58 @@ describe.skipIf(!browser || !fs.existsSync(WEB))('página pública (dist/web) en
     expect(await page.textContent('#amounts')).toBe('3 / 100'); // la de seguidores sigue donde estaba
     await page.goto(d); await sleep(600);
     expect(await page.textContent('#amounts')).toBe('$15 / $500');
+    await ctx.close();
+  });
+
+  it('rotación: dos barras en una fuente; un sub salta a la de subs con transición y la celebra; luego rota sola', async () => {
+    const { page, ctx, errors } = await open(base);
+    await page.click('#types [data-type="follows"]');
+    await page.click('#newBar'); await page.click('#types [data-type="subs"]');
+    expect(await page.isHidden('#rotUrlBox')).toBe(true);
+    await page.locator('#rotBars input').nth(0).check(); await page.locator('#rotBars input').nth(1).check(); // la lista se repinta al marcar
+    await page.fill('#rotSec', '5'); await page.press('#rotSec', 'Tab');
+    expect(await page.isHidden('#rotUrlBox')).toBe(false);
+    const ru = new URL(await page.inputValue('#rotUrl'));
+    expect(ru.searchParams.get('rotateSec')).toBe('5');
+    expect(ru.searchParams.getAll('bar').map((b) => new URLSearchParams(b).get('goalType'))).toEqual(['follows', 'subs']);
+    await page.click('#pvRot');
+    expect(await page.$$eval('#tests button', (b) => b.map((x) => x.textContent))).toEqual(['Seguidor', '5 seguidores', 'Sub', 'Sub T3', '5 subs regaladas', 'Hito', 'Meta lograda', 'Viento', 'Reiniciar']);
+    // la vista previa es el rotador con dos barras hijas
+    const kids = async () => page.frames().filter((f) => f.url().includes('child=1'));
+    await expect.poll(async () => (await kids()).length, { timeout: 10000 }).toBe(2);
+    const shown = () => page.frame({ url: /preview=1.*load=/ }).evaluate(() => [...document.querySelectorAll('iframe')].findIndex((f) => f.style.transform === 'translateY(0px)'));
+    const kid = async (type) => (await kids()).find((f) => f.url().includes('goalType=' + type));
+    await expect.poll(async () => (await kid('subs'))?.evaluate(() => !!document.querySelector('#title')?.textContent), { timeout: 8000 }).toBe(true);
+    expect(await shown()).toBe(0); // empieza en seguidores
+    await page.getByRole('button', { name: 'Sub', exact: true }).click();
+    await expect.poll(shown, { timeout: 3000 }).toBe(1); // salta a subs
+    await expect.poll(async () => (await kid('subs')).textContent('#amounts'), { timeout: 8000 }).toBe('1 / 50');
+    expect(await (await kid('follows')).textContent('#amounts')).toBe('0 / 100'); // a seguidores no le suma
+    expect(await (await kid('subs')).textContent('#bAmt')).toMatch(/SUB/);
+    await sleep(1500); expect(await shown()).toBe(1); // no cambia en plena celebración
+    await expect.poll(shown, { timeout: 15000 }).toBe(0); // terminada la celebración y su turno, rota sola
+    await page.getByRole('button', { name: '5 subs regaladas' }).click();
+    await expect.poll(shown, { timeout: 3000 }).toBe(1);
+    await expect.poll(async () => (await kid('subs')).textContent('#amounts'), { timeout: 10000 }).toBe('6 / 50');
+    expect(errors).toEqual([]);
+    await ctx.close();
+  });
+
+  it('canjes de puntos: tipo propio, filtro de recompensas y aviso si falta conectar Twitch', async () => {
+    const { page, ctx } = await open(base);
+    await page.click('#types [data-type="redemptions"]');
+    expect([await page.inputValue('#title'), await page.inputValue('#target'), await page.isVisible('#wRewards')]).toEqual(['CANJES', '50', true]);
+    expect(await page.textContent('#typeHint')).toMatch(/Conecta Twitch/);
+    await page.fill('#rewards', 'Hidratarse'); await page.press('#rewards', 'Tab');
+    const u = new URL(await page.inputValue('#url'));
+    expect(Object.fromEntries(u.searchParams)).toMatchObject({ goalType: 'redemptions', rewards: 'Hidratarse', title: 'CANJES' });
+    await expect.poll(() => inFrame(page).locator('#title').textContent(), { timeout: 8000 }).toBe('CANJES');
+    await page.getByRole('button', { name: '5 canjes' }).click();
+    await expect.poll(() => inFrame(page).locator('#amounts').textContent(), { timeout: 8000 }).toBe('5 / 50');
+    expect(await inFrame(page).locator('#bName').textContent()).toBe('5 CANJES');
+    await page.click('#types [data-type="points"]');
+    expect(await page.inputValue('#target')).toBe('100000');
+    expect(await page.isVisible('#wRewards')).toBe(true);
     await ctx.close();
   });
 
